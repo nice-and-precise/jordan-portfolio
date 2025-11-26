@@ -26,22 +26,31 @@
    1. CSS Custom Properties
 ================================ */
 :root {
-    /* Colors */
-    --color-primary: #1a1a2e;
-    --color-secondary: #16213e;
-    --color-accent: #0f3460;
-    --color-highlight: #e94560;
+    /* ========================================
+       Brand Color System - Light Theme
+       "Strategy & Change Leadership"
+    ======================================== */
 
-    --color-text: #1a1a2e;
-    --color-text-muted: #6b7280;
-    --color-text-light: #9ca3af;
+    /* Backgrounds */
+    --bg:           #f4f5f7;
+    --surface:      #ffffff;
+    --surface-soft: #eef2f7;
 
-    --color-bg: #ffffff;
-    --color-bg-alt: #f9fafb;
-    --color-bg-dark: #1a1a2e;
+    /* Typography */
+    --text:         #111827;
+    --muted:        #6b7280;
 
-    --color-border: #e5e7eb;
-    --color-border-light: #f3f4f6;
+    /* Brand Colors */
+    --primary:      #1f3b63;
+    --primary-soft: #d9e2f2;
+
+    /* Accent */
+    --accent:       #0f9d8a;
+    --accent-soft:  #e0f4f1;
+
+    /* Utility */
+    --border-subtle: #e5e7eb;
+    --focus-ring:    #0f9d8a;
 
     /* Parallax Colors */
     --parallax-blue: #c1d9f5;
@@ -54,6 +63,23 @@
     --github-text-muted: #656d76;
     --github-link: #0969da;
     --typescript-blue: #3178c6;
+
+    /* ========================================
+       Legacy Aliases (for backward compatibility)
+       TODO: Remove after full migration
+    ======================================== */
+    --color-primary: var(--primary);
+    --color-secondary: var(--primary-soft);
+    --color-accent: var(--primary);
+    --color-highlight: var(--accent);
+    --color-text: var(--text);
+    --color-text-muted: var(--muted);
+    --color-text-light: #9ca3af;
+    --color-bg: var(--bg);
+    --color-bg-alt: var(--surface-soft);
+    --color-bg-dark: var(--primary);
+    --color-border: var(--border-subtle);
+    --color-border-light: #f3f4f6;
 
     /* Theme Toggle Transition */
     --theme-transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
@@ -130,21 +156,31 @@
    Dark Mode Variables
 ================================ */
 [data-theme="dark"] {
-    --color-primary: #e8e8e8;
-    --color-secondary: #c8c8c8;
-    --color-accent: #7eb8ff;
-    --color-highlight: #ff6b8a;
+    /* ========================================
+       Brand Color System - Dark Theme
+       "Strategy & Change Leadership"
+    ======================================== */
 
-    --color-text: #e8e8e8;
-    --color-text-muted: #a0a0a0;
-    --color-text-light: #808080;
+    /* Backgrounds */
+    --bg:           #050816;
+    --surface:      #0b1220;
+    --surface-soft: #111827;
 
-    --color-bg: #0f0f1a;
-    --color-bg-alt: #1a1a2e;
-    --color-bg-dark: #0a0a12;
+    /* Typography */
+    --text:         #e5e7eb;
+    --muted:        #9ca3af;
 
-    --color-border: #2a2a3e;
-    --color-border-light: #1f1f30;
+    /* Brand Colors */
+    --primary:      #7ea3e3;
+    --primary-soft: #1f2937;
+
+    /* Accent */
+    --accent:       #2dd4bf;
+    --accent-soft:  #064e3b;
+
+    /* Utility */
+    --border-subtle: #1f2937;
+    --focus-ring:    #2dd4bf;
 
     /* Parallax Colors - more subtle in dark mode */
     --parallax-blue: #1a3a5c;
@@ -156,6 +192,22 @@
     --github-text: #e6edf3;
     --github-text-muted: #8b949e;
     --github-link: #58a6ff;
+
+    /* ========================================
+       Legacy Aliases (for backward compatibility)
+    ======================================== */
+    --color-primary: var(--text);
+    --color-secondary: var(--muted);
+    --color-accent: var(--primary);
+    --color-highlight: var(--accent);
+    --color-text: var(--text);
+    --color-text-muted: var(--muted);
+    --color-text-light: #808080;
+    --color-bg: var(--bg);
+    --color-bg-alt: var(--surface-soft);
+    --color-bg-dark: #0a0a12;
+    --color-border: var(--border-subtle);
+    --color-border-light: #1f1f30;
 
     /* Shadows - more prominent in dark mode */
     --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
