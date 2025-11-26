@@ -386,8 +386,8 @@ section {
 }
 
 .nav-cta {
-    background: var(--color-primary);
-    color: white !important;
+    background: #1a1a2e;
+    color: #ffffff !important;
     padding: var(--space-2) var(--space-5) !important;
     border-radius: var(--radius-full);
 }
@@ -398,6 +398,15 @@ section {
 
 .nav-cta:hover {
     background: var(--color-highlight);
+}
+
+[data-theme="dark"] .nav-cta {
+    background: var(--color-highlight);
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .nav-cta:hover {
+    background: #ff8fa3;
 }
 
 /* Theme Toggle Button */
@@ -589,10 +598,10 @@ section {
 
 .hero-tagline .hero-accent {
     position: absolute;
-    bottom: -8px;
+    bottom: -20px;
     left: 50%;
     transform: translateX(-50%);
-    width: 80%;
+    width: 70%;
     height: 30px;
     color: var(--color-highlight);
     opacity: 0.7;
@@ -656,17 +665,22 @@ section {
 }
 
 .contact {
-    background: var(--color-bg-dark);
-    color: white;
+    background: #1a1a2e;
+    color: #ffffff;
 }
 
 .contact .section-title,
 .contact .section-subtitle {
-    color: white;
+    color: #ffffff;
 }
 
 .contact .section-subtitle {
     opacity: 0.8;
+}
+
+[data-theme="dark"] .contact {
+    background: #0a0a12;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* ================================
@@ -694,17 +708,22 @@ section {
 
 .outcome-card--featured {
     grid-column: 1 / -1;
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
-    color: white;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #ffffff;
 }
 
 .outcome-card--featured .outcome-title,
 .outcome-card--featured .outcome-description {
-    color: white;
+    color: #ffffff;
 }
 
 .outcome-card--featured .outcome-description {
     opacity: 0.9;
+}
+
+[data-theme="dark"] .outcome-card--featured {
+    background: linear-gradient(135deg, #2a2a4e 0%, #1e3a5f 100%);
+    box-shadow: 0 0 30px rgba(233, 69, 96, 0.2);
 }
 
 .outcome-metric {
@@ -1112,10 +1131,14 @@ section {
    14. Footer
 ================================ */
 .site-footer {
-    background: var(--color-bg-dark);
-    color: white;
+    background: #1a1a2e;
+    color: #ffffff;
     padding: var(--space-8) 0;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .site-footer {
+    background: #0a0a12;
 }
 
 .site-footer .container {
@@ -1180,9 +1203,9 @@ section {
 }
 
 .btn-primary {
-    background: var(--color-primary);
-    color: white;
-    border-color: var(--color-primary);
+    background: #1a1a2e;
+    color: #ffffff;
+    border-color: #1a1a2e;
 }
 
 .btn-primary:hover {
@@ -1190,15 +1213,36 @@ section {
     border-color: var(--color-highlight);
 }
 
+[data-theme="dark"] .btn-primary {
+    background: var(--color-highlight);
+    color: #ffffff;
+    border-color: var(--color-highlight);
+}
+
+[data-theme="dark"] .btn-primary:hover {
+    background: #ff8fa3;
+    border-color: #ff8fa3;
+}
+
 .btn-secondary {
     background: transparent;
-    color: var(--color-primary);
-    border-color: var(--color-primary);
+    color: #1a1a2e;
+    border-color: #1a1a2e;
 }
 
 .btn-secondary:hover {
-    background: var(--color-primary);
-    color: white;
+    background: #1a1a2e;
+    color: #ffffff;
+}
+
+[data-theme="dark"] .btn-secondary {
+    color: #ffffff;
+    border-color: #ffffff;
+}
+
+[data-theme="dark"] .btn-secondary:hover {
+    background: #ffffff;
+    color: #0f0f1a;
 }
 
 .btn-outline {
@@ -1210,6 +1254,16 @@ section {
 .btn-outline:hover {
     border-color: var(--color-text);
     background: var(--color-bg-alt);
+}
+
+[data-theme="dark"] .btn-outline {
+    color: #e8e8e8;
+    border-color: #4a4a5e;
+}
+
+[data-theme="dark"] .btn-outline:hover {
+    border-color: #e8e8e8;
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .btn-icon {
