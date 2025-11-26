@@ -26,22 +26,31 @@
    1. CSS Custom Properties
 ================================ */
 :root {
-    /* Colors */
-    --color-primary: #1a1a2e;
-    --color-secondary: #16213e;
-    --color-accent: #0f3460;
-    --color-highlight: #e94560;
+    /* ========================================
+       Brand Color System - Light Theme
+       "Strategy & Change Leadership"
+    ======================================== */
 
-    --color-text: #1a1a2e;
-    --color-text-muted: #6b7280;
-    --color-text-light: #9ca3af;
+    /* Backgrounds */
+    --bg:           #f4f5f7;
+    --surface:      #ffffff;
+    --surface-soft: #eef2f7;
 
-    --color-bg: #ffffff;
-    --color-bg-alt: #f9fafb;
-    --color-bg-dark: #1a1a2e;
+    /* Typography */
+    --text:         #111827;
+    --muted:        #6b7280;
 
-    --color-border: #e5e7eb;
-    --color-border-light: #f3f4f6;
+    /* Brand Colors */
+    --primary:      #1f3b63;
+    --primary-soft: #d9e2f2;
+
+    /* Accent */
+    --accent:       #0f9d8a;
+    --accent-soft:  #e0f4f1;
+
+    /* Utility */
+    --border-subtle: #e5e7eb;
+    --focus-ring:    #0f9d8a;
 
     /* Parallax Colors */
     --parallax-blue: #c1d9f5;
@@ -54,6 +63,23 @@
     --github-text-muted: #656d76;
     --github-link: #0969da;
     --typescript-blue: #3178c6;
+
+    /* ========================================
+       Legacy Aliases (for backward compatibility)
+       TODO: Remove after full migration
+    ======================================== */
+    --color-primary: var(--primary);
+    --color-secondary: var(--primary-soft);
+    --color-accent: var(--primary);
+    --color-highlight: var(--accent);
+    --color-text: var(--text);
+    --color-text-muted: var(--muted);
+    --color-text-light: #9ca3af;
+    --color-bg: var(--bg);
+    --color-bg-alt: var(--surface-soft);
+    --color-bg-dark: var(--primary);
+    --color-border: var(--border-subtle);
+    --color-border-light: #f3f4f6;
 
     /* Theme Toggle Transition */
     --theme-transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
@@ -130,21 +156,31 @@
    Dark Mode Variables
 ================================ */
 [data-theme="dark"] {
-    --color-primary: #e8e8e8;
-    --color-secondary: #c8c8c8;
-    --color-accent: #7eb8ff;
-    --color-highlight: #ff6b8a;
+    /* ========================================
+       Brand Color System - Dark Theme
+       "Strategy & Change Leadership"
+    ======================================== */
 
-    --color-text: #e8e8e8;
-    --color-text-muted: #a0a0a0;
-    --color-text-light: #808080;
+    /* Backgrounds */
+    --bg:           #050816;
+    --surface:      #0b1220;
+    --surface-soft: #111827;
 
-    --color-bg: #0f0f1a;
-    --color-bg-alt: #1a1a2e;
-    --color-bg-dark: #0a0a12;
+    /* Typography */
+    --text:         #e5e7eb;
+    --muted:        #9ca3af;
 
-    --color-border: #2a2a3e;
-    --color-border-light: #1f1f30;
+    /* Brand Colors */
+    --primary:      #7ea3e3;
+    --primary-soft: #1f2937;
+
+    /* Accent */
+    --accent:       #2dd4bf;
+    --accent-soft:  #064e3b;
+
+    /* Utility */
+    --border-subtle: #1f2937;
+    --focus-ring:    #2dd4bf;
 
     /* Parallax Colors - more subtle in dark mode */
     --parallax-blue: #1a3a5c;
@@ -156,6 +192,22 @@
     --github-text: #e6edf3;
     --github-text-muted: #8b949e;
     --github-link: #58a6ff;
+
+    /* ========================================
+       Legacy Aliases (for backward compatibility)
+    ======================================== */
+    --color-primary: var(--text);
+    --color-secondary: var(--muted);
+    --color-accent: var(--primary);
+    --color-highlight: var(--accent);
+    --color-text: var(--text);
+    --color-text-muted: var(--muted);
+    --color-text-light: #808080;
+    --color-bg: var(--bg);
+    --color-bg-alt: var(--surface-soft);
+    --color-bg-dark: #0a0a12;
+    --color-border: var(--border-subtle);
+    --color-border-light: #1f1f30;
 
     /* Shadows - more prominent in dark mode */
     --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
@@ -305,7 +357,7 @@ section {
 
 .skip-link:focus {
     top: var(--space-4);
-    outline: 2px solid var(--color-highlight);
+    outline: 2px solid var(--focus-ring);
     outline-offset: 2px;
 }
 
@@ -386,8 +438,8 @@ section {
 }
 
 .nav-cta {
-    background: #1a1a2e;
-    color: #ffffff !important;
+    background: var(--primary);
+    color: var(--surface) !important;
     padding: var(--space-2) var(--space-5) !important;
     border-radius: var(--radius-full);
 }
@@ -397,16 +449,17 @@ section {
 }
 
 .nav-cta:hover {
-    background: var(--color-highlight);
+    background: var(--accent);
 }
 
 [data-theme="dark"] .nav-cta {
-    background: var(--color-highlight);
-    color: #ffffff !important;
+    background: var(--accent);
+    color: var(--surface) !important;
 }
 
 [data-theme="dark"] .nav-cta:hover {
-    background: #ff8fa3;
+    background: var(--accent-soft);
+    color: var(--accent) !important;
 }
 
 /* Theme Toggle Button */
@@ -431,7 +484,7 @@ section {
 }
 
 .theme-toggle:focus {
-    outline: 2px solid var(--color-highlight);
+    outline: 2px solid var(--focus-ring);
     outline-offset: 2px;
 }
 
@@ -665,13 +718,13 @@ section {
 }
 
 .contact {
-    background: #1a1a2e;
-    color: #ffffff;
+    background: var(--primary);
+    color: var(--surface);
 }
 
 .contact .section-title,
 .contact .section-subtitle {
-    color: #ffffff;
+    color: var(--surface);
 }
 
 .contact .section-subtitle {
@@ -679,8 +732,8 @@ section {
 }
 
 [data-theme="dark"] .contact {
-    background: #0a0a12;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--surface);
+    border-top: 1px solid var(--border-subtle);
 }
 
 /* ================================
@@ -708,13 +761,13 @@ section {
 
 .outcome-card--featured {
     grid-column: 1 / -1;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-    color: #ffffff;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-soft) 100%);
+    color: var(--surface);
 }
 
 .outcome-card--featured .outcome-title,
 .outcome-card--featured .outcome-description {
-    color: #ffffff;
+    color: var(--surface);
 }
 
 .outcome-card--featured .outcome-description {
@@ -722,8 +775,8 @@ section {
 }
 
 [data-theme="dark"] .outcome-card--featured {
-    background: linear-gradient(135deg, #2a2a4e 0%, #1e3a5f 100%);
-    box-shadow: 0 0 30px rgba(233, 69, 96, 0.2);
+    background: linear-gradient(135deg, var(--surface-soft) 0%, var(--primary-soft) 100%);
+    box-shadow: 0 0 30px rgba(45, 212, 191, 0.15);
 }
 
 .outcome-metric {
@@ -1042,13 +1095,13 @@ section {
 }
 
 [data-theme="dark"] .headshot {
-    border-color: var(--color-highlight);
+    border-color: var(--accent);
 }
 
 .about-quote {
     padding: var(--space-6);
-    background: var(--color-bg-alt);
-    border-left: 4px solid var(--color-highlight);
+    background: var(--surface-soft);
+    border-left: 4px solid var(--accent);
     border-radius: var(--radius-md);
 }
 
@@ -1103,11 +1156,11 @@ section {
 }
 
 .contact-method--primary {
-    background: var(--color-highlight);
+    background: var(--accent);
 }
 
 .contact-method--primary:hover {
-    background: #d63d56;
+    background: var(--accent-soft);
 }
 
 .contact-icon {
@@ -1131,14 +1184,14 @@ section {
    14. Footer
 ================================ */
 .site-footer {
-    background: #1a1a2e;
-    color: #ffffff;
+    background: var(--primary);
+    color: var(--surface);
     padding: var(--space-8) 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid var(--border-subtle);
 }
 
 [data-theme="dark"] .site-footer {
-    background: #0a0a12;
+    background: var(--surface);
 }
 
 .site-footer .container {
@@ -1198,72 +1251,74 @@ section {
 }
 
 .btn:focus {
-    outline: 2px solid var(--color-highlight);
+    outline: 2px solid var(--focus-ring);
     outline-offset: 2px;
 }
 
 .btn-primary {
-    background: #1a1a2e;
-    color: #ffffff;
-    border-color: #1a1a2e;
+    background: var(--primary);
+    color: var(--surface);
+    border-color: var(--primary);
 }
 
 .btn-primary:hover {
-    background: var(--color-highlight);
-    border-color: var(--color-highlight);
+    background: var(--primary-soft);
+    color: var(--primary);
+    border-color: var(--primary-soft);
 }
 
 [data-theme="dark"] .btn-primary {
-    background: var(--color-highlight);
-    color: #ffffff;
-    border-color: var(--color-highlight);
+    background: var(--accent);
+    color: var(--surface);
+    border-color: var(--accent);
 }
 
 [data-theme="dark"] .btn-primary:hover {
-    background: #ff8fa3;
-    border-color: #ff8fa3;
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-color: var(--accent-soft);
 }
 
 .btn-secondary {
     background: transparent;
-    color: #1a1a2e;
-    border-color: #1a1a2e;
+    color: var(--primary);
+    border-color: var(--primary);
 }
 
 .btn-secondary:hover {
-    background: #1a1a2e;
-    color: #ffffff;
+    background: var(--primary);
+    color: var(--surface);
 }
 
 [data-theme="dark"] .btn-secondary {
-    color: #ffffff;
-    border-color: #ffffff;
+    color: var(--text);
+    border-color: var(--border-subtle);
 }
 
 [data-theme="dark"] .btn-secondary:hover {
-    background: #ffffff;
-    color: #0f0f1a;
+    background: var(--surface-soft);
+    color: var(--text);
 }
 
 .btn-outline {
     background: transparent;
-    color: var(--color-text);
-    border-color: var(--color-border);
+    color: var(--text);
+    border-color: var(--border-subtle);
 }
 
 .btn-outline:hover {
-    border-color: var(--color-text);
-    background: var(--color-bg-alt);
+    border-color: var(--text);
+    background: var(--surface-soft);
 }
 
 [data-theme="dark"] .btn-outline {
-    color: #e8e8e8;
-    border-color: #4a4a5e;
+    color: var(--text);
+    border-color: var(--border-subtle);
 }
 
 [data-theme="dark"] .btn-outline:hover {
-    border-color: #e8e8e8;
-    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--text);
+    background: var(--surface-soft);
 }
 
 .btn-icon {
@@ -1434,7 +1489,7 @@ section {
 
 /* Focus visible for keyboard navigation */
 *:focus-visible {
-    outline: 2px solid var(--color-highlight);
+    outline: 2px solid var(--focus-ring);
     outline-offset: 2px;
 }
 
