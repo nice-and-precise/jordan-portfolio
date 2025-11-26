@@ -2,138 +2,127 @@
 
 # Jordan Damhof
 
-**Operations & Strategy Partner**
+### Operations & Strategy Partner
 
-[![Live Site](https://img.shields.io/badge/Live%20Site-Visit%20Portfolio-2563eb?style=for-the-badge)](https://nice-and-precise.github.io/jordan-portfolio/)
-[![GitHub Pages](https://img.shields.io/badge/Hosted%20on-GitHub%20Pages-222?style=for-the-badge&logo=github)](https://github.com/nice-and-precise/jordan-portfolio)
-
-*Helping teams move from chaos to clarity with measurable results.*
+[![Live Site](https://img.shields.io/badge/View_Portfolio-2563eb?style=for-the-badge&logo=googlechrome&logoColor=white)](https://nice-and-precise.github.io/jordan-portfolio/)
+[![Email](https://img.shields.io/badge/Email_Me-ea4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:jordandamhof@gmail.com)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/nice-and-precise)
 
 ---
 
-</div>
+### Helping teams move from chaos to clarity
 
-## Overview
+**63% throughput increase** achieved for a large manufacturing client through process optimization and strategic operations management.
 
-A modern, performant portfolio website showcasing operations consulting expertise. Built with vanilla technologies for maximum performance and zero dependencies.
+---
 
-<div align="center">
-
-| Metric | Target | Status |
-|--------|--------|--------|
-| Lighthouse Performance | > 90 | Passed |
-| Accessibility (WCAG 2.1 AA) | Compliant | Passed |
-| Animation Performance | 60fps | Achieved |
-| Load Time (3G) | < 3s | Achieved |
+[<img src="https://nice-and-precise.github.io/jordan-portfolio/assets/jordan.jpg" alt="Jordan Damhof" width="150" style="border-radius: 50%;">](https://nice-and-precise.github.io/jordan-portfolio/)
 
 </div>
 
-## Features
+## About
 
-### Motion Design
-- **Parallax Hero** - Dual-layer gradient background with smooth scroll response
-- **SVG Handwriting Animation** - Stroke-based path animation on page load
-- **Sliding Numbers** - Intersection-triggered counter animations (63%, 40%, 95%)
-- **Fade-in Cards** - Staggered reveal animations for content sections
+I partner with teams to streamline operations, eliminate bottlenecks, and deliver measurable results. My approach combines strategic thinking with hands-on execution—I don't just recommend changes, I help implement them.
 
-### Accessibility
+> *"I seriously love having you around. You're locked in, reliable and just easy to work with"*
+>
+> — CEO, Large Manufacturing Client
+
+## Results That Matter
+
+| Impact | Description |
+|--------|-------------|
+| **63%** | Throughput increase through process optimization |
+| **40%** | Reduction in operational overhead |
+| **95%** | Client satisfaction and retention rate |
+
+## Featured Project
+
+**[Midwest Underground Operations](https://github.com/nice-and-precise/midwest-underground-ops)** — A comprehensive operations management system built with TypeScript, demonstrating my ability to translate complex business requirements into efficient technical solutions.
+
+---
+
+## About This Site
+
+This portfolio was built to showcase both consulting expertise and technical capability. Every detail is intentional.
+
+### Technical Highlights
+
+<details>
+<summary><strong>Motion Design</strong></summary>
+
+- **Parallax Hero** — Dual-layer gradient background with 60fps scroll response
+- **SVG Animation** — Hand-drawn stroke animation on page load
+- **Sliding Numbers** — Intersection-triggered counter animations
+- **Fade-in Cards** — Staggered reveal for enhanced perceived performance
+
+</details>
+
+<details>
+<summary><strong>Accessibility (WCAG 2.1 AA)</strong></summary>
+
 - Full keyboard navigation with visible focus states
-- Screen reader optimized with ARIA labels and semantic HTML
-- Skip link for quick navigation
-- `prefers-reduced-motion` respected - all animations disabled when requested
+- Screen reader optimized with ARIA labels
+- `prefers-reduced-motion` respected
 - High contrast mode support
 - Touch targets meet 44x44px minimum
 
-### Dark Mode
-- System preference detection (`prefers-color-scheme`)
-- Manual toggle with localStorage persistence
-- Smooth transitions between themes
-- Optimized color palette for both modes
+</details>
 
-### Responsive Design
-- Fluid layouts from 320px to 2560px
-- Mobile-first approach
-- Collapsible navigation with touch support
-- Print stylesheet included
+<details>
+<summary><strong>Performance</strong></summary>
 
-## Tech Stack
+| Metric | Result |
+|--------|--------|
+| Lighthouse Score | 95+ |
+| Dependencies | Zero |
+| Load Time (3G) | < 3s |
+| Animation | 60fps |
 
-```
-Zero Dependencies | Pure Web Standards
-```
+</details>
 
-| Technology | Purpose |
-|------------|---------|
-| HTML5 | Semantic, accessible markup |
-| CSS3 | Custom properties, Grid, Flexbox, animations |
-| JavaScript (ES6+) | Intersection Observer, RAF-based animations |
-| GitHub Pages | Static hosting with CDN |
+<details>
+<summary><strong>Dark Mode</strong></summary>
 
-## Project Structure
+- System preference detection
+- Manual toggle with persistence
+- Optimized color palette for both themes
+
+</details>
+
+### Tech Stack
 
 ```
-jordan-portfolio/
-├── index.html      # Single-page application
-├── styles.css      # Complete design system (~800 rules)
-├── script.js       # Interactive features (~470 lines)
-├── assets/
-│   └── jordan.jpg  # Profile image
-└── README.md
+HTML5 • CSS3 • Vanilla JavaScript • GitHub Pages
 ```
+
+Zero dependencies. Pure web standards. Maximum performance.
+
+---
 
 ## Development
 
-### Local Preview
-
 ```bash
-# Clone the repository
 git clone https://github.com/nice-and-precise/jordan-portfolio.git
 cd jordan-portfolio
-
-# Start local server
 python -m http.server 8000
-
 # Visit http://localhost:8000
 ```
 
-### Making Changes
-
-1. Edit files directly - no build process required
-2. Test locally with the server above
-3. Commit and push to deploy automatically via GitHub Pages
-
-## Performance Optimizations
-
-| Optimization | Implementation |
-|--------------|----------------|
-| No external requests | Zero CDNs, fonts, or libraries |
-| RAF animations | `requestAnimationFrame` for smooth parallax |
-| Passive listeners | Non-blocking scroll event handlers |
-| CSS containment | `will-change` hints for animated elements |
-| Lazy loading | Intersection Observer for below-fold content |
-| Debounced resize | Prevents layout thrashing on window resize |
-
-## Browser Support
-
-| Browser | Version |
-|---------|---------|
-| Chrome | 88+ |
-| Firefox | 78+ |
-| Safari | 14+ |
-| Edge | 88+ |
-
-*Graceful degradation for older browsers - content remains fully accessible.*
-
 ## License
 
-MIT License - see [LICENSE](LICENSE) for details.
+MIT License — see [LICENSE](LICENSE) for details.
 
 ---
 
 <div align="center">
 
-**[View Live Site](https://nice-and-precise.github.io/jordan-portfolio/)** | **[View on GitHub](https://github.com/nice-and-precise/jordan-portfolio)**
+### Let's Work Together
 
-Built with precision by Jordan Damhof
+I'm available for operations consulting, project management, and strategic partnerships.
+
+[![Email Jordan](https://img.shields.io/badge/jordandamhof@gmail.com-ea4335?style=flat-square&logo=gmail&logoColor=white)](mailto:jordandamhof@gmail.com)
+[![View Portfolio](https://img.shields.io/badge/nice--and--precise.github.io-2563eb?style=flat-square&logo=googlechrome&logoColor=white)](https://nice-and-precise.github.io/jordan-portfolio/)
+[![GitHub Profile](https://img.shields.io/badge/@nice--and--precise-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/nice-and-precise)
 
 </div>
