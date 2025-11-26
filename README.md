@@ -22,15 +22,15 @@
 
 ## About
 
-I partner with teams to streamline operations, eliminate bottlenecks, and deliver measurable results. My approach combines strategic thinking with hands-on execution—I don't just recommend changes, I help implement them.
+I partner with teams to streamline operations, eliminate bottlenecks, and deliver measurable results. My approach combines strategic thinking with hands-on execution - I don't just recommend changes, I help implement them.
 
 > *"I seriously love having you around. You're locked in, reliable and just easy to work with"*
 >
-> — CEO, Large Manufacturing Client
+> CEO, Manufacturing Client | Belgrade
 
 ## Featured Project
 
-**Midwest Underground Operations** — A dispatch and fleet management system for underground utility contractors. Streamlines job scheduling, crew assignments, and equipment tracking. Projected to reduce administrative overhead by 35% and improve crew utilization by 20%.
+**Midwest Underground Operations** - A dispatch and fleet management system for underground utility contractors. Streamlines job scheduling, crew assignments, and equipment tracking. Projected to reduce administrative overhead by 35% and improve crew utilization by 20%.
 
 ---
 
@@ -43,10 +43,10 @@ This portfolio was built to showcase both consulting expertise and technical cap
 <details>
 <summary><strong>Motion Design</strong></summary>
 
-- **Parallax Hero** — Dual-layer gradient background with 60fps scroll response
-- **SVG Animation** — Hand-drawn stroke animation on page load
-- **Sliding Numbers** — Intersection-triggered counter animations
-- **Fade-in Cards** — Staggered reveal for enhanced perceived performance
+- **Parallax Hero** - Dual-layer gradient background with 60fps scroll response
+- **SVG Animation** - Hand-drawn stroke animation on page load
+- **Sliding Numbers** - Intersection-triggered counter animations
+- **Fade-in Cards** - Staggered reveal for enhanced perceived performance
 
 </details>
 
@@ -103,7 +103,7 @@ python -m http.server 8000
 
 ## License
 
-MIT License — see [LICENSE](LICENSE) for details.
+MIT License - see [LICENSE](LICENSE) for details.
 
 ---
 
