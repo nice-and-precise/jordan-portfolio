@@ -28,17 +28,9 @@ I partner with teams to streamline operations, eliminate bottlenecks, and delive
 >
 > — CEO, Large Manufacturing Client
 
-## Results That Matter
-
-| Impact | Description |
-|--------|-------------|
-| **63%** | Throughput increase through process optimization |
-| **40%** | Reduction in operational overhead |
-| **95%** | Client satisfaction and retention rate |
-
 ## Featured Project
 
-**[Midwest Underground Operations](https://github.com/nice-and-precise/midwest-underground-ops)** — A comprehensive operations management system built with TypeScript, demonstrating my ability to translate complex business requirements into efficient technical solutions.
+**Midwest Underground Operations** — A dispatch and fleet management system for underground utility contractors. Streamlines job scheduling, crew assignments, and equipment tracking. Projected to reduce administrative overhead by 35% and improve crew utilization by 20%.
 
 ---
 
