@@ -41,6 +41,16 @@
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
             </ul>
+            <!-- Dark Mode Toggle -->
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+                <svg class="theme-toggle-icon theme-toggle-sun" viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="currentColor" d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58a.996.996 0 0 0-1.41 0 .996.996 0 0 0 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37a.996.996 0 0 0-1.41 0 .996.996 0 0 0 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0a.996.996 0 0 0 0-1.41l-1.06-1.06zm1.06-10.96a.996.996 0 0 0 0-1.41.996.996 0 0 0-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36a.996.996 0 0 0 0-1.41.996.996 0 0 0-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/>
+                </svg>
+                <svg class="theme-toggle-icon theme-toggle-moon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="currentColor" d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>
+                </svg>
+            </button>
+
             <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
                 <span class="nav-toggle-bar"></span>
                 <span class="nav-toggle-bar"></span>
@@ -62,12 +72,14 @@
                 <h1 id="hero-title" class="hero-title">Jordan Damhof</h1>
                 <p class="hero-subtitle">
                     <span class="hero-subtitle-text">Operations and strategy partner</span>
+                </p>
+                <p class="hero-tagline">
+                    <span class="hero-tagline-text">Helping teams move from chaos to clarity with measurable results.</span>
                     <!-- Handwriting SVG Accent -->
-                    <svg class="hero-accent" viewBox="0 0 200 30" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
-                        <path class="hero-accent-path" d="M5 25 Q 50 5, 100 15 T 195 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <svg class="hero-accent" viewBox="0 0 300 30" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
+                        <path class="hero-accent-path" d="M5 25 Q 75 5, 150 15 T 295 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                     </svg>
                 </p>
-                <p class="hero-tagline">Helping teams move from chaos to clarity with measurable results.</p>
                 <div class="hero-actions">
                     <a href="#outcomes" class="btn btn-primary">See My Impact</a>
                     <a href="#contact" class="btn btn-secondary">Work With Me</a>
@@ -283,9 +295,12 @@
                         </ul>
                     </div>
                     <aside class="about-aside">
+                        <div class="about-image">
+                            <img src="assets/jordan.jpg" alt="Jordan Damhof - Operations and Strategy Consultant" class="headshot" loading="lazy">
+                        </div>
                         <blockquote class="about-quote">
-                            <p>"Jordan transformed our chaotic operations into a well-oiled machine. The results speak for themselves."</p>
-                            <cite>- Operations Director, Manufacturing Client</cite>
+                            <p>"I seriously love having you around. You're locked in, reliable and just easy to work with"</p>
+                            <cite>- CEO | Large Manufacturing Client in Belgrade, MN</cite>
                         </blockquote>
                     </aside>
                 </div>

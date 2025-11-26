@@ -7,6 +7,7 @@
  * 3. Mobile navigation toggle
  * 4. Smooth scroll enhancements
  * 5. Reduced motion detection
+ * 6. Dark mode toggle with localStorage persistence
  */
 
 (function() {
@@ -344,6 +345,58 @@
     }
 
     // ================================
+    // Dark Mode Toggle
+    // ================================
+    class DarkMode {
+        constructor() {
+            this.toggle = document.getElementById('theme-toggle');
+            this.html = document.documentElement;
+            this.storageKey = 'theme-preference';
+
+            if (this.toggle) {
+                this.init();
+            }
+        }
+
+        init() {
+            // Check for saved preference or system preference
+            const savedTheme = localStorage.getItem(this.storageKey);
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            if (savedTheme) {
+                this.setTheme(savedTheme);
+            } else if (systemPrefersDark) {
+                this.setTheme('dark');
+            }
+
+            // Add click handler
+            this.toggle.addEventListener('click', this.handleToggle.bind(this));
+
+            // Listen for system theme changes
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+                if (!localStorage.getItem(this.storageKey)) {
+                    this.setTheme(e.matches ? 'dark' : 'light');
+                }
+            });
+        }
+
+        handleToggle() {
+            const currentTheme = this.html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            this.setTheme(newTheme);
+            localStorage.setItem(this.storageKey, newTheme);
+        }
+
+        setTheme(theme) {
+            if (theme === 'dark') {
+                this.html.setAttribute('data-theme', 'dark');
+            } else {
+                this.html.removeAttribute('data-theme');
+            }
+        }
+    }
+
+    // ================================
     // Intersection Observer for Fade-in Effects
     // ================================
     class FadeInObserver {
@@ -403,6 +456,7 @@
         new MobileNav();
         new SmoothScroll();
         new KeyboardNav();
+        new DarkMode();
         new FadeInObserver();
 
         // Update current year
