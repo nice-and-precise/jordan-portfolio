@@ -74,11 +74,12 @@ This portfolio was built to showcase both consulting expertise and technical cap
 </details>
 
 <details>
-<summary><strong>Dark Mode</strong></summary>
+<summary><strong>Dark Mode & Brand System</strong></summary>
 
 - System preference detection
 - Manual toggle with persistence
-- Optimized color palette for both themes
+- Centralized CSS custom property token system
+- See [`docs/BRAND-STANDARDS.md`](docs/BRAND-STANDARDS.md) for full color reference
 
 </details>
 
