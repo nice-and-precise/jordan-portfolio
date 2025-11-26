@@ -357,7 +357,7 @@ section {
 
 .skip-link:focus {
     top: var(--space-4);
-    outline: 2px solid var(--color-highlight);
+    outline: 2px solid var(--focus-ring);
     outline-offset: 2px;
 }
 
@@ -1489,7 +1489,7 @@ section {
 
 /* Focus visible for keyboard navigation */
 *:focus-visible {
-    outline: 2px solid var(--color-highlight);
+    outline: 2px solid var(--focus-ring);
     outline-offset: 2px;
 }
 
