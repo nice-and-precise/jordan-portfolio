@@ -3,140 +3,356 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jordan - Operations and Strategy Partner</title>
-    <meta name="description" content="Operations and strategy partner helping teams move from chaos to clarity with measurable results.">
+    <meta name="description" content="Jordan Damhof - Operations and strategy partner helping teams achieve measurable results through process optimization and project management.">
+    <meta name="keywords" content="operations, strategy, project management, process optimization, consultant">
+    <meta name="author" content="Jordan Damhof">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Jordan Damhof - Operations & Strategy">
+    <meta property="og:description" content="Operations and strategy partner helping teams achieve measurable results.">
+    <meta property="og:url" content="https://nice-and-precise.github.io/jordan-portfolio/">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Jordan Damhof - Operations & Strategy">
+    <meta name="twitter:description" content="Operations and strategy partner helping teams achieve measurable results.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>JD</text></svg>">
+
+    <title>Jordan Damhof - Operations & Strategy Partner</title>
+
     <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Hero Section -->
-    <section class="hero" id="hero">
-        <div class="hero-background">
-            <div class="hero-layer hero-layer-1"></div>
-            <div class="hero-layer hero-layer-2"></div>
-            <div class="hero-layer hero-layer-3"></div>
-        </div>
-        <div class="hero-content">
-            <h1 class="hero-name">Jordan</h1>
-            <p class="hero-subtitle">Operations and Strategy Partner</p>
-            <p class="hero-tagline">Helping teams move from chaos to clarity with measurable results.</p>
-        </div>
-    </section>
+    <!-- Skip Link for Screen Readers -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <!-- Main Content -->
-    <main>
-        <!-- Measurable Results Section -->
-        <section class="results" id="results">
+    <!-- Header / Navigation -->
+    <header class="site-header" role="banner">
+        <nav class="nav" role="navigation" aria-label="Main navigation">
+            <a href="#hero" class="nav-logo" aria-label="Jordan Damhof - Home">JD</a>
+            <ul class="nav-links">
+                <li><a href="#outcomes">Results</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#how-i-work">Approach</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+            </ul>
+            <!-- Dark Mode Toggle -->
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+                <svg class="theme-toggle-icon theme-toggle-sun" viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="currentColor" d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58a.996.996 0 0 0-1.41 0 .996.996 0 0 0 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37a.996.996 0 0 0-1.41 0 .996.996 0 0 0 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0a.996.996 0 0 0 0-1.41l-1.06-1.06zm1.06-10.96a.996.996 0 0 0 0-1.41.996.996 0 0 0-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36a.996.996 0 0 0 0-1.41.996.996 0 0 0-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/>
+                </svg>
+                <svg class="theme-toggle-icon theme-toggle-moon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="currentColor" d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>
+                </svg>
+            </button>
+
+            <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+            </button>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <!-- Hero Section with Parallax -->
+        <section id="hero" class="hero" aria-labelledby="hero-title">
+            <!-- Parallax Background Layers -->
+            <div class="parallax-container" aria-hidden="true">
+                <div class="parallax-layer parallax-back" data-speed="0.15"></div>
+                <div class="parallax-layer parallax-front" data-speed="0.3"></div>
+            </div>
+
+            <div class="hero-content">
+                <h1 id="hero-title" class="hero-title">Jordan Damhof</h1>
+                <p class="hero-subtitle">
+                    <span class="hero-subtitle-text">Operations and strategy partner</span>
+                </p>
+                <p class="hero-tagline">
+                    <span class="hero-tagline-text">Helping teams move from chaos to clarity with measurable results.</span>
+                    <!-- Handwriting SVG Accent -->
+                    <svg class="hero-accent" viewBox="0 0 300 30" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
+                        <path class="hero-accent-path" d="M5 25 Q 75 5, 150 15 T 295 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </p>
+                <div class="hero-actions">
+                    <a href="#outcomes" class="btn btn-primary">See My Impact</a>
+                    <a href="#contact" class="btn btn-secondary">Work With Me</a>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="scroll-indicator" aria-hidden="true">
+                <span class="scroll-indicator-text">Scroll</span>
+                <div class="scroll-indicator-line"></div>
+            </div>
+        </section>
+
+        <!-- Outcomes Section with Sliding Numbers -->
+        <section id="outcomes" class="outcomes" aria-labelledby="outcomes-title">
             <div class="container">
-                <h2 class="section-title">Measurable Results</h2>
-                <div class="metrics-grid">
-                    <div class="metric-card">
-                        <div class="metric-number">150%</div>
-                        <div class="metric-label">Throughput Increase</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-number">40hrs</div>
-                        <div class="metric-label">Time Saved Weekly</div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-number">95%</div>
-                        <div class="metric-label">On-time Delivery</div>
-                    </div>
+                <header class="section-header">
+                    <h2 id="outcomes-title" class="section-title">Measurable Results</h2>
+                    <p class="section-subtitle">Real impact from real projects</p>
+                </header>
+
+                <div class="outcomes-grid">
+                    <!-- Primary Outcome - 63% Throughput -->
+                    <article class="outcome-card outcome-card--featured" aria-labelledby="outcome-throughput">
+                        <div class="outcome-metric">
+                            <div class="sliding-number" data-value="63" aria-label="63 percent">
+                                <span class="sliding-digit" data-digit="6">
+                                    <span class="digit-column">
+                                        <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+                                    </span>
+                                </span>
+                                <span class="sliding-digit" data-digit="3">
+                                    <span class="digit-column">
+                                        <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+                                    </span>
+                                </span>
+                                <span class="sliding-suffix">%</span>
+                            </div>
+                        </div>
+                        <h3 id="outcome-throughput" class="outcome-title">Throughput Increase</h3>
+                        <p class="outcome-description">Streamlined operations workflow resulting in significant productivity gains for the entire team.</p>
+                    </article>
+
+                    <!-- Secondary Outcomes -->
+                    <article class="outcome-card" aria-labelledby="outcome-time">
+                        <div class="outcome-metric">
+                            <div class="sliding-number" data-value="40" aria-label="40 percent">
+                                <span class="sliding-digit" data-digit="4">
+                                    <span class="digit-column">
+                                        <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+                                    </span>
+                                </span>
+                                <span class="sliding-digit" data-digit="0">
+                                    <span class="digit-column">
+                                        <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+                                    </span>
+                                </span>
+                                <span class="sliding-suffix">%</span>
+                            </div>
+                        </div>
+                        <h3 id="outcome-time" class="outcome-title">Time Saved</h3>
+                        <p class="outcome-description">Automated reporting and reduced manual processes.</p>
+                    </article>
+
+                    <article class="outcome-card" aria-labelledby="outcome-delivery">
+                        <div class="outcome-metric">
+                            <div class="sliding-number" data-value="95" aria-label="95 percent">
+                                <span class="sliding-digit" data-digit="9">
+                                    <span class="digit-column">
+                                        <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+                                    </span>
+                                </span>
+                                <span class="sliding-digit" data-digit="5">
+                                    <span class="digit-column">
+                                        <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+                                    </span>
+                                </span>
+                                <span class="sliding-suffix">%</span>
+                            </div>
+                        </div>
+                        <h3 id="outcome-delivery" class="outcome-title">On-Time Delivery</h3>
+                        <p class="outcome-description">Consistent project completion within scope and timeline.</p>
+                    </article>
                 </div>
             </div>
         </section>
 
-        <!-- Featured Work Section -->
-        <section class="featured-work" id="work">
+        <!-- Projects Section with GitHub-Style Card -->
+        <section id="projects" class="projects" aria-labelledby="projects-title">
             <div class="container">
-                <h2 class="section-title">Featured Work</h2>
-                <div class="work-grid">
-                    <article class="project-card featured-project">
-                        <div class="project-content">
-                            <h3 class="project-title">Midwest Underground</h3>
-                            <p class="project-description">Streamlined operations for a regional infrastructure company, implementing process improvements that reduced project delivery time by 30% and increased client satisfaction scores.</p>
-                            <div class="project-tags">
-                                <span class="tag">Process Optimization</span>
-                                <span class="tag">Team Leadership</span>
-                                <span class="tag">Client Relations</span>
-                            </div>
-                        </div>
+                <header class="section-header">
+                    <h2 id="projects-title" class="section-title">Featured Work</h2>
+                    <p class="section-subtitle">Open source and client projects</p>
+                </header>
+
+                <div class="projects-grid">
+                    <!-- GitHub-Style Project Card -->
+                    <article class="project-card github-card" aria-labelledby="project-midwest">
+                        <header class="github-card-header">
+                            <svg class="github-card-icon" viewBox="0 0 16 16" aria-hidden="true">
+                                <path fill="currentColor" d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.708A2.486 2.486 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h3.5a.25.25 0 0 1 .25.25v3.25a.25.25 0 0 1-.4.2l-1.45-1.087a.249.249 0 0 0-.3 0L5.4 15.7a.25.25 0 0 1-.4-.2Z"/>
+                            </svg>
+                            <h3 id="project-midwest" class="github-card-title">
+                                <a href="https://github.com/nice-and-precise/midwest-underground-ops" target="_blank" rel="noopener noreferrer">
+                                    nice-and-precise/<strong>midwest-underground-ops</strong>
+                                </a>
+                            </h3>
+                        </header>
+
+                        <p class="github-card-description">Operations management system for underground utility coordination. Streamlines project tracking, resource allocation, and compliance documentation.</p>
+
+                        <footer class="github-card-footer">
+                            <span class="github-card-lang">
+                                <span class="github-card-lang-dot" style="background-color: #3178c6;" aria-hidden="true"></span>
+                                TypeScript
+                            </span>
+                            <span class="github-card-stat">
+                                <svg viewBox="0 0 16 16" aria-hidden="true">
+                                    <path fill="currentColor" d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/>
+                                </svg>
+                                Star
+                            </span>
+                            <span class="github-card-stat">
+                                <svg viewBox="0 0 16 16" aria-hidden="true">
+                                    <path fill="currentColor" d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75v-.878a2.25 2.25 0 1 1 1.5 0v.878a2.25 2.25 0 0 1-2.25 2.25h-1.5v2.128a2.251 2.251 0 1 1-1.5 0V8.5h-1.5A2.25 2.25 0 0 1 3.5 6.25v-.878a2.25 2.25 0 1 1 1.5 0ZM5 3.25a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Zm6.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm-3 8.75a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z"/>
+                                </svg>
+                                Fork
+                            </span>
+                        </footer>
                     </article>
-                    <article class="project-card">
-                        <div class="project-content">
-                            <h3 class="project-title">Supply Chain Optimization</h3>
-                            <p class="project-description">Redesigned inventory management system for manufacturing client, reducing waste by 25% and improving cash flow.</p>
-                        </div>
+
+                    <!-- Additional Project Card -->
+                    <article class="project-card" aria-labelledby="project-process">
+                        <h3 id="project-process" class="project-card-title">Process Optimization Framework</h3>
+                        <p class="project-card-description">Developed a reusable framework for identifying bottlenecks and implementing lean methodologies across distributed teams.</p>
+                        <ul class="project-card-tags">
+                            <li>Operations</li>
+                            <li>Lean</li>
+                            <li>Process Design</li>
+                        </ul>
                     </article>
-                    <article class="project-card">
-                        <div class="project-content">
-                            <h3 class="project-title">Digital Transformation</h3>
-                            <p class="project-description">Led cross-functional team through technology adoption, resulting in 60% reduction in manual processes.</p>
-                        </div>
+
+                    <article class="project-card" aria-labelledby="project-dashboard">
+                        <h3 id="project-dashboard" class="project-card-title">Executive Dashboard System</h3>
+                        <p class="project-card-description">Real-time KPI tracking dashboard providing leadership with actionable insights and automated reporting.</p>
+                        <ul class="project-card-tags">
+                            <li>Data Visualization</li>
+                            <li>Reporting</li>
+                            <li>Analytics</li>
+                        </ul>
                     </article>
+                </div>
+
+                <div class="projects-cta">
+                    <a href="https://github.com/nice-and-precise" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+                        <svg class="btn-icon" viewBox="0 0 16 16" aria-hidden="true">
+                            <path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/>
+                        </svg>
+                        View All Projects on GitHub
+                    </a>
                 </div>
             </div>
         </section>
 
         <!-- How I Work Section -->
-        <section class="how-i-work" id="process">
+        <section id="how-i-work" class="how-i-work" aria-labelledby="how-title">
             <div class="container">
-                <h2 class="section-title">How I Work</h2>
-                <div class="process-grid">
-                    <div class="process-step">
-                        <div class="step-number">01</div>
-                        <h3 class="step-title">Assess</h3>
-                        <p class="step-description">Deep dive into your current operations to identify bottlenecks and opportunities for improvement.</p>
-                    </div>
-                    <div class="process-step">
-                        <div class="step-number">02</div>
-                        <h3 class="step-title">Strategize</h3>
-                        <p class="step-description">Develop a tailored roadmap with clear milestones and measurable outcomes aligned to your goals.</p>
-                    </div>
-                    <div class="process-step">
-                        <div class="step-number">03</div>
-                        <h3 class="step-title">Implement</h3>
-                        <p class="step-description">Execute the strategy with your team, providing hands-on support and change management guidance.</p>
-                    </div>
-                    <div class="process-step">
-                        <div class="step-number">04</div>
-                        <h3 class="step-title">Optimize</h3>
-                        <p class="step-description">Monitor results, gather feedback, and continuously refine processes for sustained improvement.</p>
-                    </div>
-                </div>
+                <header class="section-header">
+                    <h2 id="how-title" class="section-title">How I Work</h2>
+                    <p class="section-subtitle">A structured approach to complex problems</p>
+                </header>
+
+                <ol class="process-steps">
+                    <li class="process-step">
+                        <div class="process-step-number" aria-hidden="true">01</div>
+                        <h3 class="process-step-title">Discovery</h3>
+                        <p class="process-step-description">Deep dive into your current operations, pain points, and goals. I listen before I prescribe.</p>
+                    </li>
+                    <li class="process-step">
+                        <div class="process-step-number" aria-hidden="true">02</div>
+                        <h3 class="process-step-title">Analysis</h3>
+                        <p class="process-step-description">Map workflows, identify bottlenecks, and quantify opportunities for improvement.</p>
+                    </li>
+                    <li class="process-step">
+                        <div class="process-step-number" aria-hidden="true">03</div>
+                        <h3 class="process-step-title">Strategy</h3>
+                        <p class="process-step-description">Develop a clear, actionable roadmap with measurable milestones and quick wins.</p>
+                    </li>
+                    <li class="process-step">
+                        <div class="process-step-number" aria-hidden="true">04</div>
+                        <h3 class="process-step-title">Implementation</h3>
+                        <p class="process-step-description">Execute alongside your team, adapting as we learn and ensuring knowledge transfer.</p>
+                    </li>
+                </ol>
             </div>
         </section>
 
-        <!-- About Me Section -->
-        <section class="about" id="about">
+        <!-- About Section -->
+        <section id="about" class="about" aria-labelledby="about-title">
             <div class="container">
-                <div class="about-content">
-                    <h2 class="section-title">About Me</h2>
-                    <div class="about-text">
-                        <p>With over a decade of experience in operations and strategic consulting, I specialize in transforming complex business challenges into streamlined, efficient systems. My approach combines analytical rigor with practical implementation, ensuring that every solution delivers tangible value.</p>
-                        <p>I've worked with organizations ranging from fast-growing startups to established enterprises, always focusing on sustainable improvements that scale with business growth.</p>
+                <div class="about-grid">
+                    <div class="about-content">
+                        <h2 id="about-title" class="section-title">About Me</h2>
+                        <p class="about-text">I'm Jordan Damhof, an operations and strategy consultant based in the Midwest. With a background in project management and process optimization, I help organizations transform how they work.</p>
+                        <p class="about-text">My approach combines analytical rigor with practical implementation. I believe the best solutions are the ones your team can sustain long after I'm gone.</p>
+                        <p class="about-text">When I'm not optimizing workflows, you'll find me exploring new technologies, contributing to open source projects, and finding ways to make complex systems simpler.</p>
+
+                        <ul class="about-highlights">
+                            <li>Operations Strategy</li>
+                            <li>Project Management</li>
+                            <li>Process Optimization</li>
+                            <li>Team Development</li>
+                        </ul>
                     </div>
+                    <aside class="about-aside">
+                        <div class="about-image">
+                            <img src="assets/jordan.jpg" alt="Jordan Damhof - Operations and Strategy Consultant" class="headshot" loading="lazy">
+                        </div>
+                        <blockquote class="about-quote">
+                            <p>"I seriously love having you around. You're locked in, reliable and just easy to work with"</p>
+                            <cite>- CEO | Large Manufacturing Client in Belgrade</cite>
+                        </blockquote>
+                    </aside>
                 </div>
             </div>
         </section>
 
         <!-- Contact Section -->
-        <section class="contact" id="contact">
+        <section id="contact" class="contact" aria-labelledby="contact-title">
             <div class="container">
-                <h2 class="section-title">Let's Work Together</h2>
+                <header class="section-header">
+                    <h2 id="contact-title" class="section-title">Let's Work Together</h2>
+                    <p class="section-subtitle">Ready to optimize your operations?</p>
+                </header>
+
                 <div class="contact-content">
-                    <p class="contact-description">Ready to move from chaos to clarity? Let's discuss how we can optimize your operations and drive measurable results.</p>
+                    <p class="contact-intro">Whether you're facing operational challenges or looking to scale efficiently, I'd love to hear about your project.</p>
+
                     <div class="contact-methods">
-                        <a href="mailto:jordan@example.com" class="contact-link">jordan@example.com</a>
-                        <a href="https://linkedin.com/in/jordan" class="contact-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                        <a href="mailto:jordandamhof@gmail.com" class="contact-method contact-method--primary">
+                            <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill="currentColor" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                            </svg>
+                            <span class="contact-method-label">Email</span>
+                            <span class="contact-method-value">jordandamhof@gmail.com</span>
+                        </a>
+
+                        <a href="https://github.com/nice-and-precise" target="_blank" rel="noopener noreferrer" class="contact-method">
+                            <svg class="contact-icon" viewBox="0 0 16 16" aria-hidden="true">
+                                <path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/>
+                            </svg>
+                            <span class="contact-method-label">GitHub</span>
+                            <span class="contact-method-value">nice-and-precise</span>
+                        </a>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <script src="main.js"></script>
+    <!-- Footer -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="container">
+            <p class="footer-text">&copy; <span id="current-year">2025</span> Jordan Damhof. Built with vanilla HTML, CSS, and JavaScript.</p>
+            <nav class="footer-nav" aria-label="Footer navigation">
+                <a href="#hero">Home</a>
+                <a href="#outcomes">Results</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
