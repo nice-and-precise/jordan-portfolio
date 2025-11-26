@@ -1,11 +1,12 @@
 # Jordan Portfolio - Build Context Log
 
-## Project Status: ✅ DEPLOYED
+## Project Status: ✅ DEPLOYED + ENHANCED
 
 ## Last Updated
 - Date: 2025-11-26
-- Phase: 6 Complete (Deployed)
+- Phase: 7 Complete (Post-Deploy Enhancements)
 - Live Site: https://nice-and-precise.github.io/jordan-portfolio/
+- Latest Commit: ef118aa "Fix UI contrast and polish"
 
 ---
 
@@ -48,15 +49,25 @@
 - [x] GitHub Pages enabled
 - [x] Live site: https://nice-and-precise.github.io/jordan-portfolio/
 
+### Phase 7: Post-Deploy Enhancements ✅
+- [x] Dark mode toggle with sun/moon icons
+- [x] System preference detection (prefers-color-scheme)
+- [x] localStorage persistence for theme
+- [x] Headshot image added (assets/jordan.jpg)
+- [x] SVG animation repositioned under tagline
+- [x] Quote updated (removed ", MN")
+- [x] Button/component contrast fixes for both themes
+
 ---
 
 ## Files Created
 
 | File | Size | Purpose |
 |------|------|---------|
-| index.html | ~15KB | Main page with all sections |
-| styles.css | ~22KB | Complete styling with motion |
-| script.js | ~8KB | Parallax + sliding numbers + nav |
+| index.html | ~17KB | Main page with all sections + dark mode toggle |
+| styles.css | ~25KB | Complete styling with motion + dark theme |
+| script.js | ~12KB | Parallax + sliding numbers + nav + dark mode |
+| assets/jordan.jpg | ~50KB | Headshot image |
 
 ---
 
@@ -67,6 +78,9 @@
 | 2025-11-25 | Used CSS custom properties | Better maintainability, theming support |
 | 2025-11-25 | Added extra metrics (40%, 95%) | Better visual balance in outcomes grid |
 | 2025-11-25 | Included fade-in observer | Enhances perceived performance |
+| 2025-11-26 | Dark mode via data-theme attribute | Clean CSS targeting, localStorage friendly |
+| 2025-11-26 | Hardcoded button colors | Ensures contrast in both themes |
+| 2025-11-26 | SVG position bottom: -20px | Prevents overlap with tagline text |
 
 ---
 
@@ -74,7 +88,9 @@
 
 | Date | Issue | Resolution |
 |------|-------|------------|
-| None | - | - |
+| 2025-11-26 | GitHub Pages API JSON parse error | Used -F flags instead of -f for API call |
+| 2025-11-26 | SVG overlapping tagline text | Adjusted bottom: -8px to -20px |
+| 2025-11-26 | Button contrast in dark mode | Hardcoded colors instead of variables |
 
 ---
 
@@ -136,5 +152,39 @@
 
 If session ends, paste this to continue:
 ```
-Read CONTEXT.md in C:\Users\Owner\Desktop\Jordan and continue from where we left off. The next step is Phase 6: Deploy to GitHub Pages.
+Read CONTEXT.md in C:\Users\Owner\Desktop\Jordan to see current state.
+The portfolio is fully deployed at https://nice-and-precise.github.io/jordan-portfolio/
+All phases complete including dark mode, headshot, and contrast fixes.
 ```
+
+---
+
+## Git Commits (Latest First)
+
+| Hash | Message |
+|------|---------|
+| ef118aa | Fix UI contrast and polish |
+| 94e93cb | Add dark mode, headshot, and UI improvements |
+| 8aeb1d7 | Update CONTEXT.md - mark deployment complete |
+| f6de07c | Initial portfolio build - Jordan Damhof |
+
+---
+
+## Technical Implementation Details
+
+### Dark Mode
+- Toggle button in header with sun/moon SVG icons
+- `[data-theme="dark"]` attribute on `<html>` element
+- localStorage key: `theme-preference`
+- System preference detection via `prefers-color-scheme`
+- DarkMode class in script.js handles all logic
+
+### Color Contrast Fixes
+- Primary button: `background: #1a1a2e; color: #ffffff`
+- Dark mode primary: `background: var(--color-highlight); color: #ffffff`
+- Dark mode secondary: `color: #ffffff; border-color: #ffffff`
+
+### SVG Handwriting Animation
+- Position: `bottom: -20px` (relative to tagline)
+- Animation: stroke-dasharray from 500 to 0
+- Duration: 2.1s ease-out, delay: 0.6s
