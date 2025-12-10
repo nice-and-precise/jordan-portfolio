@@ -1,0 +1,22 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Projects Collection
+    match /projects/{projectId} {
+      allow read: if true; // Public read access
+      allow write: if isAuthenticated(); // Only authenticated users can edit
+    }
+
+    // Outcomes Collection
+    match /outcomes/{outcomeId} {
+      allow read: if true; // Public read access
+      allow write: if isAuthenticated(); // Only authenticated users can edit
+    }
+  }
+}

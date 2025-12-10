@@ -10,7 +10,7 @@
  * 6. Dark mode toggle with localStorage persistence
  */
 
-(function() {
+(function () {
     'use strict';
 
     // ================================
@@ -69,7 +69,7 @@
      */
     function throttle(func, limit) {
         let inThrottle;
-        return function(...args) {
+        return function (...args) {
             if (!inThrottle) {
                 func.apply(this, args);
                 inThrottle = true;
@@ -143,18 +143,29 @@
     // ================================
     class SlidingNumbers {
         constructor() {
+            this.init();
+        }
+
+        init() {
+            this.refresh();
+        }
+
+        refresh() {
             this.numbers = document.querySelectorAll('.sliding-number');
             this.animated = new Set();
 
+            if (this.observer) {
+                this.observer.disconnect();
+            }
+
             if (this.numbers.length > 0 && !prefersReducedMotion()) {
-                this.init();
+                this.setupObserver();
             } else if (prefersReducedMotion()) {
-                // Show final values immediately for reduced motion
                 this.showAllFinalValues();
             }
         }
 
-        init() {
+        setupObserver() {
             const observerOptions = {
                 threshold: CONFIG.slidingNumbers.threshold,
                 rootMargin: CONFIG.slidingNumbers.rootMargin
@@ -401,19 +412,32 @@
     // ================================
     class FadeInObserver {
         constructor() {
-            this.elements = document.querySelectorAll('.outcome-card, .project-card, .process-step');
-
-            if (this.elements.length > 0 && !prefersReducedMotion()) {
-                this.init();
-            }
+            this.init();
         }
 
         init() {
+            this.refresh();
+        }
+
+        refresh() {
+            this.elements = document.querySelectorAll('.outcome-card, .project-card, .process-step');
+
+            if (this.elements.length > 0 && !prefersReducedMotion()) {
+                this.setupObserver();
+            }
+        }
+
+        setupObserver() {
             // Add initial hidden state
             this.elements.forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(20px)';
-                el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+                // simple check to avoid resetting already visible elements if you prefer, 
+                // but for this task we might want to animate new ones. 
+                // For simplicity, we'll just check if they have opacity 1 already.
+                if (el.style.opacity !== '1') {
+                    el.style.opacity = '0';
+                    el.style.transform = 'translateY(20px)';
+                    el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+                }
             });
 
             const observer = new IntersectionObserver(
@@ -452,15 +476,26 @@
     function bootstrap() {
         // Initialize all modules
         new ParallaxBackground();
-        new SlidingNumbers();
+        window.Portfolio = {}; // Global Namespace
+        window.Portfolio.slidingNumbers = new SlidingNumbers();
         new MobileNav();
         new SmoothScroll();
         new KeyboardNav();
         new DarkMode();
-        new FadeInObserver();
+        window.Portfolio.fadeInObserver = new FadeInObserver();
 
         // Update current year
         updateCurrentYear();
+
+        // expose refresh method
+        window.Portfolio.refreshObservers = function () {
+            if (window.Portfolio.slidingNumbers) {
+                window.Portfolio.slidingNumbers.refresh();
+            }
+            if (window.Portfolio.fadeInObserver) {
+                window.Portfolio.fadeInObserver.refresh();
+            }
+        };
 
         // Log initialization (remove in production)
         if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {

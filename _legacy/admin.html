@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio CMS | Jordan Damhof</title>
+
+    <!-- Material Design 3 -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
+    <script type="importmap">
+      {
+        "imports": {
+          "@material/web/": "https://esm.run/@material/web/"
+        }
+      }
+    </script>
+    <script type="module">
+        import '@material/web/all.js';
+        import { styles as typescaleStyles } from '@material/web/typography/md-typescale-styles.js';
+        document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
+    </script>
+
+    <style>
+        :root {
+            --md-sys-color-surface: #fdfcff;
+            --md-sys-color-on-surface: #1a1c1e;
+            --md-sys-color-primary: #0060a8;
+            --md-sys-color-on-primary: #ffffff;
+            --md-sys-color-primary-container: #d3e4ff;
+            --md-sys-color-on-primary-container: #001c38;
+            --md-sys-color-outline: #72777f;
+            --md-sys-color-surface-container: #f0f4fa;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--md-sys-color-surface);
+            color: var(--md-sys-color-on-surface);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Login View */
+        #login-view {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* Dashboard View */
+        #dashboard-view {
+            display: none;
+            /* Hidden by default */
+            flex: 1;
+        }
+
+        .app-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 24px;
+            background-color: var(--md-sys-color-surface-container);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 24px;
+            width: 100%;
+        }
+
+        .cms-list {
+            margin-top: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .cms-item {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 16px;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            transition: box-shadow 0.2s;
+            position: relative;
+        }
+
+        .cms-item:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .drag-handle {
+            cursor: grab;
+            color: var(--md-sys-color-outline);
+            padding-top: 4px;
+        }
+
+        .item-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .editable {
+            padding: 4px;
+            border-radius: 4px;
+            border: 1px solid transparent;
+            transition: border-color 0.2s, background-color 0.2s;
+        }
+
+        .editable:hover {
+            border-color: #e0e0e0;
+            background-color: #fafafa;
+        }
+
+        .editable:focus {
+            outline: none;
+            border-color: var(--md-sys-color-primary);
+            background-color: white;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* Drag and Drop State */
+        .cms-item.dragging {
+            opacity: 0.5;
+            border: 2px dashed var(--md-sys-color-primary);
+        }
+
+        /* Tabs */
+        md-tabs {
+            margin-bottom: 24px;
+        }
+
+        /* Image Preview */
+        .item-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+            background-color: #eee;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .item-image:hover::after {
+            content: 'Change';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Login View -->
+    <div id="login-view">
+        <h1 class="display-large">Portfolio CMS</h1>
+        <md-filled-button id="login-btn">
+            <md-icon slot="icon">login</md-icon>
+            Sign in with Google
+        </md-filled-button>
+    </div>
+
+    <!-- Dashboard View -->
+    <div id="dashboard-view">
+        <div class="app-bar">
+            <h2 class="title-large">Content Management</h2>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <span id="user-email" class="label-medium"></span>
+                <md-outlined-button id="logout-btn">Logout</md-outlined-button>
+            </div>
+        </div>
+
+        <div class="container">
+            <md-tabs aria-label="Content Tabs">
+                <md-primary-tab id="tab-outcomes" active>
+                    Results (Outcomes)
+                    <md-icon slot="icon">analytics</md-icon>
+                </md-primary-tab>
+                <md-primary-tab id="tab-projects">
+                    Projects
+                    <md-icon slot="icon">code</md-icon>
+                </md-primary-tab>
+            </md-tabs>
+
+            <!-- Actions Bar -->
+            <div style="display: flex; justify-content: flex-end; margin-bottom: 1rem;">
+                <md-filled-button id="add-new-btn">
+                    <md-icon slot="icon">add</md-icon>
+                    Add New
+                </md-filled-button>
+            </div>
+
+            <!-- Content Lists -->
+            <div id="outcomes-list" class="cms-list"></div>
+            <div id="projects-list" class="cms-list" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script type="module" src="cms.js"></script>
+</body>
+
+</html>

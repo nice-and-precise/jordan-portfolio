@@ -30,3 +30,9 @@ agency-agents/
 # Claude Code specific (optional - uncomment if you want to track these)
 # CONTEXT.md
 # AGENTS.md
+
+# Secrets
+serviceAccountKey.json
+
+# Agent artifacts
+.gemini/

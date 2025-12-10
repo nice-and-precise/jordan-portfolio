@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Data Seeder</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        pre {
+            background: #f4f4f4;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+
+        .status {
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        button {
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Portfolio Data Seeder</h1>
+    <p>This utility will populate your Firestore database with the original content from your static site.</p>
+    <p><strong>Note:</strong> You must have valid credentials in <code>firebase-config.js</code> and be authenticated
+        (if rules require it) for this to work.</p>
+
+    <div id="auth-section">
+        <button id="login-btn">Sign in to seed</button>
+    </div>
+
+    <div id="seed-section" style="display:none; margin-top: 2rem;">
+        <button id="seed-btn">Run Migration (Seed DB)</button>
+        <div id="log" style="margin-top: 1rem;"></div>
+    </div>
+
+    <script type="module">
+        import { db, auth, writeBatch, collection, doc, googleProvider, signInWithPopup, onAuthStateChanged } from "./firebase-config.js";
+
+        // ==========================================
+        // ORIGINAL DATA
+        // ==========================================
+        const LEGACY_DATA = {
+            outcomes: [
+                {
+                    title: "Throughput Increase",
+                    description: "Streamlined operations workflow resulting in significant productivity gains for the entire team.",
+                    value: 63,
+                    suffix: "%",
+                    isFeatured: true,
+                    order: 0
+                },
+                {
+                    title: "Time Saved",
+                    description: "Automated reporting and reduced manual processes.",
+                    value: 40,
+                    suffix: "%",
+                    isFeatured: false,
+                    order: 1
+                },
+                {
+                    title: "On-Time Delivery",
+                    description: "Consistent project completion within scope and timeline.",
+                    value: 95,
+                    suffix: "%",
+                    isFeatured: false,
+                    order: 2
+                }
+            ],
+            projects: [
+                {
+                    title: "midwest-underground-ops",
+                    description: "Operations management system for underground utility coordination. Streamlines project tracking, resource allocation, and compliance documentation.",
+                    type: "github",
+                    url: "https://github.com/nice-and-precise/midwest-underground-ops",
+                    repoOwner: "nice-and-precise",
+                    repoName: "midwest-underground-ops",
+                    language: "TypeScript",
+                    langColor: "#3178c6",
+                    stars: "Star", // Note: The UI just showed 'Star' and 'Fork' with icons, not actual numbers.
+                    forks: "Fork", // We'll store these as strings or 0 if we want numbers later. keeping string for visual similarity.
+                    order: 0
+                },
+                {
+                    title: "Process Optimization Framework",
+                    description: "Developed a reusable framework for identifying bottlenecks and implementing lean methodologies across distributed teams.",
+                    type: "standard",
+                    tags: ["Operations", "Lean", "Process Design"],
+                    imageUrl: "", // No image in original
+                    order: 1
+                },
+                {
+                    title: "Executive Dashboard System",
+                    description: "Real-time KPI tracking dashboard providing leadership with actionable insights and automated reporting.",
+                    type: "standard",
+                    tags: ["Data Visualization", "Reporting", "Analytics"],
+                    imageUrl: "", // No image in original
+                    order: 2
+                }
+            ]
+        };
+
+        // ==========================================
+        // UI LOGIC
+        // ==========================================
+        const loginBtn = document.getElementById('login-btn');
+        const seedBtn = document.getElementById('seed-btn');
+        const authSection = document.getElementById('auth-section');
+        const seedSection = document.getElementById('seed-section');
+        const logDiv = document.getElementById('log');
+
+        function log(msg, type = 'info') {
+            const p = document.createElement('div');
+            p.textContent = msg;
+            p.className = type === 'error' ? 'status error' : 'status success';
+            // simple style override for info
+            if (type === 'info') p.style.background = '#e2e3e5';
+            logDiv.appendChild(p);
+        }
+
+        loginBtn.addEventListener('click', async () => {
+            try {
+                await signInWithPopup(auth, googleProvider);
+            } catch (e) {
+                log('Login Failed: ' + e.message, 'error');
+            }
+        });
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                authSection.style.display = 'none';
+                seedSection.style.display = 'block';
+                log(`Authenticated as ${user.email}. Ready to seed.`);
+            }
+        });
+
+        seedBtn.addEventListener('click', async () => {
+            if (!confirm('This will write data to Firestore. Proceed?')) return;
+
+            try {
+                const batch = writeBatch(db);
+                let count = 0;
+
+                // Add Outcomes
+                LEGACY_DATA.outcomes.forEach(item => {
+                    const newRef = doc(collection(db, "outcomes"));
+                    batch.set(newRef, item);
+                    count++;
+                });
+
+                // Add Projects
+                LEGACY_DATA.projects.forEach(item => {
+                    const newRef = doc(collection(db, "projects"));
+                    batch.set(newRef, item);
+                    count++;
+                });
+
+                await batch.commit();
+                log(`Successfully migrated ${count} items to Firestore!`, 'success');
+                seedBtn.disabled = true;
+
+            } catch (e) {
+                console.error(e);
+                log('Migration Failed: ' + e.message, 'error');
+            }
+        });
+    </script>
+</body>
+
+</html>
