@@ -73,6 +73,24 @@ export const ResourceAllocationGrid: React.FC<AllocationGridProps> = ({
     }, [resources]);
 
     // --- Actions ---
+    const [dispatchModalOpen, setDispatchModalOpen] = useState(false);
+    const [selectedResourceId, setSelectedResourceId] = useState<string | null>(null);
+
+    const handleDispatchClick = useCallback((id: string) => {
+        setSelectedResourceId(id);
+        setDispatchModalOpen(true);
+    }, []);
+
+    const handleConfirmDispatch = useCallback((job: string) => {
+        if (selectedResourceId) {
+            setResources((prev) =>
+                prev.map((r) =>
+                    r.id === selectedResourceId ? { ...r, status: "active", role: `Assigned: ${job}` } : r
+                )
+            );
+        }
+        setDispatchModalOpen(false);
+    }, [selectedResourceId]);
 
     /**
      * Simulates a status update with an optimistic UI update.
@@ -93,8 +111,17 @@ export const ResourceAllocationGrid: React.FC<AllocationGridProps> = ({
         );
     }, []);
 
+    const selectedResourceName = resources.find(r => r.id === selectedResourceId)?.name || "";
+
     return (
-        <div className="w-full max-w-4xl mx-auto bg-slate-900/50 border border-slate-800 rounded-xl p-6 backdrop-blur-sm">
+        <div className="w-full max-w-4xl mx-auto bg-slate-900/50 border border-slate-800 rounded-xl p-6 backdrop-blur-sm relative">
+            <DispatchModal
+                isOpen={dispatchModalOpen}
+                onClose={() => setDispatchModalOpen(false)}
+                onConfirm={handleConfirmDispatch}
+                resourceName={selectedResourceName}
+            />
+
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
                 <div>
                     <h3 className="text-xl font-bold text-white mb-1">Resource Command</h3>
@@ -132,6 +159,7 @@ export const ResourceAllocationGrid: React.FC<AllocationGridProps> = ({
                             key={resource.id}
                             resource={resource}
                             onToggle={() => handleStatusToggle(resource.id)}
+                            onDispatch={() => handleDispatchClick(resource.id)}
                         />
                     ))}
                 </AnimatePresence>
@@ -151,13 +179,63 @@ export const ResourceAllocationGrid: React.FC<AllocationGridProps> = ({
 
 // --- Sub-components ---
 
+// --- Modal Component ---
+
+const DispatchModal = ({
+    isOpen,
+    onClose,
+    onConfirm,
+    resourceName
+}: {
+    isOpen: boolean;
+    onClose: () => void;
+    onConfirm: (job: string) => void;
+    resourceName: string;
+}) => {
+    if (!isOpen) return null;
+
+    const jobs = ["Project Alpha (Excavation)", "Sector 7 (Maintenance)", "Downtown Fiber (Repair)", "Emergency Response (Storm)"];
+
+    return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+            <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                className="bg-slate-900 border border-slate-700 rounded-2xl p-6 max-w-sm w-full shadow-2xl"
+            >
+                <h3 className="text-xl font-bold text-white mb-2">Dispatch Order</h3>
+                <p className="text-slate-400 text-sm mb-6">Assign <span className="text-white font-semibold">{resourceName}</span> to a new active ticket.</p>
+
+                <div className="space-y-2 mb-6">
+                    {jobs.map(job => (
+                        <button
+                            key={job}
+                            onClick={() => onConfirm(job)}
+                            className="w-full text-left px-4 py-3 rounded-lg bg-slate-800 hover:bg-indigo-600 hover:text-white text-slate-300 transition-colors text-sm font-medium border border-transparent hover:border-indigo-400"
+                        >
+                            {job}
+                        </button>
+                    ))}
+                </div>
+
+                <div className="flex justify-end">
+                    <button onClick={onClose} className="text-slate-400 hover:text-white text-sm">Cancel</button>
+                </div>
+            </motion.div>
+        </div>
+    );
+};
+
+// --- Sub-components ---
+
 interface ResourceCardProps {
     resource: ResourceNode;
     onToggle: () => void;
+    onDispatch: () => void;
 }
 
 // Optimization: React.memo to prevent re-render if props haven't changed.
-const ResourceCard = React.memo(({ resource, onToggle }: ResourceCardProps) => {
+const ResourceCard = React.memo(({ resource, onToggle, onDispatch }: ResourceCardProps) => {
     const statusConfig = {
         idle: { color: "text-slate-400", bg: "bg-slate-500/10", border: "border-slate-700", icon: Clock },
         active: { color: "text-emerald-400", bg: "bg-emerald-500/10", border: "border-emerald-500/50", icon: CheckCircle },
@@ -175,13 +253,12 @@ const ResourceCard = React.memo(({ resource, onToggle }: ResourceCardProps) => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             whileHover={{ scale: 1.01 }}
-            onClick={onToggle}
             className={cn(
-                "cursor-pointer group relative flex items-center justify-between p-4 rounded-lg border bg-slate-800/40 backdrop-blur-md transition-colors",
+                "group relative flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 rounded-lg border bg-slate-800/40 backdrop-blur-md transition-colors gap-4",
                 config.border
             )}
         >
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 cursor-pointer" onClick={onToggle}>
                 <div className={cn("p-2 rounded-lg", config.bg)}>
                     <Icon className={cn("w-5 h-5", config.color)} />
                 </div>
@@ -193,7 +270,8 @@ const ResourceCard = React.memo(({ resource, onToggle }: ResourceCardProps) => {
                 </div>
             </div>
 
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end">
+                {/* Capacity Bar (Hidden on very small screens) */}
                 <div className="hidden sm:block text-right">
                     <div className="text-xs text-slate-500 mb-1">Capacity</div>
                     <div className="w-24 h-1.5 bg-slate-700 rounded-full overflow-hidden">
@@ -205,8 +283,22 @@ const ResourceCard = React.memo(({ resource, onToggle }: ResourceCardProps) => {
                         />
                     </div>
                 </div>
-                <div className={cn("px-3 py-1 rounded-full text-xs font-medium border", config.bg, config.color, config.border)}>
-                    {resource.status}
+
+                <div className="flex items-center gap-3">
+                    <div className={cn("px-3 py-1 rounded-full text-xs font-medium border uppercase tracking-wider", config.bg, config.color, config.border)}>
+                        {resource.status}
+                    </div>
+
+                    {/* Dispatch Action */}
+                    <button
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            onDispatch();
+                        }}
+                        className="px-4 py-1.5 rounded-full bg-slate-700 hover:bg-white hover:text-black text-xs font-bold text-white transition-all shadow-lg active:scale-95"
+                    >
+                        Dispatch
+                    </button>
                 </div>
             </div>
         </motion.div>
@@ -214,3 +306,4 @@ const ResourceCard = React.memo(({ resource, onToggle }: ResourceCardProps) => {
 });
 
 ResourceCard.displayName = "ResourceCard";
+

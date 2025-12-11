@@ -8,20 +8,18 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
+  background: linear-gradient(to bottom,
       transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-    overflow-x: hidden;
-    overflow-y: auto !important; /* Force scroll recovery from any lock */
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+  overflow-x: hidden;
+  overflow-y: auto !important;
+  /* Force scroll recovery from any lock */
 }
 
 /* Force override any scroll lock class */
 body.antigravity-scroll-lock {
-    overflow: auto !important;
-    position: static !important;
+  overflow: auto !important;
+  position: static !important;
 }
 
 /* Noise Texture Overlay */
@@ -42,4 +40,30 @@ body::before {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #404040;
+}
+
+/* Global Selection */
+::selection {
+  background-color: rgba(16, 185, 129, 0.3);
+  /* Emerald-500 @ 30% */
+  color: #a7f3d0;
+  /* Emerald-200 */
 }

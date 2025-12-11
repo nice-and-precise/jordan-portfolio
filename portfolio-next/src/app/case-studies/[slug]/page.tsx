@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getAllProjects, getProjectBySlug } from "@/lib/data";
 import { ResourceAllocationGrid } from "@/components/case-study/ResourceAllocationGrid";
 import { MetricsScroll } from "@/components/case-study/MetricsScroll";
+import { ArchitectureDiagram } from "@/components/case-study/ArchitectureDiagram";
 
 export async function generateStaticParams() {
     const projects = await getAllProjects();
@@ -119,10 +120,8 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                                 {project.technicalDeepDive}
                             </p>
                         </div>
-                        <div className="flex items-center justify-center p-8 bg-slate-950/50 rounded-2xl border border-slate-800 border-dashed">
-                            <p className="text-slate-500 font-mono text-sm text-center">
-                                Architecture Diagram / Schema Visualization<br />(Placeholder)
-                            </p>
+                        <div className="flex items-center justify-center bg-slate-950/50 rounded-2xl border border-slate-800/50 shadow-2xl relative overflow-hidden group">
+                            <ArchitectureDiagram />
                         </div>
                     </div>
 

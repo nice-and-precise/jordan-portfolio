@@ -65,9 +65,11 @@ const MetricSection: React.FC<MetricSectionProps> = ({ metric }) => {
     });
 
     // Parallax / Fade effects based on local section scroll
-    const opacity = useTransform(scrollYProgress, [0.4, 0.5, 0.8, 0.9], [0, 1, 1, 0]);
-    const scale = useTransform(scrollYProgress, [0.4, 0.5, 0.8], [0.8, 1, 1]);
-    const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
+    // Opacity: Fade in quickly, stay, fade out quickly before end
+    const opacity = useTransform(scrollYProgress, [0.1, 0.3, 0.7, 0.9], [0, 1, 1, 0]);
+    const scale = useTransform(scrollYProgress, [0.1, 0.5, 0.9], [0.85, 1, 0.85]);
+    // Increase Y travel to ensure it physically leaves the viewport
+    const y = useTransform(scrollYProgress, [0, 1], [150, -150]);
 
     return (
         <section

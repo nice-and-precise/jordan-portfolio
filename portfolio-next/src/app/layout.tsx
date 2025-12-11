@@ -1,20 +1,26 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-sans",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-heading",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
   title: "Jordan | Full-Stack Engineer & Creative Developer",
-  description: "Portfolio of a Full-Stack Engineer specializing in high-performance web applications, 3D interactions, and system architecture.",
+  description: "Portfolio of a Full-Stack Engineer specializing in Next.js, React, and scalable systems. Building high-performance implementations that defy expectations.",
+  keywords: ["Full Stack", "React", "Next.js", "Creative Developer", "Software Engineer", "Portfolio"],
+  openGraph: {
+    title: "Jordan | Full-Stack Engineer",
+    description: "Building high-performance implementations that defy expectations.",
+    type: "website",
+  },
   icons: {
     icon: '/favicon.ico',
   },
@@ -31,7 +37,7 @@ export default function RootLayout({
         {/* Service Worker removed during debugging to ensure clean state */}
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${inter.variable} ${spaceGrotesk.variable} antialiased font-sans`}
       >
         {children}
       </body>

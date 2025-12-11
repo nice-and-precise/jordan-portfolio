@@ -48,9 +48,9 @@ export default function ContactForm() {
         return (
             <button
                 onClick={() => setIsOpen(true)}
-                className="px-8 py-4 bg-white text-black font-bold rounded-full hover:scale-105 transition-transform flex items-center gap-2"
+                className="px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-emerald-400 transition-colors flex items-center gap-2 shadow-[0_0_20px_rgba(52,211,153,0.3)] hover:shadow-[0_0_30px_rgba(52,211,153,0.5)]"
             >
-                Initialize Contact_
+                Start a Conversation
             </button>
         );
     }
@@ -95,7 +95,7 @@ export default function ContactForm() {
                     <button
                         type="submit"
                         disabled={status === "submitting"}
-                        className="flex-1 py-3 bg-white text-black font-bold rounded-lg hover:bg-neutral-200 transition-colors disabled:opacity-50"
+                        className="flex-1 py-3 bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-black font-bold rounded-lg transition-all disabled:opacity-50"
                     >
                         {status === "submitting" ? "Sending..." : "Send Message"}
                     </button>

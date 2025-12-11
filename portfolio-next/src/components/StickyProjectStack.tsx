@@ -34,7 +34,7 @@ export function StickyProjectStack({ projects }: Props) {
     );
 }
 
-function Card({ project, index, total }: { project: Project; index: number; total: number }) {
+const Card = ({ project, index, total }: { project: Project; index: number; total: number }) => {
     const container = useRef(null);
     const { scrollYProgress } = useScroll({
         target: container,
@@ -49,14 +49,16 @@ function Card({ project, index, total }: { project: Project; index: number; tota
     if (!project) return null;
 
     return (
-        <div ref={container} className="h-[150vh] w-full sticky top-0 flex items-center justify-center">
+        <div ref={container} className="h-screen w-full flex items-center justify-center sticky top-0">
             <motion.div
                 style={{
-                    scale: isLast ? 1 : scale,
-                    top: `calc(15vh + ${index * 25}px)`
+                    scale: isLast ? 1 : scale, // Keep original logic for `isLast`
+                    top: `calc(5vh + ${index * 40}px)`,
+                    zIndex: index, // Changed from `total - index` to `index` as per instruction
                 }}
-                className="flex flex-col relative w-full max-w-5xl h-[70vh] rounded-[2rem] bg-neutral-900 overflow-hidden border border-white/10 origin-top shadow-2xl"
+                className="flex flex-col relative w-[95vw] md:w-[70vw] h-[60vh] rounded-3xl bg-[#0a0a0a]/90 backdrop-blur-xl border border-white/10 overflow-hidden shadow-2xl origin-top transition-shadow hover:shadow-emerald-500/10"
             >
+                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
                 <div className="grid md:grid-cols-2 h-full">
                     {/* Content Side */}
                     <div className="p-10 flex flex-col justify-between h-full bg-neutral-900/50 backdrop-blur-3xl z-10">

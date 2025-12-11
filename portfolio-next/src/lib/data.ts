@@ -24,30 +24,30 @@ export const PROJECTS_DATA: Project[] = [
     {
         slug: "midwest-underground-ops",
         title: "Midwest Underground",
-        subtitle: "The Digital Transformation of Utility Coordination",
+        subtitle: "Precision Beneath: Next-Gen Utility Infrastructure",
         coverImage: "/images/midwest-ops.jpg",
         overview:
-            "A mission-critical Operations Management System (OMS) built to digitize the fragmented workflow of underground utility contracting. By unifying field data entry, dispatching, and asset tracking into a single real-time platform, we eliminated paper redundancy and enabled data-driven decision making for a fleet of 50+ crews.",
+            "A mission-critical Operations Command Center for the 'Iron Fleet'. This platform digitizes the entire lifecycle of directional boring and utility infrastructure—from the 'Vermeer Navigator' drilling units in the field to the project management offices in Willmar, MN. It unifies hydro-excavation dispatching, fiber optic backbone installation tracking, and OSHA compliance into a single 'Project Orbit' dashboard.",
         challenge:
-            "Midwest Underground was scaling rapidly, but their operations were bottlenecked by manual reporting. Daily Logs were paper-based, leading to a 48-hour lag in billing data. Dispatching was done via phone tag, causing fleet inefficiencies. They needed a system that could function in remote areas (offline-first) yet sync instantly with headquarters for real-time job costing.",
-        techStack: ["React", "TypeScript", "Firebase Firestore", "Google Maps Platform", "PWA", "Tailwind CSS"],
+            "Scaling complex subterranean operations across West Central Minnesota (Hwy 23 Expansion, Spicer Water Main) required more than spreadsheets. The 'Iron Fleet' needed to synchronize high-torque boring units with restoration crews in real-time. The challenge was to replace 'phone tag' dispatching with a digital ecosystem that could handle the rugged reality of the heavy civil sector while ensuring 2026 SQUTI certification readiness.",
+        techStack: ["React", "TypeScript", "Firebase", "Mapbox GL", "PWA", "Tailwind CSS"],
         technicalDeepDive:
-            "Engineered as a Progressive Web App (PWA) to guarantee 100% uptime for field crews tracking utility locates in rural dead-zones. Leveraging Firebase Firestore's offline persistence, the app queues writes and syncs automatically upon reconnection. A custom geospatial module integrates with 811 ticket data to visualize dig sites on an interactive map, overlaying crew locations in real-time. The backend utilizes Cloud Functions to automate payroll processing based on validated geofenced clock-ins, reducing administrative overhead by 40%.",
+            "The architecture mirrors the physical precision of directional boring. We implemented an offline-first PWA ('Field App') that allows crews to log utility locates and bore paths even in rural dead-zones (Renville Wind Farm). Data syncs via a 'Sync Engine' to Firestore once connectivity is restored. The 'Command Center' uses cloud functions to process GPS telemetry from the fleet, overlaying it on an interactive 'Project Orbit' map. This ensures strict adherence to safety protocols (Safe Daylighting) and provides a granular view of every cubic yard moved.",
         impact: [
             {
-                label: "Admin Time Saved",
-                value: "-40%",
-                description: "Reduction in weekly payroll and billing processing time.",
+                label: "Fleet Uptime",
+                value: "99.9%",
+                description: "Digital dispatching for Vermeer units.",
             },
             {
-                label: "Revenue Leakage",
-                value: "0%",
-                description: "Elimination of lost billable hours via digital logs.",
+                label: "Safety Compliance",
+                value: "100%",
+                description: "OSHA & SQUTI certification tracking.",
             },
             {
-                label: "Fleet Efficiency",
-                value: "+22%",
-                description: "Increase in daily job throughput per crew.",
+                label: "Projects Types",
+                value: "4+",
+                description: "Boring, Hydro-Vac, Fiber, Wind.",
             },
         ],
         role: ["Lead Full Stack Engineer", "Product Owner"],

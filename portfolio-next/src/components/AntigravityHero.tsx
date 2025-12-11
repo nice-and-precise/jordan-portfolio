@@ -77,7 +77,7 @@ const GravityItem = ({
   );
 };
 
-export default function AntigravityHero() {
+export default function AntigravityHero({ title = "GRAVITY", subtitle = "Engineering × Design" }: { title?: string, subtitle?: string }) {
   // Particles state to avoid hydration mismatch
   const [particles, setParticles] = useState<{ id: number; x: number; y: number; depth: number }[]>([]);
 
@@ -91,6 +91,19 @@ export default function AntigravityHero() {
     }));
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setParticles(newParticles);
+  }, []);
+
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({
+        x: (e.clientX / window.innerWidth - 0.5) * 40, // Range -20 to 20px
+        y: (e.clientY / window.innerHeight - 0.5) * 40
+      });
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   return (
@@ -139,13 +152,49 @@ export default function AntigravityHero() {
       ))}
 
       {/* Main Title - Static but overlaid */}
-      <div className="z-10 text-center pointer-events-none mix-blend-exclusion px-4">
-        <h1 className="text-6xl md:text-9xl font-black tracking-tighter mb-4 bg-gradient-to-b from-white to-white/40 bg-clip-text text-transparent transform transition-transform hover:scale-105 duration-700">
-          GRAVITY
-        </h1>
-        <p className="text-lg md:text-2xl text-white/50 font-light tracking-widest uppercase">
-          Engineering <span className="text-white/80 font-bold mx-2">×</span> Design
+      <div className="z-10 text-center pointer-events-none mix-blend-exclusion px-4 relative">
+        <motion.div
+          animate={{ x: mousePosition.x * -1, y: mousePosition.y * -1 }}
+          transition={{ type: "spring", damping: 30, stiffness: 200 }}
+        >
+          <h1 className="text-6xl md:text-9xl font-black tracking-tighter mb-4 bg-gradient-to-b from-white to-white/40 bg-clip-text text-transparent transform transition-transform duration-700">
+            {title}
+          </h1>
+        </motion.div>
+        <p className="text-lg md:text-2xl text-white/50 font-light tracking-widest uppercase mb-12">
+          {subtitle}
         </p>
+
+        {/* Navigation Buttons - Pointer Events Enabled */}
+        <div className="pointer-events-auto flex items-center justify-center gap-6">
+          <button
+            onClick={() => document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' })}
+            className="px-8 py-3 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/10 text-white rounded-full font-medium transition-all hover:scale-105 active:scale-95"
+          >
+            View Work
+          </button>
+          <button
+            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+            className="px-8 py-3 bg-transparent hover:bg-white/5 border border-white/20 text-white/80 rounded-full font-medium transition-all hover:text-white"
+          >
+            Contact
+          </button>
+        </div>
+      </div>
+
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-30">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="white"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
+        </svg>
       </div>
     </section>
   );
