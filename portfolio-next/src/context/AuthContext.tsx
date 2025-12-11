@@ -1,11 +1,8 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { onAuthStateChanged, User, signInWithPopup, GoogleAuthProvider, signOut as firebaseSignOut } from "firebase/auth";
-import { auth } from "@/lib/firebase"; // We need to export auth from here
-
-// Update firebase.ts first to export auth! 
-// Assuming auth is exported from @/lib/firebase (we will check/fix this next)
+import { onAuthStateChanged, User, signInWithRedirect, getRedirectResult, GoogleAuthProvider, signOut as firebaseSignOut } from "firebase/auth";
+import { auth } from "@/lib/firebase";
 
 interface AuthContextType {
     user: User | null;
@@ -26,17 +23,40 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        // Handle Redirect Result (Successful Login Return)
+        getRedirectResult(auth).then((result) => {
+            if (result) {
+                console.log("Redirect login success:", result.user);
+            }
+        }).catch((error) => {
+            console.error("Redirect login error:", error);
+        });
+
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             setUser(user);
             setLoading(false);
         });
 
-        return () => unsubscribe();
+        // Safety timeout to prevent infinite loading state
+        const timer = setTimeout(() => {
+            setLoading((prev) => {
+                if (prev) {
+                    console.warn("Auth state change timeout hit - forcing loading false");
+                    return false;
+                }
+                return prev;
+            });
+        }, 5000);
+
+        return () => {
+            unsubscribe();
+            clearTimeout(timer);
+        };
     }, []);
 
     const signInWithGoogle = async () => {
         const provider = new GoogleAuthProvider();
-        await signInWithPopup(auth, provider);
+        await signInWithRedirect(auth, provider);
     };
 
     const signOut = async () => {

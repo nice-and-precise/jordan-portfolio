@@ -9,10 +9,10 @@ export default function LoginPage() {
     const router = useRouter();
 
     useEffect(() => {
-        if (user) {
-            router.push("/admin");
+        if (user && !loading) {
+            router.replace("/admin");
         }
-    }, [user, router]);
+    }, [user, loading, router]);
 
     if (loading) return <div className="min-h-screen grid place-items-center bg-slate-950 text-white">Loading...</div>;
 
@@ -24,6 +24,7 @@ export default function LoginPage() {
 
                 <button
                     onClick={() => signInWithGoogle()}
+                    aria-label="Sign in with Google"
                     className="w-full py-3 px-4 bg-white text-slate-900 font-bold rounded-lg hover:bg-slate-200 transition-colors flex items-center justify-center gap-2"
                 >
                     Sign in with Google

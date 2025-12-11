@@ -30,5 +30,11 @@ service cloud.firestore {
         allow create: if true; // Public can submit
         allow read, update, delete: if isAuthenticated();
     }
+
+    // Settings Collection (Global Config)
+    match /settings/{settingId} {
+        allow read: if true;
+        allow write: if isAuthenticated();
+    }
   }
 }

@@ -10,8 +10,9 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
 
     useEffect(() => {
+        // Only redirect once we are sure auth is done loading
         if (!loading && !user && pathname !== "/admin/login") {
-            router.push("/admin/login");
+            router.replace("/admin/login");
         }
     }, [user, loading, router, pathname]);
 

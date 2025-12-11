@@ -34,11 +34,25 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Service Worker removed during debugging to ensure clean state */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              // Basic Service Worker Cleanup (Safe)
+              if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                  for(let registration of registrations) {
+                    registration.unregister();
+                  }
+                });
+              }
+            `,
+          }}
+        />
       </head>
       <body
         className={`${inter.variable} ${spaceGrotesk.variable} antialiased font-sans`}
       >
+        {/* Cache Bust: 2025-12-11 - Resolve Sticky Headers */}
         {children}
       </body>
     </html>
