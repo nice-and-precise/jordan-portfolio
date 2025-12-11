@@ -1,31 +1,18 @@
-# Jordan Damhof | Operations & Strategy
+# Jordan Damhof | Antigravity Portfolio
 
-**"Outcomes, not hours."**
+**Outcomes, not hours.**
 
 This repository hosts the personal portfolio for Jordan Damhof.
 
-## Overview
+## 📂 Active Project
+The active development is located in the [`portfolio-next`](./portfolio-next) directory.
 
-Refactored in 2025 to the "Industrial Swiss" design system. 
-- **Zero Latency**: All data is hardcoded. Fetch requests are abolished.
-- **Pure Efficiency**: Single-file architecture (`index.html`). No build step. No dependencies.
-- **High-Ticket Focus**: Dark mode, strict grid, value-driven copy.
-- **PWA Ready**: Installable on mobile devices with custom icons.
+## 🤖 AI Agent Guidelines
+All AI assistants (Claude, Gemini, Cursor) must follow the instructions in:
+👉 [`docs/AI_INSTRUCTIONS.md`](./docs/AI_INSTRUCTIONS.md)
 
-## Deployment
+## 🎨 Brand Standards
+Refer to [`docs/BRAND-STANDARDS.md`](./docs/BRAND-STANDARDS.md) for color tokens and typography rules.
 
-Hosted on Firebase Hosting.
-
-```bash
-# To deploy
-firebase deploy --only hosting
-```
-
-## Structure
-- `index.html`: The entire application (HTML, CSS, JS, Data).
-- `manifest.json`: PWA configuration.
-- `assets/`: Images and icons.
-- `_legacy/`: Archived code and docs from previous versions.
-
-## License
-MIT
+## Legacy
+Previous versions are archived in `_legacy/`.

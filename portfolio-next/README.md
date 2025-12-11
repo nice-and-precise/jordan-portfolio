@@ -2,6 +2,8 @@
 
 A high-performance, interactive portfolio designed to showcase complex ERP engineering work. Built with Next.js, Tailwind CSS, and Framer Motion.
 
+> **For Developers & AI Agents:** Please refer to [`../docs/AI_INSTRUCTIONS.md`](../docs/AI_INSTRUCTIONS.md) for contribution guidelines.
+
 ## 🚀 Key Features
 
 *   **Antigravity Hero:** Physics-based floating elements that react to mouse gravity (`src/components/AntigravityHero.tsx`).

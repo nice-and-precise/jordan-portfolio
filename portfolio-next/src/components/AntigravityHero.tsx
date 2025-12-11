@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useRef, useState, useEffect } from 'react';
-import { motion, useSpring, useMotionValue, useTransform } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, useSpring } from 'framer-motion';
 import { MousePointer2, Move3d, Layers, Zap } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -24,12 +24,7 @@ const GravityItem = ({
 
   // Random slight drift
   useEffect(() => {
-    const floatInfo = {
-      x: xInitial,
-      y: yInitial,
-      dx: (Math.random() - 0.5) * 20,
-      dy: (Math.random() - 0.5) * 20,
-    };
+
 
     // Animate loop for drift
     let animationFrameId: number;
@@ -83,6 +78,21 @@ const GravityItem = ({
 };
 
 export default function AntigravityHero() {
+  // Particles state to avoid hydration mismatch
+  const [particles, setParticles] = useState<{ id: number; x: number; y: number; depth: number }[]>([]);
+
+  useEffect(() => {
+    // Generate particles only on client
+    const newParticles = Array.from({ length: 10 }).map((_, i) => ({
+      id: i,
+      x: (Math.random() - 0.5) * 1000,
+      y: (Math.random() - 0.5) * 800,
+      depth: Math.random() * 3,
+    }));
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setParticles(newParticles);
+  }, []);
+
   return (
     <section className="relative h-screen w-full overflow-hidden bg-[#050505] text-white flex items-center justify-center">
       {/* Background Grid */}
@@ -117,11 +127,11 @@ export default function AntigravityHero() {
       </GravityItem>
 
       {/* Variable Depth Particles */}
-      {Array.from({ length: 10 }).map((_, i) => (
-        <GravityItem key={i}
-          xInitial={(Math.random() - 0.5) * 1000}
-          yInitial={(Math.random() - 0.5) * 800}
-          depth={Math.random() * 3}
+      {particles.map((p) => (
+        <GravityItem key={p.id}
+          xInitial={p.x}
+          yInitial={p.y}
+          depth={p.depth}
           className="p-2 rounded-full border-none bg-white/5 w-4 h-4"
         >
           <div />

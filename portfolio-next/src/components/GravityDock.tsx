@@ -2,8 +2,7 @@
 
 import React, { useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, MotionValue } from 'framer-motion';
-import { Home, LayoutGrid, FolderOpen, Mail, Terminal, Cpu } from 'lucide-react';
-import { cn } from '@/lib/utils'; // Assuming you have a utility or I'll inline it if not exists, but I used cn in AntigravityHero so it might be needed. Wait, I defined cn locally in AntigravityHero. I should probably make a shared util or just inline for now to be safe.
+import { Home, LayoutGrid, Mail, Terminal, Cpu } from 'lucide-react';
 
 export default function GravityDock() {
     const mouseX = useMotionValue(Infinity);

@@ -15,8 +15,20 @@ service cloud.firestore {
 
     // Outcomes Collection
     match /outcomes/{outcomeId} {
-      allow read: if true; // Public read access
-      allow write: if isAuthenticated(); // Only authenticated users can edit
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
+
+    // Posts Collection (Writing)
+    match /posts/{postId} {
+        allow read: if true;
+        allow write: if isAuthenticated();
+    }
+
+    // Inquiries Collection (Contact Form)
+    match /inquiries/{inquiryId} {
+        allow create: if true; // Public can submit
+        allow read, update, delete: if isAuthenticated();
     }
   }
 }

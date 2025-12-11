@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixing...</title>
+</head>
+
+<body>
+    <h1>Cleaning up...</h1>
+    <script>
+        console.log("Starting cleanup...");
+        if (typeof window !== 'undefined') {
+            // 1. Unregister all service workers
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistrations().then(function (registrations) {
+                    for (let registration of registrations) {
+                        console.log('Unregistering:', registration);
+                        registration.unregister();
+                    }
+                });
+            }
+            // 2. Delete all caches
+            if ('caches' in window) {
+                caches.keys().then(function (names) {
+                    for (let name of names) {
+                        console.log('Deleting cache:', name);
+                        caches.delete(name);
+                    }
+                });
+            }
+            // 3. Clear Storage
+            localStorage.clear();
+            sessionStorage.clear();
+
+            // 4. Redirect to home after a brief delay
+            setTimeout(() => {
+                window.location.href = "/?fixed=true";
+            }, 1000);
+        }
+    </script>
+</body>
+
+</html>

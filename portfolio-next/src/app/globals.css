@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 :root {
   --foreground-rgb: 255, 255, 255;
@@ -17,6 +15,13 @@ body {
     )
     rgb(var(--background-start-rgb));
     overflow-x: hidden;
+    overflow-y: auto !important; /* Force scroll recovery from any lock */
+}
+
+/* Force override any scroll lock class */
+body.antigravity-scroll-lock {
+    overflow: auto !important;
+    position: static !important;
 }
 
 /* Noise Texture Overlay */

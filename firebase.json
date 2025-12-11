@@ -1,6 +1,11 @@
 {
+    "firestore": {
+        "rules": "firestore.rules",
+        "indexes": "firestore.indexes.json"
+    },
     "hosting": {
-        "public": ".",
+        "public": "portfolio-next/out",
+        "cleanUrls": true,
         "ignore": [
             "firebase.json",
             "**/.*",
@@ -12,19 +17,26 @@
             "package-lock.json",
             "serviceAccountKey.json"
         ],
-        "rewrites": [
-            {
-                "source": "**",
-                "destination": "/index.html"
-            }
-        ],
         "headers": [
             {
                 "source": "**",
                 "headers": [
                     {
                         "key": "Cache-Control",
-                        "value": "max-age=3600"
+                        "value": "max-age=0, no-cache, no-store, must-revalidate"
+                    },
+                    {
+                        "key": "Clear-Site-Data",
+                        "value": "\"cache\", \"cookies\", \"storage\", \"executionContexts\""
+                    }
+                ]
+            },
+            {
+                "source": "/sw.js",
+                "headers": [
+                    {
+                        "key": "Cache-Control",
+                        "value": "no-cache, no-store, must-revalidate"
                     }
                 ]
             }

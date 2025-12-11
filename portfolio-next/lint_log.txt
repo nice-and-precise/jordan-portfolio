@@ -1,0 +1,62 @@
+
+> portfolio-next@0.1.0 lint
+> eslint
+
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\app\admin\page.tsx
+  46:52  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\app\admin\writing\page.tsx
+  3:10  warning  'useAuth' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\AntigravityHero.tsx
+   3:17  warning  'useRef' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-unused-vars
+   4:29  warning  'useMotionValue' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         @typescript-eslint/no-unused-vars
+   4:45  warning  'useTransform' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           @typescript-eslint/no-unused-vars
+  27:11  warning  'floatInfo' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     @typescript-eslint/no-unused-vars
+  97:5   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\AntigravityHero.tsx:97:5
+   95 |       depth: Math.random() * 3,
+   96 |     }));
+>  97 |     setParticles(newParticles);
+      |     ^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+   98 |   }, []);
+   99 |
+  100 |   return (  react-hooks/set-state-in-effect
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\ClientHome.tsx
+   4:8   warning  'Link' is defined but never used                                 @typescript-eslint/no-unused-vars
+   5:8   warning  'Image' is defined but never used                                @typescript-eslint/no-unused-vars
+  33:24  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\ContactForm.tsx
+  42:53  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\GravityDock.tsx
+  5:28  warning  'FolderOpen' is defined but never used  @typescript-eslint/no-unused-vars
+  6:10  warning  'cn' is defined but never used          @typescript-eslint/no-unused-vars
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\StickyProjectStack.tsx
+  45:11  warning  'y' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\admin\PostForm.tsx
+  15:67  warning  'errors' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\admin\ProjectForm.tsx
+   3:19  warning  'useFieldArray' is defined but never used     @typescript-eslint/no-unused-vars
+  19:23  warning  'control' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  19:76  warning  'errors' is assigned a value but never used   @typescript-eslint/no-unused-vars
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\case-study\MetricsScroll.tsx
+  60:64  warning  'index' is defined but never used  @typescript-eslint/no-unused-vars
+  60:71  warning  'total' is defined but never used  @typescript-eslint/no-unused-vars
+
+Γ£û 20 problems (4 errors, 16 warnings)
+

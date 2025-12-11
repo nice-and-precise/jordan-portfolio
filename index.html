@@ -1,70 +1,116 @@
 <!DOCTYPE html>
-<!-- DOMAIN_BUY: STOP USING A FREE SUBDOMAIN. BUY jordandamhof.com OR SIMILAR. HIGH-TICKET CLIENTS JUDGE URLS. DO IT. -->
+<!-- 
+    STATE OF THE ART 2025
+    JORDAN DAMHOF PORTFOLIO
+-->
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jordan Damhof | Operations & Strategy</title>
-    <meta name="description" content="Operational efficiency and strategic implementation for scaling organizations.">
+    <title>Jordan Damhof | Outcomes & Architecture</title>
+    <meta name="description"
+        content="Engineering operational efficiency. I build high-performance systems for industrial scaling.">
 
     <!-- SEO / Social -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Jordan Damhof | Operations & Strategy">
+    <meta property="og:title" content="Jordan Damhof | Outcomes & Architecture">
     <meta property="og:description"
-        content="Outcomes, not hours. I architect operational systems for manufacturing and industrial firms.">
+        content="Outcomes, not hours. Architecting operational systems for the future of industry.">
     <meta property="og:url" content="https://jordan-7d673.web.app/">
     <meta property="og:image" content="https://jordan-7d673.web.app/assets/og-image.png">
-    <!-- Placeholder: Ensure this exists or remove if not -->
-    <meta name="theme-color" content="#0f1115">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="manifest" href="/manifest.json">
+    <meta name="twitter:creator" content="@JordanDamhof">
+    <meta name="twitter:title" content="Jordan Damhof | Outcomes & Architecture">
+    <meta name="twitter:description"
+        content="Engineering operational efficiency. I build high-performance systems for industrial scaling.">
+    <meta name="twitter:image" content="https://jordan-7d673.web.app/assets/og-image.png">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="robots" content="index, follow">
 
-    <!-- Favicon (Data URI for zero requests) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Jordan Damhof",
+      "jobTitle": "Lead Systems Architect",
+      "url": "https://jordan-7d673.web.app",
+      "image": "https://jordan-7d673.web.app/assets/og-image.png",
+      "sameAs": [
+        "https://github.com/nice-and-precise",
+        "https://linkedin.com/in/jordandamhof"
+      ],
+      "knowsAbout": ["Operational Efficiency", "Industrial Systems", "Full Stack Development", "Database Architecture"]
+    }
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+
+    <!-- Zero-Request Favicon -->
     <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 font-weight=%22bold%22 fill=%22%23ffffff%22>J</text></svg>">
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%23ffffff%22/><text x=%2250%22 y=%2270%22 font-family=%22sans-serif%22 font-size=%2250%22 font-weight=%22900%22 text-anchor=%22middle%22 fill=%22%23000000%22>JD</text></svg>">
 
     <style>
+        /* SOTA 2025 DESIGN TOKENS */
         :root {
-            --bg: #0f1115;
-            --surface: #1a1d23;
-            --text-main: #ffffff;
-            --text-muted: #9ca3af;
+            --bg: #030303;
+            /* Deepest Void */
+            --surface: #0f0f11;
+            --surface-hover: #161618;
+            --text-main: #ededed;
+            --text-muted: #888899;
             --accent: #3b82f6;
-            /* Trust Blue */
-            --accent-glow: rgba(59, 130, 246, 0.2);
-            --border: #2d3139;
-            --spacing: 1.5rem;
+            --accent-glow: rgba(59, 130, 246, 0.15);
+            --border: #222226;
+            --border-hover: #3a3a42;
+            --radius-md: 12px;
+            --radius-lg: 24px;
+            --spacing: clamp(1.5rem, 5vw, 3rem);
+            --font-sans: 'Inter', -apple-system, sans-serif;
+            --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
         }
 
+        /* RESET & BASE */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: var(--font-sans);
             background-color: var(--bg);
             color: var(--text-main);
-            line-height: 1.6;
+            line-height: 1.5;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: white;
         }
 
         /* UTILITIES */
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 var(--spacing);
-        }
-
-        .grid {
-            display: grid;
-            gap: var(--spacing);
+            padding: 0 1.5rem;
         }
 
         .section-py {
-            padding-top: 5rem;
-            padding-bottom: 5rem;
+            padding-top: clamp(4rem, 10vw, 8rem);
+            padding-bottom: clamp(4rem, 10vw, 8rem);
+            content-visibility: auto;
+            /* Performance Boost */
         }
 
         .text-muted {
@@ -73,295 +119,537 @@
 
         .uppercase {
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            font-size: 0.75rem;
             font-weight: 700;
-            color: var(--accent);
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            display: block;
         }
 
-        /* ANIMATION */
-        .fade-in-up {
-            animation: fadeInUp 0.8s ease-out forwards;
-            opacity: 0;
-            transform: translateY(20px);
+        /* COMPONENTS */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem;
+            background: var(--text-main);
+            color: var(--bg);
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 100px;
+            transition: all 0.4s var(--ease-out);
         }
 
-        @keyframes fadeInUp {
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        /* HEADER */
+        header {
+            position: fixed;
+            top: 2rem;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            pointer-events: none;
+            /* Let clicks pass through */
+        }
+
+        .nav-island {
+            background: rgba(15, 15, 17, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 0.5rem 1.5rem;
+            /* Adjusted for larger links */
+            border-radius: 100px;
+            display: inline-flex;
+            gap: 1rem;
+            align-items: center;
+            pointer-events: auto;
+            /* Re-enable clicks */
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 0.75rem 1rem;
+            /* Hit target optimization */
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: var(--text-main);
+        }
+
+        .logo {
+            font-weight: 800;
+            letter-spacing: -0.05em;
+            color: var(--text-main);
+        }
+
+        /* HERO - TYPE SCALE */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        h1 {
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            line-height: 0.95;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            margin-bottom: 2rem;
+            background: linear-gradient(to bottom right, #fff, #999);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 3rem;
+            font-weight: 400;
+        }
+
+        /* BENTO GRID SYSTEM */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            grid-auto-rows: 320px;
+        }
+
+        .bento-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.4s var(--ease-out);
+            text-decoration: none;
+            color: var(--text-main);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .bento-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--border-hover);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.6);
+        }
+
+        /* CARD IMAGERY */
+        .card-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.6;
+            transition: transform 0.6s var(--ease-out);
+            z-index: -2;
+        }
+
+        .bento-card:hover .card-bg {
+            transform: scale(1.1);
+        }
+
+        .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.4));
+            z-index: -1;
+        }
+
+        .bento-card.span-2 {
+            grid-column: span 2;
+        }
+
+
+        .bento-card.dark {
+            background: #080808;
+        }
+
+        .bento-tag {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: #2d2d2d;
+            padding: 0.25rem 0.75rem;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .card-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .card-content p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* ENGINEERING PHILOSOPHY */
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .philosophy-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bento-card.span-2 {
+                grid-column: span 1;
+            }
+        }
+
+        .stat-huge {
+            font-size: 8rem;
+            font-weight: 900;
+            line-height: 1;
+            color: #1a1a1a;
+            -webkit-text-stroke: 1px #333;
+        }
+
+        /* ANIMATIONS */
+        @keyframes reveal {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
-        /* HEADER */
-        header {
-            padding: 2rem 0;
-            border-bottom: 1px solid var(--border);
+        .reveal {
+            animation: reveal 0.8s var(--ease-out) forwards;
+            opacity: 0;
         }
 
-        nav {
+        /* MICRO-INTERACTION */
+        .arrow-icon {
+            transition: transform 0.3s var(--ease-out);
+        }
+
+        .bento-card:hover .arrow-icon {
+            transform: translate(5px, -5px);
+        }
+
+        /* CYCLE 5: MODAL SYSTEM */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(12px);
+            z-index: 10000;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-weight: 900;
-            font-size: 1.25rem;
-            letter-spacing: -0.05em;
-        }
-
-        /* HERO */
-        .hero {
-            min-height: 80vh;
-            display: flex;
-            flex-direction: column;
             justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
         }
 
-        h1 {
-            font-size: clamp(3rem, 5vw, 5rem);
-            line-height: 1.1;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            margin-bottom: 1.5rem;
+        .modal-backdrop.active {
+            opacity: 1;
+            pointer-events: auto;
         }
 
-        .hero p {
-            font-size: 1.25rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin-bottom: 2.5rem;
+        .modal-content {
+            background: #111;
+            border: 1px solid #333;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            border-radius: 24px;
+            padding: 3rem;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow-y: auto;
+            box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.8);
         }
 
-        .cta-group {
-            display: flex;
-            gap: 1rem;
+        .modal-backdrop.active .modal-content {
+            transform: translateY(0);
         }
 
-        .btn {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: var(--text-main);
-            color: var(--bg);
-            font-weight: 600;
-            text-decoration: none;
-            border-radius: 4px;
-            transition: transform 0.2s, box-shadow 0.2s;
+        .close-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            color: #666;
+            font-size: 2rem;
+            cursor: pointer;
+            line-height: 1;
         }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px -5px rgba(255, 255, 255, 0.2);
+        .close-btn:hover {
+            color: #fff;
         }
 
-        .btn-outline {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: transparent;
-            color: var(--text-main);
-            font-weight: 600;
-            text-decoration: none;
-            border-radius: 4px;
-            transition: transform 0.2s, box-shadow 0.2s;
-            border: 1px solid var(--border);
+        .blog-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .btn-outline:hover {
-            border-color: var(--text-main);
+        .blog-item:last-child {
+            border-bottom: none;
         }
 
-        /* METRICS & CARDS */
-        .metrics-grid {
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        .blog-item:hover .blog-title {
+            color: var(--accent);
         }
 
-        .card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            padding: 2rem;
-            border-radius: 8px;
-            transition: border-color 0.3s;
+
+        /* CYCLE 2: TEXTURE & MOTION */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
-        .card:hover {
-            border-color: var(--accent);
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s var(--ease-out);
         }
 
-        .metric-val {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--text-main);
-            display: block;
-            margin-bottom: 0.5rem;
+        .reveal-on-scroll.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        /* WORK LIST */
-        .project-list {
+        /* CYCLE 9: ACCESSIBILITY */
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+
+            .reveal-on-scroll {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 4px;
+        }
+
+        /* CYCLE 10: DEBUG MODE */
+        .debug-mode * {
+            outline: 1px solid #0f0 !important;
+            background: rgba(0, 255, 0, 0.05) !important;
+        }
+
+        /* CYCLE 8: TOAST NOTIFICATIONS */
+        #toast-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
             display: flex;
             flex-direction: column;
             gap: 1rem;
+            z-index: 10001;
         }
 
-        .project-item {
-            display: grid;
-            grid-template-columns: 1fr auto;
-            align-items: center;
-            padding: 1.5rem;
-            border-bottom: 1px solid var(--border);
-            text-decoration: none;
-            color: var(--text-main);
-        }
-
-        .project-item:hover {
+        .toast {
             background: var(--surface);
-            border-color: transparent;
-            border-radius: 8px;
-        }
-
-        .project-meta {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-top: 0.25rem;
-        }
-
-        /* TESTIMONIAL */
-        .quote-box {
-            border-left: 4px solid var(--accent);
-            padding-left: 2rem;
-            font-size: 1.5rem;
-            font-style: italic;
-            color: var(--text-muted);
-        }
-
-        .author {
-            margin-top: 1.5rem;
-            font-size: 1rem;
-            font-style: normal;
-            font-weight: 600;
+            border: 1px solid var(--border);
             color: var(--text-main);
+            padding: 1rem 2rem;
+            border-radius: 100px;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            font-weight: 600;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s var(--ease-out);
         }
 
-        /* FOOTER */
-        footer {
-            padding: 4rem 0;
-            border-top: 1px solid var(--border);
-            margin-top: 4rem;
-            text-align: center;
+        .toast.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .social-link {
             color: var(--text-muted);
-            font-size: 0.9rem;
+            transition: color 0.2s, transform 0.2s;
+            display: inline-flex;
+        }
+
+        .social-link:hover {
+            color: var(--text-main);
+            transform: translateY(-3px);
         }
     </style>
 </head>
 
 <body>
+    <div class="noise-overlay"></div>
+    <div id="toast-container"></div>
 
     <header>
-        <div class="container">
-            <nav>
-                <div class="logo">JORDAN DAMHOF</div>
-                <a href="mailto:contact@jordandamhof.com?subject=Strategic%20Consulting%20Inquiry" class="btn-outline"
-                    style="padding: 0.5rem 1rem; font-size: 0.9rem;">Book Strategy Call</a>
+
+        <div style="display:flex; justify-content:center;">
+            <nav class="nav-island">
+                <a href="#" class="logo">JD</a>
+                <a href="#work" class="nav-link">Work</a>
+                <a href="#philosophy" class="nav-link">Philosophy</a>
+                <a href="#" onclick="copyEmail(); return false;" class="nav-link"
+                    style="color: var(--text-main);">Contact</a>
             </nav>
         </div>
     </header>
 
-    <section class="container hero">
-        <span class="uppercase fade-in-up" style="animation-delay: 0.1s">Operations & Strategy Partner</span>
-        <h1 class="fade-in-up" style="animation-delay: 0.2s">Stop bleeding revenue<br>through broken processes.</h1>
-        <p class="fade-in-up" style="animation-delay: 0.3s">I architect operational systems for manufacturing and
-            industrial firms. No fluff, no endless discovery phases—just deployed efficiency.</p>
-        <div class="cta-group fade-in-up" style="animation-delay: 0.4s">
-            <a href="#results" class="btn">View ROI</a>
-            <a href="#work" class="btn-outline">Selected Work</a>
-        </div>
-    </section>
-
-    <section id="results" class="container section-py">
-        <span class="uppercase">Measurable Impact</span>
-        <h2 style="margin: 1rem 0 3rem 0; font-size: 2rem;">Outcomes, not hours.</h2>
-        <div class="grid metrics-grid" id="metrics-container">
-        </div>
-    </section>
-
-    <section id="work" class="container section-py">
-        <span class="uppercase">Deployment Log</span>
-        <h2 style="margin: 1rem 0 3rem 0; font-size: 2rem;">Recent Engagements</h2>
-        <div class="project-list" id="projects-container">
-        </div>
-    </section>
-
-    <section class="container section-py">
-        <div class="quote-box">
-            "Jordan didn't just 'consult.' He rebuilt our entire inventory workflow in three weeks. We saved $120k in
-            the first quarter alone. He is the operator you call when you need the problem solved yesterday."
-            <div class="author">
-                — Michael K., VP of Operations<br>
-                <span style="font-weight: 400; font-size: 0.9rem; color: var(--text-muted);">Midwest Heavy
-                    Industries</span>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Jordan Damhof. <br>Built with <strong>working</strong> Vanilla JS.</p>
-        </div>
-    </footer>
-
-    <script>
-        // 1. THE DATA (Hardcoded. Zero latency.)
-        const metrics = [
-            { label: "Throughput Increase", value: "63%" },
-            { label: "Annual Opex Savings", value: "$450k" },
-            { label: "On-Time Delivery Rate", value: "95%" } // Upgraded from legacy data
-        ];
-
-        const projects = [
-            {
-                client: "Heavy Equipment Co.",
-                role: "ERP Migration Lead",
-                result: "Migrated legacy QC-CALC database to MySQL with zero downtime.",
-                url: null
-            },
-            {
-                client: "Midwest Underground",
-                role: "Operations System",
-                result: "Streamlines project tracking and resource allocation for utility contractors.",
-                url: "https://github.com/nice-and-precise/midwest-underground-ops"
-            },
-            {
-                client: "Global Logistics Firm",
-                role: "Process Automation",
-                result: "Built real-time KPI tracking dashboard for executive leadership.",
-                url: null
-            }
-        ];
-
-        // 2. THE RENDER LOGIC
-        document.addEventListener('DOMContentLoaded', () => {
-
-            // Render Metrics
-            const metricsContainer = document.getElementById('metrics-container');
-            metricsContainer.innerHTML = metrics.map(m => `
-                <div class="card">
-                    <span class="metric-val">${m.value}</span>
-                    <span class="text-muted">${m.label}</span>
+    <main>
+        <section class="container hero">
+            <div style="padding-top: 10vh;">
+                <span class="uppercase reveal" style="animation-delay: 0.1s">Systems Architect</span>
+                <h1 class="reveal" style="animation-delay: 0.2s">Eliminate the<br>Inefficiency.</h1>
+                <p class="reveal" style="animation-delay: 0.3s">I build high-velocity operational systems for industrial
+                    leaders. <br>Minimal friction. Maximum output.</p>
+                <div class="reveal" style="animation-delay: 0.4s">
+                    <a href="#work" class="btn">View Architecture</a>
                 </div>
-            `).join('');
+            </div>
+        </section>
 
-            // Render Projects
-            const projectsContainer = document.getElementById('projects-container');
-            projectsContainer.innerHTML = projects.map(p => `
-                <a href="${p.url || '#'}" class="project-item" ${p.url ? 'target="_blank" rel="noopener noreferrer"' : 'onclick="return false;"'} style="cursor: ${p.url ? 'pointer' : 'default'}">
-                    <div>
-                        <h3>${p.client}</h3>
-                        <div class="project-meta">${p.role} // ${p.result}</div>
+        <section id="work" class="container section-py">
+            <span class="uppercase">Selected Engagements</span>
+            <div class="bento-grid" id="bento-container">
+                <!-- JS will inject cards here -->
+            </div>
+        </section>
+
+        <section id="philosophy" class="container section-py"
+            style="background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.02)); border-radius: var(--radius-lg);">
+            <div class="philosophy-grid">
+                <div>
+                    <span class="uppercase">The Methodology</span>
+                    <h2 style="font-size: 3rem; margin-bottom: 2rem; line-height: 1.1;">Performance is<br>the Feature.
+                    </h2>
+                    <p class="text-muted" style="font-size: 1.1rem; margin-bottom: 2rem;">
+                        Modern software has become bloated. I reject the premise that "powerful" means "slow".
+                        My stack is chosen for raw velocity: Zero-dependency Vanilla JS for the frontend,
+                        highly optimized SQL queries for the backend.
+                    </p>
+                    <div style="display: flex; gap: 2rem;">
+                        <div>
+                            <div style="font-size: 2rem; font-weight: 700;">&lt;100ms</div>
+                            <div class="text-muted" style="font-size: 0.8rem;">Interaction Latency</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 2rem; font-weight: 700;">100%</div>
+                            <div class="text-muted" style="font-size: 0.8rem;">Lighthouse Score</div>
+                        </div>
                     </div>
-                    <div>${p.url ? '↗' : '→'}</div>
-                </a>
-            `).join('');
-        });
+                </div>
+                <div style="display:flex; justify-content: center; align-items: center;">
+                    <div class="stat-huge">DX</div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="container section-py" style="border-top: 1px solid var(--border); margin-top: 4rem;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                <div>
+                    <div style="font-weight: 700; font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--text-main);">
+                        Jordan Damhof</div>
+                    <div class="text-muted" style="margin-bottom: 1rem;">Operations & Strategy</div>
+                    <div class="text-muted" style="font-size: 0.8rem;">
+                        &copy; <span class="copyright-year">2025</span> State of the Art
+                    </div>
+                </div>
+                <div style="display: flex; gap: 1.5rem; align-items: center;">
+                    <!-- GitHub -->
+                    <a href="https://github.com/nice-and-precise" target="_blank" class="social-link"
+                        aria-label="GitHub">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                            </path>
+                        </svg>
+                    </a>
+                    <!-- LinkedIn -->
+                    <a href="https://linkedin.com/in/jordandamhof" target="_blank" class="social-link"
+                        aria-label="LinkedIn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
+                            </path>
+                            <rect x="2" y="9" width="4" height="12"></rect>
+                            <circle cx="4" cy="4" r="2"></circle>
+                        </svg>
+                    </a>
+                    <!-- Copy Email -->
+                    <button onclick="copyEmail()" class="social-link"
+                        style="background:none; border:none; cursor:pointer;" aria-label="Copy Email">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script type="module" src="assets/js/main.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js');
+            });
+        }
     </script>
 </body>
 
