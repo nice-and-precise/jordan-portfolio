@@ -103,7 +103,7 @@ const AntiGravityCanvas: React.FC<{ density: number }> = ({ density }) => {
         backgroundParticlesRef.current = newBgParticles;
 
         setDebugInfo(prev => ({ ...prev, count: particleCount + bgCount }));
-    }, []);
+    }, [density]);
 
     // Animation Loop
     const animate = useCallback((time: number) => {

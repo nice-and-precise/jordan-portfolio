@@ -1,0 +1,30 @@
+# GitHub Repository Translation Matrix
+# Transformation: "Coder" -> "Strategic Partner"
+
+## Core Strategy
+Rename repositories to reflect *business value* and *operational capability*, not just the tech stack.
+
+---
+
+### Repo: `nice-and-precise` (Profile Repo)
+**New Name:** `operational-intelligence-suite`
+**Description:** "The central command center for deploying high-velocity operational architectures. Documentation of methodologies: Kaizen, Lean, and Six Sigma applied to distributed systems."
+**Reasoning:** Moves from a "portfolio" vibe to a "suite of tools" vibe.
+
+### Repo: `portfolio-next`
+**New Name:** `digital-asset-manager`
+**Description:** "A high-performance NEXT.js implementation for asset virtualization. Demonstrates <100ms interaction latency and perfect Lighthouse scores for client acquisition interfaces."
+**Reasoning:** "Portfolio" sounds like a freelancer. "Asset Manager" sounds like enterprise software.
+
+### Repo: `agency-agents`
+**New Name:** `autonomous-workforce-orchestrator`
+**Description:** "Multi-agent systems designed to replace manual administrative overhead. Features autonomous negotiation, task delegation, and error-correction loops."
+**Reasoning:** "Agency" implies service work. "Workforce Orchestrator" implies replacing headcount with software.
+
+### General Guidelines for Future Repos
+1. **Avoid:** `my-app`, `test`, `react-project`
+2. **Use:** `[Business Function]-[Capability]` (e.g., `inventory-prediction-engine`, `logistics-neural-net`)
+3. **Readme Structure:**
+   - **The Problem:** (e.g., "Inventory tracking was slow")
+   - **The Solution:** (e.g., "Real-time edge computing...")
+   - **The Impact:** (e.g., "Reduced shrink by 14%")

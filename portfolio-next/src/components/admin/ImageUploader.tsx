@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useState } from 'react';
+import NextImage from 'next/image';
 import { storage } from '@/lib/firebase';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { Upload, Loader2, Check, Sparkles, Image as ImageIcon } from 'lucide-react';
+import { Upload, Loader2, Check, Sparkles } from 'lucide-react';
 import { generateImagePrompt } from '@/lib/gemini';
 
 interface ImageUploaderProps {
@@ -62,7 +63,7 @@ export default function ImageUploader({ value, onChange, folder = "projects" }: 
             const demoUrl = `https://source.unsplash.com/1600x900/?${keywords}&t=${Date.now()}`;
 
             onChange(demoUrl);
-        } catch (e) {
+        } catch {
             alert("Please check Gemini API Key configuration.");
         } finally {
             setAiLoading(false);
@@ -114,7 +115,7 @@ export default function ImageUploader({ value, onChange, folder = "projects" }: 
             ) : (
                 <div className="space-y-3 bg-slate-900/30 p-4 rounded-xl border border-slate-800">
                     <div className="bg-indigo-500/10 p-3 rounded border border-indigo-500/20 text-xs text-indigo-300">
-                        <strong>Power by Gemini:</strong> Describe your vision, and we'll engineer the perfect prompt and fetch a visualization.
+                        <strong>Power by Gemini:</strong> Describe your vision, and we&apos;ll engineer the perfect prompt and fetch a visualization.
                     </div>
                     <textarea
                         value={aiDetails}
@@ -132,7 +133,7 @@ export default function ImageUploader({ value, onChange, folder = "projects" }: 
                     </button>
                     {aiPrompt && (
                         <div className="text-xs text-slate-500 italic mt-2">
-                            Generated Prompt: "{aiPrompt}"
+                            Generated Prompt: &quot;{aiPrompt}&quot;
                         </div>
                     )}
                 </div>
@@ -140,8 +141,7 @@ export default function ImageUploader({ value, onChange, folder = "projects" }: 
 
             {value && (
                 <div className="relative aspect-video rounded-lg overflow-hidden bg-black border border-slate-800 group">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={value} alt="Preview" className="w-full h-full object-cover" />
+                    <NextImage src={value} alt="Preview" fill className="object-cover" unoptimized />
                     <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                         <Check className="w-8 h-8 text-emerald-500" />
                     </div>

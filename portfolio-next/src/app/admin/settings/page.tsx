@@ -59,6 +59,16 @@ export default function GlobalSettingsPage() {
                                 <label className="block text-sm text-slate-400 mb-2">Subtitle (e.g. Engineering x Design)</label>
                                 <input {...register("heroSubtitle")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
                             </div>
+
+                            <div>
+                                <label className="block text-sm text-emerald-400 mb-2 font-bold">Active Narrative Strategy</label>
+                                <select {...register("heroPersona")} className="w-full bg-slate-950 border border-emerald-500/30 p-3 rounded-lg text-white">
+                                    <option value="aggressive">Aggressive (Velocity & Scale)</option>
+                                    <option value="empathetic">Empathetic (Chaos to Order)</option>
+                                    <option value="visionary">Visionary (Future Architecture)</option>
+                                </select>
+                                <p className="text-xs text-slate-500 mt-2">Changes the StoryBrand script on the homepage.</p>
+                            </div>
                         </div>
                     </div>
 

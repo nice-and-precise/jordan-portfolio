@@ -3,60 +3,289 @@
 > eslint
 
 
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\app\admin\leads\page.tsx
+    7:27   warning  'LogOut' is defined but never used            @typescript-eslint/no-unused-vars
+    7:90   warning  'Circle' is defined but never used            @typescript-eslint/no-unused-vars
+    7:98   warning  'Archive' is defined but never used           @typescript-eslint/no-unused-vars
+   20:16   error    Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+   26:13   warning  'signOut' is assigned a value but never used  @typescript-eslint/no-unused-vars
+   26:22   warning  'user' is assigned a value but never used     @typescript-eslint/no-unused-vars
+  223:110  error    Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+
 C:\Users\Owner\Desktop\Jordan\portfolio-next\src\app\admin\page.tsx
-  46:52  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+    7:77   warning  'Globe' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     @typescript-eslint/no-unused-vars
+    9:50   warning  'limit' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     @typescript-eslint/no-unused-vars
+   15:46   error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              @typescript-eslint/no-explicit-any
+   37:151  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              @typescript-eslint/no-explicit-any
+   86:22   error    Error: Cannot create components during render
 
-C:\Users\Owner\Desktop\Jordan\portfolio-next\src\app\admin\writing\page.tsx
-  3:10  warning  'useAuth' is defined but never used  @typescript-eslint/no-unused-vars
+Components created during render will reset their state each time they are created. Declare components outside of render.
 
-C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\AntigravityHero.tsx
-   3:17  warning  'useRef' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 @typescript-eslint/no-unused-vars
-   4:29  warning  'useMotionValue' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         @typescript-eslint/no-unused-vars
-   4:45  warning  'useTransform' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           @typescript-eslint/no-unused-vars
-  27:11  warning  'floatInfo' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     @typescript-eslint/no-unused-vars
-  97:5   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\app\admin\page.tsx:86:22
+  84 |                 {/* Stats Row */}
+  85 |                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+> 86 |                     <StatCard label="Active Projects" value={projects.length} icon={Code2} />
+     |                      ^^^^^^^^ This component is created during render
+  87 |                     <StatCard label="Total Leads" value={leads.length} icon={Users} colorClass="text-blue-400 bg-blue-500/10" />
+  88 |                     <StatCard label="Pipeline Value" value={formatCurrency(totalPipeline)} icon={DollarSign} colorClass="text-indigo-400 bg-indigo-500/10" />
+  89 |                     <a href="/admin/leads" className="block transition-transform hover:scale-105">
 
-Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
-* Update external systems with the latest state from React.
-* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\app\admin\page.tsx:37:22
+  35 |     }, []);
+  36 |
+> 37 |     const StatCard = ({ label, value, icon: Icon, colorClass = "text-emerald-400 bg-emerald-500/10" }: { label: string, value: string | number, icon: any, colorClass?: string }) => (
+     |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 38 |         <div className="bg-white/5 border border-white/10 p-6 rounded-xl flex items-center gap-4 backdrop-blur-sm">
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 39 |             <div className={`p-3 rounded-lg ${colorClass}`}>
+     ΓÇª
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 46 |         </div>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 47 |     );
+     | ^^^^^^ The component is created during render here
+  48 |
+  49 |     const formatCurrency = (val: number) => {
+  50 |         return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(val);                                                                                                            react-hooks/static-components
+   87:22   error    Error: Cannot create components during render
 
-Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+Components created during render will reset their state each time they are created. Declare components outside of render.
 
-C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\AntigravityHero.tsx:97:5
-   95 |       depth: Math.random() * 3,
-   96 |     }));
->  97 |     setParticles(newParticles);
-      |     ^^^^^^^^^^^^ Avoid calling setState() directly within an effect
-   98 |   }, []);
-   99 |
-  100 |   return (  react-hooks/set-state-in-effect
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\app\admin\page.tsx:87:22
+  85 |                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+  86 |                     <StatCard label="Active Projects" value={projects.length} icon={Code2} />
+> 87 |                     <StatCard label="Total Leads" value={leads.length} icon={Users} colorClass="text-blue-400 bg-blue-500/10" />
+     |                      ^^^^^^^^ This component is created during render
+  88 |                     <StatCard label="Pipeline Value" value={formatCurrency(totalPipeline)} icon={DollarSign} colorClass="text-indigo-400 bg-indigo-500/10" />
+  89 |                     <a href="/admin/leads" className="block transition-transform hover:scale-105">
+  90 |                         <StatCard label="Inefficiency Reports" value="View All ΓåÆ" icon={FileText} colorClass="text-slate-400 bg-white/5" />
 
-C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\ClientHome.tsx
-   4:8   warning  'Link' is defined but never used                                 @typescript-eslint/no-unused-vars
-   5:8   warning  'Image' is defined but never used                                @typescript-eslint/no-unused-vars
-  33:24  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\app\admin\page.tsx:37:22
+  35 |     }, []);
+  36 |
+> 37 |     const StatCard = ({ label, value, icon: Icon, colorClass = "text-emerald-400 bg-emerald-500/10" }: { label: string, value: string | number, icon: any, colorClass?: string }) => (
+     |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 38 |         <div className="bg-white/5 border border-white/10 p-6 rounded-xl flex items-center gap-4 backdrop-blur-sm">
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 39 |             <div className={`p-3 rounded-lg ${colorClass}`}>
+     ΓÇª
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 46 |         </div>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 47 |     );
+     | ^^^^^^ The component is created during render here
+  48 |
+  49 |     const formatCurrency = (val: number) => {
+  50 |         return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(val);  react-hooks/static-components
+   88:22   error    Error: Cannot create components during render
 
-C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\ContactForm.tsx
-  42:53  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+Components created during render will reset their state each time they are created. Declare components outside of render.
 
-C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\GravityDock.tsx
-  5:28  warning  'FolderOpen' is defined but never used  @typescript-eslint/no-unused-vars
-  6:10  warning  'cn' is defined but never used          @typescript-eslint/no-unused-vars
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\app\admin\page.tsx:88:22
+  86 |                     <StatCard label="Active Projects" value={projects.length} icon={Code2} />
+  87 |                     <StatCard label="Total Leads" value={leads.length} icon={Users} colorClass="text-blue-400 bg-blue-500/10" />
+> 88 |                     <StatCard label="Pipeline Value" value={formatCurrency(totalPipeline)} icon={DollarSign} colorClass="text-indigo-400 bg-indigo-500/10" />
+     |                      ^^^^^^^^ This component is created during render
+  89 |                     <a href="/admin/leads" className="block transition-transform hover:scale-105">
+  90 |                         <StatCard label="Inefficiency Reports" value="View All ΓåÆ" icon={FileText} colorClass="text-slate-400 bg-white/5" />
+  91 |                     </a>
 
-C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\StickyProjectStack.tsx
-  45:11  warning  'y' is assigned a value but never used  @typescript-eslint/no-unused-vars
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\app\admin\page.tsx:37:22
+  35 |     }, []);
+  36 |
+> 37 |     const StatCard = ({ label, value, icon: Icon, colorClass = "text-emerald-400 bg-emerald-500/10" }: { label: string, value: string | number, icon: any, colorClass?: string }) => (
+     |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 38 |         <div className="bg-white/5 border border-white/10 p-6 rounded-xl flex items-center gap-4 backdrop-blur-sm">
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 39 |             <div className={`p-3 rounded-lg ${colorClass}`}>
+     ΓÇª
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 46 |         </div>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 47 |     );
+     | ^^^^^^ The component is created during render here
+  48 |
+  49 |     const formatCurrency = (val: number) => {
+  50 |         return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(val);                                                 react-hooks/static-components
+   90:26   error    Error: Cannot create components during render
 
-C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\admin\PostForm.tsx
-  15:67  warning  'errors' is assigned a value but never used  @typescript-eslint/no-unused-vars
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\app\admin\page.tsx:90:26
+  88 |                     <StatCard label="Pipeline Value" value={formatCurrency(totalPipeline)} icon={DollarSign} colorClass="text-indigo-400 bg-indigo-500/10" />
+  89 |                     <a href="/admin/leads" className="block transition-transform hover:scale-105">
+> 90 |                         <StatCard label="Inefficiency Reports" value="View All ΓåÆ" icon={FileText} colorClass="text-slate-400 bg-white/5" />
+     |                          ^^^^^^^^ This component is created during render
+  91 |                     </a>
+  92 |                 </div>
+  93 |
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\app\admin\page.tsx:37:22
+  35 |     }, []);
+  36 |
+> 37 |     const StatCard = ({ label, value, icon: Icon, colorClass = "text-emerald-400 bg-emerald-500/10" }: { label: string, value: string | number, icon: any, colorClass?: string }) => (
+     |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 38 |         <div className="bg-white/5 border border-white/10 p-6 rounded-xl flex items-center gap-4 backdrop-blur-sm">
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 39 |             <div className={`p-3 rounded-lg ${colorClass}`}>
+     ΓÇª
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 46 |         </div>
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 47 |     );
+     | ^^^^^^ The component is created during render here
+  48 |
+  49 |     const formatCurrency = (val: number) => {
+  50 |         return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(val);                                                                                                                                                                                                                                                     react-hooks/static-components
+  133:53   warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               @next/next/no-img-element
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\app\admin\services\edit\page.tsx
+   20:13   warning  'user' is assigned a value but never used                        @typescript-eslint/no-unused-vars
+  110:100  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  110:109  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\app\admin\services\page.tsx
+   7:10  warning  'LayoutDashboard' is defined but never used   @typescript-eslint/no-unused-vars
+  12:13  warning  'signOut' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  12:22  warning  'user' is assigned a value but never used     @typescript-eslint/no-unused-vars
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\MethodologySection.tsx
+  27:66  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  27:71  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\StrategicHome.tsx
+  12:16  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  13:16  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  14:16  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  17:41  warning  'projects' is defined but never used      @typescript-eslint/no-unused-vars
+  19:35  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\admin\ImageUploader.tsx
+    6:53  warning  'ImageIcon' is defined but never used                            @typescript-eslint/no-unused-vars
+   65:18  warning  'e' is defined but never used                                    @typescript-eslint/no-unused-vars
+  117:87  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  135:47  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  135:58  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\admin\MagicWand.tsx
+  24:18  warning  'e' is defined but never used  @typescript-eslint/no-unused-vars
 
 C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\admin\ProjectForm.tsx
-   3:19  warning  'useFieldArray' is defined but never used     @typescript-eslint/no-unused-vars
-  19:23  warning  'control' is assigned a value but never used  @typescript-eslint/no-unused-vars
-  19:76  warning  'errors' is assigned a value but never used   @typescript-eslint/no-unused-vars
+   6:10  warning  'Loader2' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-unused-vars
+   6:28  warning  'Sparkles' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   @typescript-eslint/no-unused-vars
+  51:25  warning  Compilation Skipped: Use of incompatible library
 
-C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\case-study\MetricsScroll.tsx
-  60:64  warning  'index' is defined but never used  @typescript-eslint/no-unused-vars
-  60:71  warning  'total' is defined but never used  @typescript-eslint/no-unused-vars
+This API returns functions which cannot be memoized without leading to stale UI. To prevent this, by default React Compiler will skip memoizing this component/hook. However, you may see issues if values from this API are passed to other components/hooks that are memoized.
 
-Γ£û 20 problems (4 errors, 16 warnings)
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\admin\ProjectForm.tsx:51:25
+  49 |     const handleAddString = (field: "techStack" | "role", value: string) => {
+  50 |         if (!value) return;
+> 51 |         const current = watch(field) || [];
+     |                         ^^^^^ React Hook Form's `useForm()` API returns a `watch()` function which cannot be memoized safely.
+  52 |         setValue(field, [...current, value]);
+  53 |     };
+  54 |  react-hooks/incompatible-library
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\case-study\ArchitectureDiagram.tsx
+   5:53  warning  'ArrowRight' is defined but never used    @typescript-eslint/no-unused-vars
+   7:56  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  25:44  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\ui\BentoServices.tsx
+  21:32  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\ui\EntropyParticles.tsx
+    1:1   error    Do not use "@ts-nocheck" because it alters compilation errors                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @typescript-eslint/ban-ts-comment
+    6:26  warning  'Points' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           @typescript-eslint/no-unused-vars
+    6:34  warning  'ShaderMaterial' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   @typescript-eslint/no-unused-vars
+    6:68  warning  'BufferGeometry' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   @typescript-eslint/no-unused-vars
+    6:84  warning  'Float32BufferAttribute' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           @typescript-eslint/no-unused-vars
+   99:27  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\ui\EntropyParticles.tsx:99:27
+   97 |
+   98 |             // Random: Chaos sphere
+>  99 |             const theta = Math.random() * Math.PI * 2;
+      |                           ^^^^^^^^^^^^^ Cannot call impure function
+  100 |             const phi = Math.acos((Math.random() * 2) - 1);
+  101 |             const radius = 15 + Math.random() * 10;
+  102 |                                                                                                                           react-hooks/purity
+  100:36  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\ui\EntropyParticles.tsx:100:36
+   98 |             // Random: Chaos sphere
+   99 |             const theta = Math.random() * Math.PI * 2;
+> 100 |             const phi = Math.acos((Math.random() * 2) - 1);
+      |                                    ^^^^^^^^^^^^^ Cannot call impure function
+  101 |             const radius = 15 + Math.random() * 10;
+  102 |
+  103 |             randomPos[i * 3] = radius * Math.sin(phi) * Math.cos(theta);                                        react-hooks/purity
+  101:33  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\ui\EntropyParticles.tsx:101:33
+   99 |             const theta = Math.random() * Math.PI * 2;
+  100 |             const phi = Math.acos((Math.random() * 2) - 1);
+> 101 |             const radius = 15 + Math.random() * 10;
+      |                                 ^^^^^^^^^^^^^ Cannot call impure function
+  102 |
+  103 |             randomPos[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+  104 |             randomPos[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);  react-hooks/purity
+  107:25  error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\ui\EntropyParticles.tsx:107:25
+  105 |             randomPos[i * 3 + 2] = radius * Math.cos(phi);
+  106 |
+> 107 |             speeds[i] = Math.random();
+      |                         ^^^^^^^^^^^^^ Cannot call impure function
+  108 |         }
+  109 |
+  110 |         return [positions, randomPos, targetPos, speeds];                                                                                                                                                                 react-hooks/purity
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\ui\particle-effect-for-hero.tsx
+    4:10  warning  'MousePointer2' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         @typescript-eslint/no-unused-vars
+    4:25  warning  'Info' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  @typescript-eslint/no-unused-vars
+    4:31  warning  'ArrowRight' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+   38:7   warning  'PARTICLE_DENSITY' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             @typescript-eslint/no-unused-vars
+   54:12  warning  'debugInfo' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-unused-vars
+   65:39  error    Compilation Skipped: Existing memoization could not be preserved
+
+React Compiler has skipped optimizing this component because the existing manual memoization could not be preserved. The inferred dependencies did not match the manually specified dependencies, which could cause the value to change more or less frequently than expected. The inferred dependency was `density`, but the source dependencies were []. Inferred dependency not present in source.
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\ui\particle-effect-for-hero.tsx:65:39
+   63 |
+   64 |     // Initialize Particles
+>  65 |     const initParticles = useCallback((width: number, height: number) => {
+      |                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  66 |         // 1. Main Interactive Particles
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  67 |         const particleCount = Math.floor(width * height * (density * 0.00001)); // Scale input density
+      ΓÇª
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 105 |         setDebugInfo(prev => ({ ...prev, count: particleCount + bgCount }));
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 106 |     }, []);
+      | ^^^^^^ Could not preserve existing manual memoization
+  107 |
+  108 |     // Animation Loop
+  109 |     const animate = useCallback((time: number) => {  react-hooks/preserve-manual-memoization
+  106:8   warning  React Hook useCallback has a missing dependency: 'density'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      react-hooks/exhaustive-deps
+  336:11  warning  'handleMouseMove' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              @typescript-eslint/no-unused-vars
+  346:11  warning  'handleMouseLeave' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             @typescript-eslint/no-unused-vars
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\lib\settings.ts
+  2:31  warning  'updateDoc' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\lib\subscriptions.ts
+  2:55  warning  'DocumentData' is defined but never used  @typescript-eslint/no-unused-vars
+  7:11  warning  'q' is assigned a value but never used    @typescript-eslint/no-unused-vars
+
+Γ£û 63 problems (28 errors, 35 warnings)
 

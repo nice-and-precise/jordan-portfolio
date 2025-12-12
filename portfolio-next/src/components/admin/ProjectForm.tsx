@@ -1,9 +1,10 @@
 import { useForm, useFieldArray } from "react-hook-form";
 import { Project } from "@/lib/data";
 import { useEffect } from "react";
+import NextImage from "next/image";
 import ImageUploader from "./ImageUploader";
 import MagicWand from "./MagicWand";
-import { Loader2, Plus, X, Sparkles } from "lucide-react";
+import { Plus, X } from "lucide-react";
 
 type ProjectFormData = Project;
 
@@ -116,10 +117,21 @@ export default function ProjectForm({ initialData, onSubmit, isSubmitting = fals
                         </div>
                         <ImageUploader value={watch("coverImage")} onChange={(url) => setValue("coverImage", url)} />
                     </div>
+                    {/* Nano Banana Button */}
+                    <div className="flex justify-end mt-2">
+                        <a
+                            href="https://nano-banana.com/editor"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs text-yellow-400 hover:text-yellow-300 flex items-center gap-1 border border-yellow-400/30 rounded px-2 py-1"
+                        >
+                            <span>🍌 Edit with Nano Banana</span>
+                        </a>
+                    </div>
+
                     {watch("coverImage") && (
                         <div className="mt-4 relative h-40 w-full md:w-64 rounded-lg overflow-hidden border border-slate-700">
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src={watch("coverImage")} alt="Cover" className="object-cover w-full h-full" />
+                            <NextImage src={watch("coverImage")} alt="Cover" fill className="object-cover" unoptimized />
                         </div>
                     )}
                 </div>
@@ -203,7 +215,7 @@ export default function ProjectForm({ initialData, onSubmit, isSubmitting = fals
 
             {/* Copywriting */}
             <div className="grid gap-6 bg-slate-900 p-6 rounded-xl border border-slate-800">
-                <h2 className="font-bold text-white text-xl">Copywriting</h2>
+                <h2 className="font-bold text-white text-xl">Copywriting (Powered by Gemini)</h2>
 
                 <div>
                     <div className="flex justify-between items-center mb-2">
@@ -211,19 +223,33 @@ export default function ProjectForm({ initialData, onSubmit, isSubmitting = fals
                         <MagicWand
                             currentValue={watch("overview")}
                             onAccept={(val) => setValue("overview", val)}
-                            context="Project overview for technical portfolio"
+                            context="Project overview for technical portfolio. Professional, punchy, high-impact."
                         />
                     </div>
                     <textarea {...register("overview", { required: true })} rows={4} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white leading-relaxed" />
                 </div>
 
                 <div>
-                    <label className="block text-sm text-slate-400 mb-2">Challenge</label>
+                    <div className="flex justify-between items-center mb-2">
+                        <label className="block text-sm text-slate-400">Challenge</label>
+                        <MagicWand
+                            currentValue={watch("challenge")}
+                            onAccept={(val) => setValue("challenge", val)}
+                            context="The business challenge and technical constraints."
+                        />
+                    </div>
                     <textarea {...register("challenge", { required: true })} rows={4} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white leading-relaxed" />
                 </div>
 
                 <div>
-                    <label className="block text-sm text-slate-400 mb-2">Technical Deep Dive</label>
+                    <div className="flex justify-between items-center mb-2">
+                        <label className="block text-sm text-slate-400">Technical Deep Dive</label>
+                        <MagicWand
+                            currentValue={watch("technicalDeepDive")}
+                            onAccept={(val) => setValue("technicalDeepDive", val)}
+                            context="Deep technical explanation of the solution, architecture, and engineering patterns."
+                        />
+                    </div>
                     <textarea {...register("technicalDeepDive", { required: true })} rows={8} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white font-mono text-sm leading-relaxed" />
                 </div>
             </div>

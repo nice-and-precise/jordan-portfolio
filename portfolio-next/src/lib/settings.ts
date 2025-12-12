@@ -7,6 +7,7 @@ export interface SiteSettings {
     introText: string;
     contactEmail: string;
     footerLinks: { label: string; url: string }[];
+    heroPersona?: 'aggressive' | 'empathetic' | 'visionary'; // Added for dynamic control
     googleApiKey?: string;
     resumeUrl?: string;
 }

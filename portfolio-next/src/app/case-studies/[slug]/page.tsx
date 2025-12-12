@@ -5,6 +5,21 @@ import { getAllProjects, getProjectBySlug } from "@/lib/data";
 import { ResourceAllocationGrid } from "@/components/case-study/ResourceAllocationGrid";
 import { MetricsScroll } from "@/components/case-study/MetricsScroll";
 import { ArchitectureDiagram } from "@/components/case-study/ArchitectureDiagram";
+import { ManufacturingDefectChart } from "@/components/case-study/ManufacturingDefectChart";
+import { MarketSentimentDashboard } from "@/components/case-study/MarketSentimentDashboard";
+
+function renderMasteryComponent(slug: string) {
+    switch (slug) {
+        case "midwest-underground-ops":
+            return <ResourceAllocationGrid />;
+        case "manufacturing-control-framework":
+            return <ManufacturingDefectChart />;
+        case "global-market-research":
+            return <MarketSentimentDashboard />;
+        default:
+            return null;
+    }
+}
 
 export async function generateStaticParams() {
     const projects = await getAllProjects();
@@ -43,10 +58,27 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
     }
 
     // Determine if we should show the mastery component
-    const showMastery = project.slug === "midwest-underground-ops";
+
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "SoftwareSourceCode",
+        "name": project.title,
+        "description": project.overview,
+        "programmingLanguage": project.techStack,
+        "author": {
+            "@type": "Person",
+            "name": "Jordan"
+        },
+        "dateCreated": "2024-01-01",
+        "dateModified": new Date().toISOString()
+    };
 
     return (
         <main className="bg-slate-950 min-h-screen text-slate-200 selection:bg-indigo-500/30">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
             {/* --- HERO SECTION --- */}
             <section className="relative h-[80vh] flex items-end pb-24 px-6 md:px-12 overflow-hidden">
                 {/* Background Image with Overlay */}
@@ -126,20 +158,22 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                     </div>
 
                     {/* Interactive Component Showcase */}
-                    {showMastery && (
+                    {renderMasteryComponent(project.slug) && (
                         <div className="mt-24 space-y-8">
                             <div className="text-center max-w-2xl mx-auto mb-12">
                                 <div className="inline-block px-4 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-sm font-medium mb-4">
                                     Interactive Demo
                                 </div>
-                                <h3 className="text-3xl font-bold text-white mb-4">Live Resource Management</h3>
+                                <h3 className="text-3xl font-bold text-white mb-4">Live System Simulation</h3>
                                 <p className="text-slate-400">
-                                    Interact with the actual component logic used to manage field crews.
-                                    Try filtering crews or clicking cards to update status.
+                                    Interact with the actual component logic used in production.
+                                    This is a live render, not a video.
                                 </p>
                             </div>
 
-                            <ResourceAllocationGrid />
+                            <div className="md:p-4 rounded-3xl bg-slate-950/50 border border-slate-800 shadow-2xl overflow-hidden">
+                                {renderMasteryComponent(project.slug)}
+                            </div>
                         </div>
                     )}
                 </div>

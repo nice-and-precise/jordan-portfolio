@@ -1,0 +1,111 @@
+
+> portfolio-next@0.1.0 lint
+> eslint
+
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\app\admin\leads\page.tsx
+   19:16   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  221:110  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\app\admin\page.tsx
+    7:77   warning  'Globe' is defined but never used                   @typescript-eslint/no-unused-vars
+    9:50   warning  'limit' is defined but never used                   @typescript-eslint/no-unused-vars
+   16:46   error    Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+   38:11   warning  'handleSignOut' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  184:147  error    Unexpected any. Specify a different type            @typescript-eslint/no-explicit-any
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\app\admin\services\edit\page.tsx
+  20:13  warning  'user' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\app\admin\services\page.tsx
+   7:10  warning  'LayoutDashboard' is defined but never used   @typescript-eslint/no-unused-vars
+  12:13  warning  'signOut' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  12:22  warning  'user' is assigned a value but never used     @typescript-eslint/no-unused-vars
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\StrategicHome.tsx
+   9:43  warning  'useSpring' is defined but never used     @typescript-eslint/no-unused-vars
+  13:16  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  14:16  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  15:16  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  20:35  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\admin\MagicWand.tsx
+  24:18  warning  'e' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\admin\ProjectForm.tsx
+  52:25  warning  Compilation Skipped: Use of incompatible library
+
+This API returns functions which cannot be memoized without leading to stale UI. To prevent this, by default React Compiler will skip memoizing this component/hook. However, you may see issues if values from this API are passed to other components/hooks that are memoized.
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\admin\ProjectForm.tsx:52:25
+  50 |     const handleAddString = (field: "techStack" | "role", value: string) => {
+  51 |         if (!value) return;
+> 52 |         const current = watch(field) || [];
+     |                         ^^^^^ React Hook Form's `useForm()` API returns a `watch()` function which cannot be memoized safely.
+  53 |         setValue(field, [...current, value]);
+  54 |     };
+  55 |  react-hooks/incompatible-library
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\case-study\ArchitectureDiagram.tsx
+   5:53  warning  'ArrowRight' is defined but never used    @typescript-eslint/no-unused-vars
+   7:56  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  25:44  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\case-study\ManufacturingDefectChart.tsx
+   3:46  warning  'useMemo' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         @typescript-eslint/no-unused-vars
+   5:25  warning  'CheckCircle' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     @typescript-eslint/no-unused-vars
+  75:9   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\case-study\ManufacturingDefectChart.tsx:75:9
+  73 |         const calculatedCpk = Math.min(cpu, cpl);
+  74 |
+> 75 |         setCpk(calculatedCpk);
+     |         ^^^^^^ Avoid calling setState() directly within an effect
+  76 |     }, [data, UCL, LCL]);
+  77 |
+  78 |     // --- Rendering Helpers ---  react-hooks/set-state-in-effect
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\case-study\MarketSentimentDashboard.tsx
+   4:18  warning  'AnimatePresence' is defined but never used   @typescript-eslint/no-unused-vars
+   5:10  warning  'TrendingUp' is defined but never used        @typescript-eslint/no-unused-vars
+   5:22  warning  'TrendingDown' is defined but never used      @typescript-eslint/no-unused-vars
+   5:59  warning  'Activity' is defined but never used          @typescript-eslint/no-unused-vars
+  40:18  warning  'setNews' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\ui\BentoServices.tsx
+  21:32  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\ui\EntropyParticles.tsx
+   1:1   error    Do not use "@ts-nocheck" because it alters compilation errors  @typescript-eslint/ban-ts-comment
+   4:25  warning  'useMemo' is defined but never used                            @typescript-eslint/no-unused-vars
+   6:10  warning  'Color' is defined but never used                              @typescript-eslint/no-unused-vars
+   6:17  warning  'Vector2' is defined but never used                            @typescript-eslint/no-unused-vars
+   6:26  warning  'AdditiveBlending' is defined but never used                   @typescript-eslint/no-unused-vars
+   6:62  warning  'THREE_ShaderMaterial' is defined but never used               @typescript-eslint/no-unused-vars
+  83:25  error    Unexpected any. Specify a different type                       @typescript-eslint/no-explicit-any
+  84:35  error    Unexpected any. Specify a different type                       @typescript-eslint/no-explicit-any
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\components\ui\particle-effect-for-hero.tsx
+    4:10  warning  'MousePointer2' is defined but never used              @typescript-eslint/no-unused-vars
+    4:25  warning  'Info' is defined but never used                       @typescript-eslint/no-unused-vars
+    4:31  warning  'ArrowRight' is defined but never used                 @typescript-eslint/no-unused-vars
+   38:7   warning  'PARTICLE_DENSITY' is assigned a value but never used  @typescript-eslint/no-unused-vars
+   54:12  warning  'debugInfo' is assigned a value but never used         @typescript-eslint/no-unused-vars
+  336:11  warning  'handleMouseMove' is assigned a value but never used   @typescript-eslint/no-unused-vars
+  346:11  warning  'handleMouseLeave' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\lib\settings.ts
+  2:31  warning  'updateDoc' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Owner\Desktop\Jordan\portfolio-next\src\lib\subscriptions.ts
+  2:55  warning  'DocumentData' is defined but never used  @typescript-eslint/no-unused-vars
+  7:11  warning  'q' is assigned a value but never used    @typescript-eslint/no-unused-vars
+
+Γ£û 48 problems (15 errors, 33 warnings)
+

@@ -170,3 +170,65 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
         return project || null;
     }
 }
+
+export interface Service {
+    id: string; // doc id
+    title: string;
+    description: string;
+    icon?: string; // Lucide icon name or similar identifier
+    impact?: string;
+    colSpan?: number;
+}
+
+export const DEFAULT_SERVICES: Service[] = [
+    {
+        id: "workflow-automation",
+        title: "Workflow Automation",
+        description: "Replacing human data entry with deterministic logic.",
+        icon: "Workflow",
+        impact: "100% Error Reduction",
+        colSpan: 2
+    },
+    {
+        id: "margin-improvement",
+        title: "Margin Improvement",
+        description: "Algorithmic resource allocation and waste detection.",
+        icon: "TrendingUp",
+        impact: "+15% Net Margin",
+        colSpan: 1
+    },
+    {
+        id: "legacy-modernization",
+        title: "Legacy Modernization",
+        description: "Transforming rigid monoliths into fluid micro-architectures.",
+        icon: "Database",
+        impact: "4x Velocity Increase",
+        colSpan: 1
+    },
+    {
+        id: "autonomous-agents",
+        title: "Autonomous Agents",
+        description: "Multi-agent systems that negotiate and execute complex tasks.",
+        icon: "Bot",
+        impact: "24/7 Operation",
+        colSpan: 2
+    }
+];
+
+export async function getAllServices(): Promise<Service[]> {
+    try {
+        const q = query(collection(db, "services"), orderBy("order", "asc"));
+        const snapshot = await getDocs(q);
+
+        if (!snapshot.empty) {
+            return snapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            } as Service));
+        }
+        return DEFAULT_SERVICES;
+    } catch (error) {
+        console.warn("Firestore fetch failed (services), using fallback:", error);
+        return DEFAULT_SERVICES;
+    }
+}

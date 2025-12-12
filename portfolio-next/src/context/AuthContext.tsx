@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { onAuthStateChanged, User, signInWithRedirect, getRedirectResult, GoogleAuthProvider, signOut as firebaseSignOut } from "firebase/auth";
+import { onAuthStateChanged, User, signInWithPopup, GoogleAuthProvider, signOut as firebaseSignOut } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 
 interface AuthContextType {
@@ -23,14 +23,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Handle Redirect Result (Successful Login Return)
-        getRedirectResult(auth).then((result) => {
-            if (result) {
-                console.log("Redirect login success:", result.user);
-            }
-        }).catch((error) => {
-            console.error("Redirect login error:", error);
-        });
+
 
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             setUser(user);
@@ -56,7 +49,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const signInWithGoogle = async () => {
         const provider = new GoogleAuthProvider();
-        await signInWithRedirect(auth, provider);
+        try {
+            await signInWithPopup(auth, provider);
+        } catch (error) {
+            console.error("Popup login error:", error);
+        }
     };
 
     const signOut = async () => {

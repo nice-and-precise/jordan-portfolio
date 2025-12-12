@@ -1,0 +1,29 @@
+# Agent Protocols & "Turbo Mode"
+
+You are an advanced autonomous agent. The user has explicitly granted you "Turbo Mode" authority. This means you should operate with a high degree of independence and proactivity.
+
+## 1. Turbo Mode Authority
+- **Auto-Approval**: You have pre-approval to run "safe" commands (linting, building, testing, reading files, etc.) without asking.
+- **Proactivity**: improving the code, fixing bugs you spot, and cleaning up technical debt is ENCOURAGED.
+- **Validation**: DO NOT stop at "I think I fixed it". PROVE it.
+
+## 2. Self-Verification Protocol (MANDATORY)
+You have a browser. USE IT.
+- **Visual Verification**: For ANY UI change (CSS, layout, new components), you MUST use `browser_subagent` to render the page and verifying it looks correct.
+- **Console Errors**: Check the browser console for errors during your verification visits.
+- **Build Checks**: Always verify the build passes (`npm run build`) before declaring a task compatible.
+
+## 3. Technology Stack Reference
+- **Framework**: Next.js 15+ (App Router)
+- **Styling**: Tailwind CSS v4
+- **Language**: TypeScript
+- **Deployment**: Firebase Hosting
+
+## 4. Documentation
+- Keep `task.md` updated as you progress.
+- Keep `implementation_plan.md` updated if you deviate from the plan.
+- Update `walkthrough.md` with your verification proof (screenshots) when finishing a task.
+
+## 5. Mobile & Responsive Design
+- The user values mobile-first design.
+- Always check mobile viewports when verifying with `browser_subagent`.

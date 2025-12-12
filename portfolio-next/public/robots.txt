@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 Disallow: /admin/
-
 Sitemap: https://jordan-7d673.web.app/sitemap.xml

@@ -4,6 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Database, Server, Smartphone, Cloud, Wifi, ArrowRight } from "lucide-react";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Node = ({ icon: Icon, label, sub, color, x, y }: any) => (
     <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
@@ -22,6 +23,7 @@ const Node = ({ icon: Icon, label, sub, color, x, y }: any) => (
     </motion.div>
 );
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Connection = ({ start, end, label }: any) => {
     // Simple straight line logic for demo (can be enhanced)
     // Coordinates are percentages

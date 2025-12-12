@@ -1,11 +1,12 @@
-import { getAllProjects } from '@/lib/data';
+import { getAllProjects, getAllServices } from '@/lib/data';
 import { getSiteSettings } from '@/lib/settings';
-import ClientHome from "@/components/ClientHome";
+import StrategicHome from "@/components/StrategicHome";
 
 export default async function Home() {
-  // Fetch projects and settings (Server Side)
+  // Fetch projects, settings, and services (Server Side)
   const projects = await getAllProjects();
   const settings = await getSiteSettings();
+  const services = await getAllServices();
 
-  return <ClientHome projects={projects} settings={settings} />;
+  return <StrategicHome projects={projects} settings={settings} services={services} />;
 }
