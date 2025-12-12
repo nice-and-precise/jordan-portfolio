@@ -198,9 +198,9 @@ export default function StrategicHome({ projects, settings, services }: Strategi
                         src="/assets/images/teaser-bg.webp"
                         alt="Jordan in action"
                         fill
-                        className="object-[center_35%] object-cover opacity-40 group-hover:opacity-50 transition-opacity duration-700 blur-[2px] group-hover:blur-none"
+                        className="object-[center_35%] object-cover opacity-80 group-hover:opacity-90 transition-opacity duration-700"
                     />
-                    <div className="absolute inset-0 bg-neutral-900/80 group-hover:bg-neutral-900/70 transition-colors duration-700" />
+                    <div className="absolute inset-0 bg-neutral-900/40 group-hover:bg-neutral-900/30 transition-colors duration-700" />
                 </div>
 
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-transparent to-transparent opacity-50 pointer-events-none" />
