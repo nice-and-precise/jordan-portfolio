@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Project, subscribeToProject } from "@/lib/data";
-import { ResourceAllocationGrid } from "@/components/case-study/ResourceAllocationGrid";
+import { CrewDashboard } from "@/components/case-study/CrewDashboard";
 import { MetricsScroll } from "@/components/case-study/MetricsScroll";
 import { ArchitectureDiagram } from "@/components/case-study/ArchitectureDiagram";
 import { NonConformanceForm } from "@/components/case-study/NonConformanceForm";
@@ -16,7 +16,7 @@ interface LiveCaseStudyProps {
 function renderMasteryComponent(slug: string) {
     switch (slug) {
         case "midwest-underground-ops":
-            return <ResourceAllocationGrid />;
+            return <CrewDashboard />;
         case "manufacturing-control-framework":
             return <NonConformanceForm />;
         case "global-market-research":
