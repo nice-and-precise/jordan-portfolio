@@ -24,6 +24,11 @@ export default function AboutPage() {
                 <div className="absolute bottom-[-20%] left-[-10%] w-[500px] h-[500px] bg-blue-900/10 rounded-full blur-[100px]" />
             </div>
 
+            {/* Team Gallery Section (Top) */}
+            <div className="relative z-10 mb-12 border-b border-white/5">
+                <TeamGallery />
+            </div>
+
             <div className="relative z-10 container mx-auto px-6 md:px-12 max-w-6xl">
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-24 items-center min-h-[80vh]">
 
@@ -74,8 +79,7 @@ export default function AboutPage() {
                 </div>
             </div>
 
-            {/* Team Gallery Section */}
-            <TeamGallery />
+
         </main>
     );
 }

@@ -38,7 +38,7 @@ export default function AboutProfileImage() {
     }
 
     return (
-        <div className="relative w-full aspect-square md:aspect-[3/4] rounded-2xl overflow-hidden border border-white/10 shadow-2xl group">
+        <div className="relative w-full aspect-square md:aspect-[3/4] max-w-[280px] rounded-2xl overflow-hidden border border-white/10 shadow-2xl group mx-auto md:mx-0">
             {/* Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10" />
 

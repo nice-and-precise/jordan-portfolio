@@ -19,8 +19,8 @@ const TEAM_IMAGES = [
 
 export default function TeamGallery() {
     return (
-        <section className="py-24 bg-neutral-900 border-y border-white/5 overflow-hidden">
-            <div className="container mx-auto px-6 mb-12">
+        <section className="py-12 bg-neutral-900/50 overflow-hidden">
+            <div className="container mx-auto px-6 mb-8">
                 <div className="flex items-center gap-4 mb-6">
                     <div className="h-px flex-1 bg-white/10" />
                     <span className="text-emerald-500 font-mono text-xs tracking-[0.2em] uppercase">Field Operations & Teamwork</span>
