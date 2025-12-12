@@ -36,7 +36,7 @@ export default function StrategicHome({ projects, settings, services }: Strategi
     const { scrollYProgress } = useScroll({
         target: targetRef,
     });
-    const x = useTransform(scrollYProgress, [0, 1], ["0%", "-45%"]);
+    const x = useTransform(scrollYProgress, [0, 1], ["1%", "-35%"]);
 
     return (
         <main className="min-h-screen bg-black text-white selection:bg-blue-500/30 font-sans overflow-x-hidden">
@@ -113,7 +113,7 @@ export default function StrategicHome({ projects, settings, services }: Strategi
 
             {/* SELECTED ENGAGEMENTS (Moved Up & Animated) */}
             {projects && projects.length > 0 && (
-                <section ref={targetRef} className="relative h-[500vh] bg-neutral-900 border-t border-white/10">
+                <section ref={targetRef} className="relative h-[300vh] bg-neutral-900 border-t border-white/10">
                     <div className="sticky top-0 flex h-screen items-center overflow-hidden">
 
                         {/* Section Header (Absolute) */}
@@ -128,13 +128,13 @@ export default function StrategicHome({ projects, settings, services }: Strategi
                         {/* Horizontal Scroll Track */}
                         <motion.div style={{ x }} className="flex gap-8 px-4 md:px-12 items-center">
                             {/* Empty spacer for header offset */}
-                            <div className="w-[10vw] md:w-[20vw] flex-shrink-0" />
+                            <div className="w-[10vw] md:w-[5vw] flex-shrink-0" />
 
                             {projects.map((project) => (
                                 <a
                                     key={project.slug}
                                     href={`/case-studies/${project.slug}`}
-                                    className="group relative h-[60vh] w-[85vw] md:w-[45vw] flex-shrink-0 bg-black border border-white/10 rounded-3xl overflow-hidden hover:border-blue-500/50 transition-all shadow-2xl"
+                                    className="group relative h-[60vh] w-[85vw] md:w-[30vw] flex-shrink-0 bg-black border border-white/10 rounded-3xl overflow-hidden hover:border-blue-500/50 transition-all shadow-2xl"
                                 >
                                     {/* Image */}
                                     <div className="absolute inset-0">
