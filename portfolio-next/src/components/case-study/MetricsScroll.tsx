@@ -66,15 +66,15 @@ const MetricSection: React.FC<MetricSectionProps> = ({ metric }) => {
 
     // Parallax / Fade effects based on local section scroll
     // Opacity: Fade in quickly, stay, fade out quickly before end
-    const opacity = useTransform(scrollYProgress, [0.1, 0.3, 0.7, 0.9], [0, 1, 1, 0]);
-    const scale = useTransform(scrollYProgress, [0.1, 0.5, 0.9], [0.85, 1, 0.85]);
+    const opacity = useTransform(scrollYProgress, [0.05, 0.2, 0.8, 0.95], [0, 1, 1, 0]);
+    const scale = useTransform(scrollYProgress, [0.1, 0.5, 0.9], [0.9, 1, 0.9]);
     // Increase Y travel to ensure it physically leaves the viewport
-    const y = useTransform(scrollYProgress, [0, 1], [150, -150]);
+    const y = useTransform(scrollYProgress, [0, 1], [200, -200]);
 
     return (
         <section
             ref={sectionRef}
-            className="h-screen sticky top-0 flex items-center justify-center overflow-hidden border-t border-slate-900/50"
+            className="h-screen sticky top-0 flex items-center justify-center overflow-hidden border-t border-slate-900/50 bg-slate-950"
         >
             {/* Background Element (Abstract Shape) */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">

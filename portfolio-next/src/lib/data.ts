@@ -1,5 +1,5 @@
 import { db } from "@/lib/firebase";
-import { collection, getDocs, doc, getDoc, query, orderBy } from "firebase/firestore";
+import { collection, getDocs, doc, getDoc, query, orderBy, onSnapshot } from "firebase/firestore";
 
 // Keeping the interface compatible but enhancing content
 export interface Project {
@@ -169,6 +169,32 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
         const project = PROJECTS_DATA.find(p => p.slug === slug);
         return project || null;
     }
+}
+
+export function subscribeToProject(slug: string, callback: (project: Project | null) => void) {
+    const docRef = doc(db, "projects", slug);
+    return onSnapshot(docRef, (docSnap) => {
+        if (docSnap.exists()) {
+            const data = docSnap.data();
+            const project = {
+                slug: docSnap.id,
+                ...data,
+                techStack: data.techStack || [],
+                impact: data.impact || [],
+                role: data.role || []
+            } as Project;
+            callback(project);
+        } else {
+            // Fallback to static if not found in DB
+            const project = PROJECTS_DATA.find(p => p.slug === slug);
+            callback(project || null);
+        }
+    }, (error) => {
+        console.error("Error subscribing to project:", error);
+        // Fallback on error
+        const project = PROJECTS_DATA.find(p => p.slug === slug);
+        callback(project || null);
+    });
 }
 
 export interface Service {
