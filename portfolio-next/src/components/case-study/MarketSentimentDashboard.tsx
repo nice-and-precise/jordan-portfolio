@@ -121,8 +121,8 @@ export const MarketSentimentDashboard = () => {
                                             <span>Just Now</span>
                                         </div>
                                         <div className={`text-[10px] font-bold px-2 py-0.5 rounded border ${item.sentiment === 'positive' ? 'border-emerald-900 text-emerald-500 bg-emerald-950/30' :
-                                                item.sentiment === 'negative' ? 'border-rose-900 text-rose-500 bg-rose-950/30' :
-                                                    'border-amber-900 text-amber-500 bg-amber-950/30'
+                                            item.sentiment === 'negative' ? 'border-rose-900 text-rose-500 bg-rose-950/30' :
+                                                'border-amber-900 text-amber-500 bg-amber-950/30'
                                             }`}>
                                             SCORE: {item.score}
                                         </div>
@@ -177,6 +177,12 @@ export const MarketSentimentDashboard = () => {
                     </div>
 
                 </div>
+            </div>
+            {/* Disclaimer Footer */}
+            <div className="bg-slate-950 border-t border-slate-800 py-3">
+                <p className="text-[10px] text-slate-600 font-mono text-center">
+                    * DISCLAIMER: Information for demonstration only and not considered factual.
+                </p>
             </div>
         </div>
     );

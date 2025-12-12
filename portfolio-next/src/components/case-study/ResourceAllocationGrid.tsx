@@ -173,6 +173,12 @@ export const ResourceAllocationGrid: React.FC<AllocationGridProps> = ({
         3. Interaction: Click a card to toggle status, assert status text/icon changes.
         4. Performance: Use a large dataset (1000 items) and verify render times using profiler or standard performance tests.
        */}
+            {/* Disclaimer Footer */}
+            <div className="mt-6 border-t border-slate-800/50 pt-4">
+                <p className="text-[10px] text-slate-600 font-mono text-center">
+                    * DISCLAIMER: Information for demonstration only and not considered factual.
+                </p>
+            </div>
         </div>
     );
 };

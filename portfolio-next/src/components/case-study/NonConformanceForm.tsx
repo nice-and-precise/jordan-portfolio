@@ -254,6 +254,13 @@ export const NonConformanceForm = () => {
                     </button>
                 </div>
             </form>
+
+            {/* Disclaimer Footer */}
+            <div className="pb-6 px-6 md:px-8 border-t border-slate-800/50 pt-4">
+                <p className="text-[10px] text-slate-600 font-mono text-center">
+                    * DISCLAIMER: Information for demonstration only and not considered factual.
+                </p>
+            </div>
         </div>
     );
 };

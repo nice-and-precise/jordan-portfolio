@@ -183,6 +183,14 @@ export const CrewDashboard = () => {
                     <span className="text-xs font-bold text-slate-300">Daily Reports</span>
                 </div>
             </div>
-        </div>
+
+
+            {/* Disclaimer Footer */}
+            <div className="mt-8 border-t border-slate-900 pt-4">
+                <p className="text-[10px] text-slate-600 font-mono text-center">
+                    * DISCLAIMER: Information for demonstration only and not considered factual.
+                </p>
+            </div>
+        </div >
     );
 };
