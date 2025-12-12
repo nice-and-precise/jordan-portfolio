@@ -115,28 +115,34 @@ export default function StrategicHome({ projects, settings, services }: Strategi
 
             {/* SELECTED ENGAGEMENTS (Moved Up & Animated) */}
             {projects && projects.length > 0 && (
-                <section ref={targetRef} className="relative h-[200vh] bg-neutral-900 border-t border-white/10">
-                    <div className="sticky top-0 flex h-screen items-center overflow-hidden">
+                <section ref={targetRef} className="relative h-[130vh] md:h-auto bg-neutral-900 border-t border-white/10">
+                    <div className="sticky top-0 flex h-screen items-center overflow-hidden md:relative md:h-auto md:block md:py-24 md:px-12 md:overflow-visible">
 
-                        {/* Section Header (Absolute) */}
-                        <div className="absolute top-12 left-6 md:left-12 z-20">
+                        {/* Section Header */}
+                        <div className="absolute top-12 left-6 z-20 md:static md:text-center md:mb-16 md:max-w-3xl md:mx-auto">
                             <h2 className="text-sm font-mono text-blue-500 uppercase tracking-widest mb-4">Proof of Work</h2>
                             <h3 className="text-4xl md:text-6xl font-bold text-white">
                                 Selected Engagements
                             </h3>
-                            <p className="text-neutral-400 mt-2">Scroll to explore</p>
+                            <p className="text-neutral-400 mt-2 md:hidden">Scroll to explore</p>
+                            <p className="text-neutral-400 mt-4 text-lg hidden md:block">
+                                Digital transformation initiatives delivering measurable ROI across manufacturing, utility, and financial sectors.
+                            </p>
                         </div>
 
-                        {/* Horizontal Scroll Track */}
-                        <motion.div style={{ x }} className="flex gap-8 px-4 md:px-12 items-center">
-                            {/* Empty spacer for header offset */}
-                            <div className="w-[10vw] md:w-[5vw] flex-shrink-0" />
+                        {/* Projects Container (Horizontal Scroll on Mobile, Grid on Desktop) */}
+                        <motion.div
+                            style={{ x }}
+                            className="flex gap-8 px-4 items-center md:grid md:grid-cols-3 md:gap-8 md:px-0 md:!transform-none"
+                        >
+                            {/* Empty spacer for header offset (Mobile Only) */}
+                            <div className="w-[10vw] flex-shrink-0 md:hidden" />
 
                             {projects.map((project) => (
                                 <a
                                     key={project.slug}
                                     href={`/case-studies/${project.slug}`}
-                                    className="group relative h-[60vh] w-[85vw] md:w-[30vw] flex-shrink-0 bg-black border border-white/10 rounded-3xl overflow-hidden hover:border-blue-500/50 transition-all shadow-2xl"
+                                    className="group relative h-[60vh] w-[85vw] md:w-full md:h-[600px] flex-shrink-0 bg-black border border-white/10 rounded-3xl overflow-hidden hover:border-blue-500/50 transition-all shadow-2xl"
                                 >
                                     {/* Image */}
                                     <div className="absolute inset-0">
@@ -145,29 +151,29 @@ export default function StrategicHome({ projects, settings, services }: Strategi
                                             alt={project.title}
                                             fill
                                             priority
-                                            sizes="(max-width: 768px) 85vw, 45vw"
+                                            sizes="(max-width: 768px) 85vw, 33vw"
                                             className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-1000 opacity-60 group-hover:opacity-80 grayscale group-hover:grayscale-0"
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
                                     </div>
 
                                     {/* Content */}
-                                    <div className="absolute bottom-0 left-0 p-8 md:p-12 w-full">
-                                        <div className="flex items-center gap-4 mb-4">
+                                    <div className="absolute bottom-0 left-0 p-8 md:p-10 w-full">
+                                        <div className="flex items-center gap-2 mb-4 flex-wrap">
                                             {project.techStack.slice(0, 3).map((tech: string) => (
-                                                <span key={tech} className="text-xs px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-white">
+                                                <span key={tech} className="text-[10px] uppercase font-bold px-2 py-1 rounded bg-white/10 backdrop-blur-md border border-white/10 text-white">
                                                     {tech}
                                                 </span>
                                             ))}
                                         </div>
-                                        <h4 className="text-2xl md:text-3xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors">
+                                        <h4 className="text-2xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">
                                             {project.title}
                                         </h4>
-                                        <p className="text-sm md:text-base text-neutral-300 line-clamp-2 max-w-xl">
+                                        <p className="text-sm text-neutral-300 line-clamp-2 leading-relaxed">
                                             {project.subtitle}
                                         </p>
-                                        <div className="mt-8 flex items-center gap-2 text-blue-400 font-bold group-hover:translate-x-2 transition-transform">
-                                            View Case Study <span className="text-xl">→</span>
+                                        <div className="mt-6 flex items-center gap-2 text-blue-400 font-bold text-sm uppercase tracking-wider group-hover:translate-x-2 transition-transform">
+                                            View Case Study <span className="text-lg">→</span>
                                         </div>
                                     </div>
                                 </a>
