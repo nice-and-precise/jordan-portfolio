@@ -71,7 +71,7 @@ export const CrewDashboard = () => {
 
                     {/* Action Button */}
                     <div className="flex gap-4">
-                        <button className="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white py-3 rounded-lg font-bold flex items-center justify-center gap-2 transition-all">
+                        <button className="flex-1 bg-blue-600 hover:bg-blue-500 text-white py-3 rounded-lg font-bold flex items-center justify-center gap-2 transition-all">
                             <Plus className="w-4 h-4" /> Log Rod
                         </button>
                         <button className="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-3 rounded-lg font-bold flex items-center justify-center gap-2 transition-all border border-slate-700">
@@ -106,7 +106,7 @@ export const CrewDashboard = () => {
 
                     <div className="flex border-b border-slate-800">
                         <div className="px-6 py-2 text-xs font-bold text-slate-500 hover:text-slate-300 border-b-2 border-transparent cursor-pointer">Assets & Inspections</div>
-                        <div className="px-6 py-2 text-xs font-bold text-white border-b-2 border-indigo-500 cursor-pointer">Inventory</div>
+                        <div className="px-6 py-2 text-xs font-bold text-white border-b-2 border-white cursor-pointer">Inventory</div>
                     </div>
 
                     {/* Inventory Box */}
@@ -132,7 +132,7 @@ export const CrewDashboard = () => {
                                     value={fuelAmount}
                                     onChange={(e) => setFuelAmount(e.target.value)}
                                     placeholder="Gallons"
-                                    className="flex-1 bg-slate-950 border border-slate-800 rounded px-3 py-2 text-white text-sm outline-none focus:border-indigo-500"
+                                    className="flex-1 bg-slate-950 border border-slate-800 rounded px-3 py-2 text-white text-sm outline-none focus:border-blue-500"
                                 />
                                 <button className="bg-white text-black px-6 py-2 rounded font-bold text-xs uppercase hover:bg-slate-200">Log Diesel</button>
                             </div>

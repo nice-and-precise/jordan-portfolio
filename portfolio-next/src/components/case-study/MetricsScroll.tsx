@@ -79,7 +79,7 @@ const MetricSection: React.FC<MetricSectionProps> = ({ metric }) => {
             {/* Background Element (Abstract Shape) */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
                 <motion.div
-                    className="w-[60vw] h-[60vw] rounded-full bg-gradient-to-tr from-indigo-900 to-purple-900 blur-3xl"
+                    className="w-[60vw] h-[60vw] rounded-full bg-gradient-to-tr from-slate-800 to-slate-900 blur-3xl"
                     style={{ y }}
                 />
             </div>
@@ -89,7 +89,7 @@ const MetricSection: React.FC<MetricSectionProps> = ({ metric }) => {
                 style={{ opacity, scale }}
                 className="relative z-10 text-center max-w-4xl px-6"
             >
-                <h2 className="text-sm md:text-lg font-mono text-indigo-400 mb-4 tracking-widest uppercase">
+                <h2 className="text-sm md:text-lg font-mono text-emerald-500 mb-4 tracking-widest uppercase">
                     {metric.label}
                 </h2>
                 <div className="text-[12vw] md:text-[8rem] font-black tracking-tighter text-white leading-none mb-6">

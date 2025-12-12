@@ -56,11 +56,11 @@ export const NonConformanceForm = () => {
                 <div className="bg-slate-950 p-4 rounded-lg border border-slate-800 w-full max-w-md text-left mb-8">
                     <div className="text-xs font-bold text-slate-500 uppercase mb-2">Next Steps</div>
                     <div className="flex items-start gap-3">
-                        <div className="w-2 h-2 rounded-full bg-indigo-500 mt-1.5" />
+                        <div className="w-2 h-2 rounded-full bg-emerald-500 mt-1.5" />
                         <span className="text-sm text-slate-300">Automated Maintenance Ticket #MT-492 created.</span>
                     </div>
                     <div className="flex items-start gap-3 mt-2">
-                        <div className="w-2 h-2 rounded-full bg-indigo-500 mt-1.5" />
+                        <div className="w-2 h-2 rounded-full bg-emerald-500 mt-1.5" />
                         <span className="text-sm text-slate-300">Slack notification sent to #quality-control.</span>
                     </div>
                 </div>
@@ -102,12 +102,12 @@ export const NonConformanceForm = () => {
                         <div className="space-y-4">
                             <div>
                                 <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Part Number</label>
-                                <input type="text" defaultValue="PN-8299-[REDACTED]" className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-white focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none font-mono" />
+                                <input type="text" defaultValue="PN-8299-[REDACTED]" className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none font-mono" />
                             </div>
                             <div>
                                 <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Detected By</label>
                                 <div className="flex items-center gap-3 bg-slate-950 border border-slate-800 rounded-lg p-2 pr-4">
-                                    <div className="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400 font-bold text-xs">JD</div>
+                                    <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold text-xs">JD</div>
                                     <span className="text-sm text-slate-300">Station Inspector 04</span>
                                 </div>
                             </div>
@@ -150,9 +150,9 @@ export const NonConformanceForm = () => {
                                 initial={{ opacity: 0, height: 0 }}
                                 animate={{ opacity: 1, height: "auto" }}
                                 exit={{ opacity: 0, height: 0 }}
-                                className="bg-slate-800/50 border-l-4 border-indigo-500 p-4 rounded-r-lg"
+                                className="bg-slate-800/50 border-l-4 border-emerald-500 p-4 rounded-r-lg"
                             >
-                                <div className="text-xs font-bold text-indigo-400 uppercase mb-1 flex items-center gap-2"><Sparkles className="w-3 h-3" /> System Recommended Action</div>
+                                <div className="text-xs font-bold text-emerald-400 uppercase mb-1 flex items-center gap-2"><Sparkles className="w-3 h-3" /> System Recommended Action</div>
                                 <p className="text-sm text-slate-200">{getActionPlan()}</p>
                             </motion.div>
                         )}
@@ -168,7 +168,7 @@ export const NonConformanceForm = () => {
                                 type="button"
                                 onClick={handleAnalyze}
                                 disabled={isAnalyzing || !!aiAnalysis}
-                                className="text-xs flex items-center gap-1.5 text-indigo-400 hover:text-indigo-300 transition-colors disabled:opacity-50"
+                                className="text-xs flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 transition-colors disabled:opacity-50"
                             >
                                 <Brain className="w-3 h-3" />
                                 {isAnalyzing ? "Analyzing..." : "Auto-Analyze Root Cause"}
@@ -177,7 +177,7 @@ export const NonConformanceForm = () => {
 
                         <textarea
                             rows={4}
-                            className="w-full bg-slate-950 border border-slate-800 rounded-lg p-4 text-slate-300 focus:border-indigo-500 outline-none resize-none leading-relaxed transition-all focus:ring-1 focus:ring-indigo-500/50"
+                            className="w-full bg-slate-950 border border-slate-800 rounded-lg p-4 text-slate-300 focus:border-emerald-500 outline-none resize-none leading-relaxed transition-all focus:ring-1 focus:ring-emerald-500/50"
                             placeholder="Describe the non-conformance in detail..."
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
@@ -189,10 +189,10 @@ export const NonConformanceForm = () => {
                             <motion.div
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                className="bg-indigo-950/30 border border-indigo-500/30 p-4 rounded-lg relative overflow-hidden"
+                                className="bg-emerald-950/20 border border-emerald-500/30 p-4 rounded-lg relative overflow-hidden"
                             >
-                                <div className="absolute top-0 right-0 p-2 opacity-20"><Brain className="w-16 h-16 text-indigo-500" /></div>
-                                <h4 className="text-sm font-bold text-indigo-300 mb-2 flex items-center gap-2"><Sparkles className="w-4 h-4" /> AI Insight Detected</h4>
+                                <div className="absolute top-0 right-0 p-2 opacity-20"><Brain className="w-16 h-16 text-emerald-500" /></div>
+                                <h4 className="text-sm font-bold text-emerald-300 mb-2 flex items-center gap-2"><Sparkles className="w-4 h-4" /> AI Insight Detected</h4>
                                 <p className="text-sm text-slate-300 relative z-10 leading-relaxed">
                                     {aiAnalysis}
                                 </p>
@@ -203,8 +203,8 @@ export const NonConformanceForm = () => {
                     {/* Evidence */}
                     <div>
                         <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Evidence Attachment</label>
-                        <div className="border-2 border-dashed border-slate-800 rounded-xl p-8 flex flex-col items-center justify-center text-slate-500 hover:border-indigo-500/50 hover:bg-slate-900/50 transition-all cursor-pointer group hover:text-indigo-400">
-                            <div className="w-12 h-12 rounded-full bg-slate-900 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform group-hover:bg-indigo-500/20 group-hover:text-indigo-400">
+                        <div className="border-2 border-dashed border-slate-800 rounded-xl p-8 flex flex-col items-center justify-center text-slate-500 hover:border-emerald-500/50 hover:bg-slate-900/50 transition-all cursor-pointer group hover:text-emerald-400">
+                            <div className="w-12 h-12 rounded-full bg-slate-900 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform group-hover:bg-emerald-500/20 group-hover:text-emerald-400">
                                 <Camera className="w-6 h-6" />
                             </div>
                             <p className="text-sm font-medium">Drag & Drop or Click to Upload Evidence</p>
@@ -220,7 +220,7 @@ export const NonConformanceForm = () => {
                         <div className="grid grid-cols-2 gap-4 text-sm">
                             <div><span className="text-slate-500">Part:</span> <span className="text-slate-300">PN-8299-[REDACTED]</span></div>
                             <div><span className="text-slate-500">Severity:</span> <span className={`font-bold ${severity === 'high' ? 'text-red-400' : 'text-slate-300'} uppercase`}>{severity || "Pending"}</span></div>
-                            <div className="col-span-2"><span className="text-slate-500">Action:</span> <span className="text-indigo-300">{getActionPlan() || "Pending Review"}</span></div>
+                            <div className="col-span-2"><span className="text-slate-500">Action:</span> <span className="text-emerald-300">{getActionPlan() || "Pending Review"}</span></div>
                         </div>
                     </div>
 
@@ -230,7 +230,7 @@ export const NonConformanceForm = () => {
                             <h5 className="text-sm font-bold text-slate-200">Digital Signature Required</h5>
                             <p className="text-xs text-slate-500 mt-1 mb-3">By submitting this report, you certify that the information is accurate and complies with [REDACTED] ISO-9001 protocols.</p>
                             <div className="flex items-center gap-2">
-                                <input type="checkbox" id="sign" className="rounded border-slate-600 bg-slate-700 text-indigo-500 focus:ring-indigo-500" />
+                                <input type="checkbox" id="sign" className="rounded border-slate-600 bg-slate-700 text-emerald-500 focus:ring-emerald-500" />
                                 <label htmlFor="sign" className="text-sm text-slate-300 select-none cursor-pointer">I, <span className="font-mono text-white">System Inspector 04</span>, sign this report.</label>
                             </div>
                         </div>
