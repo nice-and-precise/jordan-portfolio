@@ -6,7 +6,7 @@ import { Project, subscribeToProject } from "@/lib/data";
 import { ResourceAllocationGrid } from "@/components/case-study/ResourceAllocationGrid";
 import { MetricsScroll } from "@/components/case-study/MetricsScroll";
 import { ArchitectureDiagram } from "@/components/case-study/ArchitectureDiagram";
-import { ManufacturingDefectChart } from "@/components/case-study/ManufacturingDefectChart";
+import { NonConformanceForm } from "@/components/case-study/NonConformanceForm";
 import { MarketSentimentDashboard } from "@/components/case-study/MarketSentimentDashboard";
 
 interface LiveCaseStudyProps {
@@ -18,7 +18,7 @@ function renderMasteryComponent(slug: string) {
         case "midwest-underground-ops":
             return <ResourceAllocationGrid />;
         case "manufacturing-control-framework":
-            return <ManufacturingDefectChart />;
+            return <NonConformanceForm />;
         case "global-market-research":
             return <MarketSentimentDashboard />;
         default:
