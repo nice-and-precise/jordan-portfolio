@@ -3,7 +3,7 @@ export const HERO_VARIATIONS = {
     badge: "Revenue Leakage Detected",
     headline: "You Are Burning Capital on Inefficiency.",
     subheadline: "Your operations are bleeding margin through manual workflows and fragmented systems. I architect the digital infrastructure that stops the bleeding and scales with zero friction.",
-    cta: "Calculate Your Waste",
+    cta: "",
     type: "aggressive"
   },
   empathetic: {

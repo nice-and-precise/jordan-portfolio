@@ -62,7 +62,7 @@ export default function InefficiencyCalculator() {
                             suppressHydrationWarning
                             type="range"
                             min="5"
-                            max="500"
+                            max="100"
                             value={employees}
                             onChange={(e) => setEmployees(Number(e.target.value))}
                             className="w-full h-2 bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-blue-500"
@@ -75,8 +75,8 @@ export default function InefficiencyCalculator() {
                         <input
                             suppressHydrationWarning
                             type="range"
-                            min="20"
-                            max="200"
+                            min="17"
+                            max="100"
                             value={hourlyRate}
                             onChange={(e) => setHourlyRate(Number(e.target.value))}
                             className="w-full h-2 bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-blue-500"

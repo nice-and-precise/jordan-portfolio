@@ -93,16 +93,18 @@ export default function StrategicHome({ projects, settings, services }: Strategi
                     </motion.p>
 
                     {/* CTA */}
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.4 }}
-                    >
-                        <button className="group relative px-8 py-4 bg-white text-black rounded-full font-bold text-lg overflow-hidden transition-transform hover:scale-105">
-                            <span className="relative z-10 group-hover:text-white transition-colors">{heroContent.cta}</span>
-                            <div className="absolute inset-0 bg-blue-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
-                        </button>
-                    </motion.div>
+                    {heroContent.cta && (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.4 }}
+                        >
+                            <button className="group relative px-8 py-4 bg-white text-black rounded-full font-bold text-lg overflow-hidden transition-transform hover:scale-105">
+                                <span className="relative z-10 group-hover:text-white transition-colors">{heroContent.cta}</span>
+                                <div className="absolute inset-0 bg-blue-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
+                            </button>
+                        </motion.div>
+                    )}
 
                     {/* Hero Switcher Prompt */}
                     <div className="mt-8 text-neutral-600 text-xs font-mono">

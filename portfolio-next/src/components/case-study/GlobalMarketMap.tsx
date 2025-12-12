@@ -8,7 +8,7 @@ import { MapPin, X, TrendingUp, Users, Activity, Calendar, Globe, Building2 } fr
 interface LocationData {
     id: string;
     city: string;
-    country: string;
+    state: string;
     coords: { x: number; y: number }; // Percentage relative to map container
     marketStatus: "growth" | "stable" | "volatile";
     metrics: {
@@ -19,43 +19,43 @@ interface LocationData {
     report: string;
 }
 
-// --- Mock Data ---
+// --- Mock Data (USA Only) ---
 const LOCATIONS: LocationData[] = [
     {
         id: "nyc",
         city: "New York",
-        country: "USA",
-        coords: { x: 28, y: 35 },
+        state: "NY",
+        coords: { x: 82, y: 35 },
         marketStatus: "growth",
         metrics: { sentiment: 88, volume: "$4.2B", activeDeals: 156 },
         report: "North American equities showing strong resilience. Tech sector accumulation phase detected across major indices.",
     },
     {
-        id: "ldn",
-        city: "London",
-        country: "UK",
-        coords: { x: 48, y: 28 },
+        id: "sfo",
+        city: "San Francisco",
+        state: "CA",
+        coords: { x: 12, y: 45 },
         marketStatus: "volatile",
-        metrics: { sentiment: 45, volume: "£1.8B", activeDeals: 84 },
-        report: "Post-regulatory adjustments causing short-term liquidity constraints in fintech markets.",
+        metrics: { sentiment: 65, volume: "$2.8B", activeDeals: 134 },
+        report: "VC liquidity constraints easing in Silicon Valley. Biotech sector showing early breakout signals.",
     },
     {
-        id: "sgp",
-        city: "Singapore",
-        country: "SG",
-        coords: { x: 78, y: 55 },
+        id: "chi",
+        city: "Chicago",
+        state: "IL",
+        coords: { x: 65, y: 38 },
         marketStatus: "stable",
-        metrics: { sentiment: 72, volume: "S$2.1B", activeDeals: 92 },
-        report: "Strong institutional inflow into logistics and green energy bonds. Regional hub status reinforced.",
+        metrics: { sentiment: 72, volume: "$1.9B", activeDeals: 92 },
+        report: "Midwest manufacturing output exceeding forecasts. Logistics hub processing volume at all-time high.",
     },
     {
-        id: "tok",
-        city: "Tokyo",
-        country: "JP",
-        coords: { x: 85, y: 38 },
+        id: "atx",
+        city: "Austin",
+        state: "TX",
+        coords: { x: 48, y: 75 },
         marketStatus: "growth",
-        metrics: { sentiment: 81, volume: "¥3.4T", activeDeals: 110 },
-        report: "Manufacturing output exceeding forecasts. Yen stability attracting foreign direct investment.",
+        metrics: { sentiment: 81, volume: "$1.4B", activeDeals: 110 },
+        report: "Sun Belt migration continuing to drive commercial real estate demand. Tech corridor expansion steady.",
     }
 ];
 
@@ -72,7 +72,7 @@ export const GlobalMarketMap = () => {
                         <Globe className="w-5 h-5 text-blue-400" />
                     </div>
                     <div>
-                        <h2 className="text-sm font-bold text-white tracking-tight">Global Market Intelligence</h2>
+                        <h2 className="text-sm font-bold text-white tracking-tight">US Market Intelligence</h2>
                         <div className="flex items-center gap-2 text-[10px] text-slate-500 font-mono uppercase tracking-wider">
                             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                             Live Connection
@@ -88,21 +88,15 @@ export const GlobalMarketMap = () => {
 
             {/* Map Container */}
             <div className="relative w-full aspect-[16/9] bg-[#090b10] overflow-hidden group">
-                {/* Simulated Map Background (SVG Pattern for "Industrial" look) */}
-                <div className="absolute inset-0 opacity-20 pointer-events-none">
-                    <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#334155" strokeWidth="0.5" />
-                            </pattern>
-                        </defs>
-                        <rect width="100%" height="100%" fill="url(#grid)" />
-                        {/* Abstract Continents (Simplified for code-only demo) */}
-                        <path d="M150 150 Q 250 50 400 150 T 800 150 T 1200 150" fill="none" stroke="#1e293b" strokeWidth="100" strokeLinecap="round" opacity="0.5" filter="blur(20px)" />
+                {/* USA Map SVG */}
+                <div className="absolute inset-0 p-8 flex items-center justify-center opacity-30 pointer-events-none">
+                    <svg viewBox="0 0 960 600" className="w-full h-full text-slate-800 fill-current stroke-slate-700 stroke-1">
+                        <path d="M936.8,118.8 c-0.3-0.3-0.7-0.5-1.2-0.6 c-2.3-0.5-4.5-1.1-6.7-1.8 c-1.1-0.3-2.3-0.8-3.3-1.4 c-2.7-1.5-5.3-3.1-7.9-4.7 c-0.6-0.3-1.1-0.8-1.5-1.4 c-1.6-2.1-3.2-4.1-4.9-6.2 c-0.8-1-1.7-1.9-2.7-2.7 c-1.8-1.4-3.7-2.6-5.8-3.7 c-0.9-0.5-1.9-0.9-2.9-1.2 c-2.7-0.8-5.3-1.8-7.9-2.8 c-1-0.4-2-0.9-3-1.5 c-3.5-2-7.1-3.7-10.9-5.1 c-1.5-0.5-3-1.2-4.4-1.9 c-3.2-1.6-6.4-3.2-9.6-4.6 c-1.7-0.7-3.4-1.6-5.1-2.4 c-2.1-1-4.2-2.1-6.3-3.1 c-1.3-0.6-2.6-1.1-3.9-1.6 c-2.5-0.9-5-1.8-7.5-2.6 c-1.2-0.4-2.4-0.9-3.5-1.5 c-2.1-1.1-4.1-2.3-6.2-3.4 c-1.7-0.9-3.4-1.9-5-3 c-1.2-0.8-2.6-1.4-3.9-2 c-2.1-0.9-4.2-1.8-6.3-2.6 c-1.8-0.7-3.6-1.4-5.4-2.1 c-2.5-1-5.1-1.8-7.7-2.6 c-1.4-0.4-2.9-0.7-4.3-1 c-3.1-0.6-6.3-1.2-9.4-1.6 c-1.6-0.2-3.3-0.3-4.9-0.3 c-3.2,0.1-6.3,0.3-9.5,0.7 c-1.6,0.2-3.2,0.6-4.7,1.1 c-2.9,0.9-5.7,2.1-8.5,3.3 c-1.4,0.6-2.7,1.4-4,2.2 c-2.1,1.3-4.2,2.7-6.2,4.1 c-0.9,0.6-1.8,1.3-2.6,2.1 c-1.5,1.3-2.8,2.7-4.1,4.2 c-0.6,0.8-1.4,1.4-2.1,2.1 c-2,1.9-4,3.8-5.9,5.7 c-0.9,0.9-1.7,1.8-2.5,2.8 c-1.4,1.7-2.6,3.6-3.8,5.4 c-0.5,0.8-1,1.6-1.3,2.5 c-1,2.4-1.7,4.9-2.3,7.4 c-0.3,1.3-0.7,2.5-1.2,3.7 c-1.1,2.7-2.4,5.4-3.8,8 c-0.6,1.1-1.3,2.2-2.1,3.2 c-1.5,1.8-3.2,3.5-4.9,5.2 c-0.8,0.8-1.5,1.7-2.2,2.6 c-1.3,1.7-2.5,3.4-3.7,5.2 c-0.5,0.8-1,1.6-1.4,2.5 c-1,2.2-1.8,4.5-2.6,6.7 c-0.3,1-0.7,1.9-1.2,2.8 c-1.1,2.1-2.4,4.2-3.6,6.2 c-0.6,1-1.3,1.9-2,2.8 c-1.5,1.9-3.2,3.7-4.8,5.5 c-0.8,0.9-1.5,1.9-2.1,2.9 c-1.4,2.3-2.6,4.7-3.8,7.2 c-0.4,0.9-0.8,1.7-1.4,2.6 c-1.2,2-2.6,3.9-4,5.8 c-0.7,0.9-1.4,1.8-2.2,2.6 c-1.8,1.9-3.7,3.6-5.8,5.3 c-0.9,0.7-1.9,1.3-2.9,1.9 c-2.4,1.4-4.9,2.7-7.4,3.8 c-1.3,0.6-2.5,1.3-3.8,1.9 c-2.7,1.4-5.4,2.6-8.2,3.7 c-1.3,0.5-2.6,1-4,1.3 c-2.7,0.7-5.5,1.2-8.3,1.5 c-1.5,0.2-3,0.2-4.5,0.1 c-3.2-0.2-6.3-0.6-9.5-1.2 c-1.5-0.3-3-0.8-4.5-1.4 c-2.8-1.1-5.6-2.4-8.3-3.9 c-1.2-0.7-2.4-1.5-3.5-2.4 c-2.4-1.9-4.7-4-6.9-6.2 c-0.9-0.9-1.8-1.9-2.5-2.9 c-1.7-2.3-3.1-4.8-4.5-7.3 c-0.5-1-1.1-1.9-1.7-2.8 c-1.4-2.1-3-4.1-4.6-6.1 c-0.8-0.9-1.6-1.8-2.5-2.6 c-1.9-1.7-4-3.3-6.1-4.7 c-1-0.7-2.1-1.3-3.1-1.9 c-2.5-1.3-5.1-2.4-7.7-3.2 c-1.3-0.4-2.6-0.7-3.9-0.9 c-2.8-0.4-5.6-0.6-8.5-0.6 c-1.4,0-2.9,0.2-4.3,0.5 c-3.1,0.6-6.2,1.5-9.2,2.7 c-1.4,0.6-2.8,1.3-4.1,2.1 c-2.7,1.6-5.3,3.5-7.7,5.5 c-1.1,0.9-2.1,1.9-3,2.9 c-2.1,2.3-4,4.9-5.7,7.6 c-0.7,1.1-1.3,2.2-1.9,3.4 c-1.3,2.6-2.4,5.3-3.2,8.1 c-0.3,1-0.6,2-0.8,3 c-0.6,3-0.9,6-0.9,9.1 c0,1.5,0.1,3,0.4,4.5 c0.5,2.7,1.2,5.3,2.2,7.9 c0.4,1.1,0.9,2.1,1.5,3.1 c1.3,2.3,2.8,4.5,4.5,6.5 c0.8,1,1.7,1.9,2.6,2.8 c2.2,2.1,4.6,3.9,7.1,5.5 c1.2,0.8,2.4,1.4,3.7,2 c2.6,1.2,5.3,2.1,8.1,2.8 c1.3,0.3,2.7,0.5,4.1,0.5 c2.9,0.1,5.8-0.1,8.6-0.6 c1.4-0.3,2.8-0.7,4.1-1.3 c2.7-1.1,5.3-2.5,7.8-4.1 c1.1-0.7,2.2-1.6,3.2-2.5 c2.2-2,4.2-4.2,6-6.6 c0.8-1,1.5-2.1,2.2-3.2 c1.4-2.4,2.5-4.9,3.5-7.5 c0.4-1.1,0.7-2.2,1-3.4 c0.8-2.8,1.3-5.7,1.6-8.6 c0.1-1.2,0.2-2.4,0.1-3.6 c-0.1-3.1-0.5-6.2-1.2-9.2 c-0.3-1.3-0.7-2.5-1.2-3.8 c-1.1-2.7-2.6-5.4-4.3-7.9 c-0.7-1.1-1.5-2.2-2.3-3.2 c-1.8-2.2-3.9-4.3-6.1-6.2 c-1-0.8-2-1.6-3.1-2.3 c-2.3-1.6-4.7-3-7.2-4.2 c-1.1-0.5-2.3-1-3.5-1.4 c-2.8-0.9-5.7-1.5-8.6-1.9 c-1.4-0.2-2.8-0.2-4.3-0.1 c-3.5,0.3-6.9,0.9-10.2,1.9 c-1.4,0.4-2.8,1-4.1,1.7 c-2.7,1.4-5.3,3-7.7,4.9 c-1,0.8-2,1.7-2.9,2.7 c-2,2.1-3.8,4.4-5.4,6.8 c-0.7,1-1.3,2.1-1.8,3.2 c-1.3,2.5-2.3,5.1-3,7.8 c-0.3,1.1-0.5,2.2-0.7,3.3 c-0.6,2.9-0.8,5.8-0.8,8.8 c0,1.2,0.1,2.4,0.3,3.6 c0.5,3,1.3,5.9,2.3,8.7 c0.4,1.1,0.9,2.3,1.4,3.3 c1.3,2.5,2.8,4.9,4.5,7.1 c0.8,1,1.6,2,2.5,2.9 c2,2.1,4.2,4,6.5,5.7 c1.1,0.8,2.2,1.5,3.4,2.1 c2.5,1.3,5.1,2.4,7.8,3.2 c1.3,0.4,2.6,0.6,3.9,0.8 c3,0.3,6,0.4,8.9,0.2 c1.4-0.1,2.8-0.3,4.2-0.7 c2.7-0.7,5.4-1.7,7.9-2.9 c1.1-0.5,2.2-1.1,3.2-1.8 c2.1-1.5,4.1-3.2,5.9-5.1 c0.8-0.9,1.5-1.8,2.2-2.8 c1.4-2,2.6-4.2,3.6-6.5 c0.4-1,0.8-2,1.1-3.1 c0.8-2.5,1.4-5.1,1.7-7.7 c0.1-1.1,0.2-2.2,0.2-3.3 c-0.1-3.2-0.5-6.3-1.1-9.4 c-0.3-1.2-0.7-2.4-1.2-3.6 c-1.1-2.6-2.6-5.1-4.3-7.5 c-0.7-1-1.5-2-2.3-2.9 c-1.8-2-3.8-3.9-5.9-5.6 c-1-0.8-2-1.5-3.1-2.1 c-2.3-1.4-4.8-2.6-7.3-3.6 c-1.1-0.4-2.3-0.8-3.5-1.1 c-2.8-0.7-5.7-1.1-8.5-1.3 c-1.4-0.1-2.8-0.1-4.2,0.1 c-3.4,0.4-6.8,1.1-10,2.1 c-1.4,0.4-2.8,1-4.1,1.7 c-2.7,1.4-5.2,3.1-7.6,5 c-1,0.8-2,1.7-2.9,2.7 c-2,2.2-3.8,4.5-5.3,7 c-0.7,1-1.3,2.1-1.8,3.3 c-1.3,2.5-2.2,5.2-2.9,7.9 c-0.3,1.1-0.5,2.2-0.6,3.3 c-0.4,3-0.6,5.9-0.5,9 c0,1.2,0.1,2.4,0.4,3.6 c0.6,3,1.5,5.9,2.7,8.7 c0.5,1.1,1,2.2,1.6,3.3 c1.5,2.5,3.2,4.8,5,7 c0.9,1,1.8,2,2.8,2.8 c2.2,2,4.6,3.8,7.1,5.3 c1.1,0.7,2.3,1.3,3.5,1.9 c2.6,1.2,5.3,2.1,8,2.8 c1.3,0.3,2.7,0.5,4,0.7 c3,0.2,5.9,0.2,8.9-0.1 c1.4-0.2,2.8-0.4,4.2-0.8 c2.7-0.9,5.3-2,7.7-3.4 c1.1-0.6,2.2-1.3,3.1-2.1 c2-1.6,3.9-3.5,5.6-5.4 c0.8-0.9,1.5-1.9,2.1-2.9 c1.3-2.2,2.5-4.5,3.4-6.8 c0.4-1,0.7-2.1,1-3.2 c0.7-2.6,1.2-5.3,1.4-8 c0.1-1.2,0.1-2.3,0-3.5 c-0.2-3.1-0.6-6.3-1.3-9.3 c-0.3-1.2-0.7-2.4-1.2-3.6 c-1.2-2.5-2.7-5-4.4-7.3 c-0.7-1-1.6-1.9-2.4-2.8 c-1.9-1.9-3.9-3.8-6-5.4 c-1-0.7-2-1.4-3.1-2 c-2.4-1.4-4.9-2.5-7.4-3.4 c-1.1-0.4-2.3-0.8-3.5-1 c-2.9-0.6-5.8-0.9-8.7-0.9 c-1.4,0-2.8,0.1-4.2,0.3 c-3.3,0.6-6.5,1.4-9.6,2.5 c-1.4,0.5-2.7,1.1-4,1.8 c-2.6,1.5-5.1,3.3-7.4,5.3 c-1,0.9-1.9,1.8-2.8,2.8 c-1.9,2.2-3.7,4.6-5.2,7.1 c-0.7,1.1-1.3,2.2-1.8,3.4 c-1.2,2.6-2.1,5.3-2.8,8 c-0.3,1.1-0.5,2.2-0.6,3.4 c-0.3,2.9-0.4,5.9-0.2,8.9 c0.1,1.2,0.2,2.5,0.5,3.7 c0.7,2.9,1.7,5.7,3,8.4 c0.5,1.1,1.1,2.2,1.8,3.2 c1.6,2.4,3.5,4.6,5.4,6.7 c0.9,1,1.9,1.9,2.9,2.7 c2.2,1.9,4.7,3.6,7.2,4.9 c1.2,0.6,2.4,1.2,3.6,1.7 c2.6,1,5.4,1.8,8.1,2.3 c1.3,0.2,2.7,0.4,4.1,0.5 c3,0.1,6,0,8.9-0.4 c1.4-0.2,2.8-0.5,4.2-0.9 c2.6-1,5.2-2.2,7.6-3.7 c1-0.7,2.1-1.4,3-2.2 c1.9-1.7,3.6-3.7,5.2-5.7 c0.7-0.9,1.4-1.9,2-3 c1.2-2.2,2.2-4.6,3-7 c0,0,0.1,0,0.1,0.1 c1.1,5,2.5,9.8,4.1,14.6 c0.5,1.5,1,3,1.6,4.5 c1.3,3.5,2.7,6.9,4.2,10.3 c0.6,1.4,1.3,2.8,2,4.2 c1.6,3.3,3.3,6.5,5.2,9.7 c0.8,1.3,1.6,2.6,2.5,3.9 c2.1,3,4.3,6,6.7,8.8 c1,1.1,2,2.3,3.1,3.4 c2.6,2.7,5.4,5.2,8.3,7.6 c1.2,1,2.5,2,3.7,2.9 c2.5,1.8,5.1,3.4,7.8,4.9 c0.6,0.3,1.3,0.8,1.9,1.1 c3,1.5,6,2.8,9.2,3.9 c0.7,0.3,1.4,0.5,2.1,0.8 c3.6,1.2,7.2,2.1,10.9,2.9 c0.4,0.1,0.9,0.2,1.3,0.2 c5.4,0.9,10.8,1.3,16.3,1.2 c1.6,0,3.1-0.1,4.7-0.3 c2.1-0.2,4.2-0.5,6.3-0.9 c-1.7-1.1-3.3-2.3-4.8-3.6 c-2.6-2.1-5-4.5-7.3-6.9 c-3.9-4.2-7.3-8.8-10.2-13.8 c-2.2-3.8-4-7.8-5.5-12 c-0.6-1.7-1.2-3.5-1.7-5.2 c-0.9-3-1.6-6-2.1-9.1 c-0.2-1.7-0.3-3.3-0.4-5 c-0.2-3.1-0.2-6.2,0.1-9.3 c0.1-1.6,0.2-3.1,0.4-4.7 c0.5-3.1,1.3-6.1,2.4-9 c0.5-1.2,1-2.5,1.6-3.7 c1.4-2.8,3-5.5,4.9-8 c0.9-1.2,1.9-2.3,2.9-3.4 c2.3-2.3,4.9-4.4,7.7-6.2 c1.3-0.8,2.7-1.6,4.1-2.3" stroke="currentColor" fill="none" transform="translate(100, 50) scale(0.8)" />
                     </svg>
-                    {/* World Map Image Overlay - Assuming we have a dark map file, if not we use a colored div for fallback visual */}
-                    <div className="absolute inset-0 bg-[#0f172a]" style={{ maskImage: 'radial-gradient(circle at center, transparent, black)' }}></div>
                 </div>
+
+                {/* World Map Background (Faint) */}
+                <div className="absolute inset-0 opacity-10 pointer-events-none bg-[url('/grid-pattern.svg')]"></div>
 
                 {/* Pins */}
                 {LOCATIONS.map((loc) => (
@@ -117,12 +111,12 @@ export const GlobalMarketMap = () => {
                     >
                         {/* Ripple Effect */}
                         <div className={`absolute inset-0 rounded-full animate-ping opacity-75 h-4 w-4 ${loc.marketStatus === 'growth' ? 'bg-emerald-500' :
-                                loc.marketStatus === 'volatile' ? 'bg-amber-500' : 'bg-blue-500'
+                            loc.marketStatus === 'volatile' ? 'bg-amber-500' : 'bg-blue-500'
                             }`}></div>
 
                         {/* Pin Head */}
                         <div className={`relative h-4 w-4 rounded-full border-2 border-white shadow-lg ${loc.marketStatus === 'growth' ? 'bg-emerald-500' :
-                                loc.marketStatus === 'volatile' ? 'bg-amber-500' : 'bg-blue-500'
+                            loc.marketStatus === 'volatile' ? 'bg-amber-500' : 'bg-blue-500'
                             }`}></div>
 
                         {/* Hover Tooltip */}
@@ -148,7 +142,7 @@ export const GlobalMarketMap = () => {
                             <div>
                                 <h3 className="text-2xl font-bold text-white mb-1">{selectedLocation.city}</h3>
                                 <div className="flex items-center gap-2 text-slate-400 text-sm">
-                                    <MapPin className="w-4 h-4" /> {selectedLocation.country}
+                                    <MapPin className="w-4 h-4" /> {selectedLocation.state}, USA
                                 </div>
                             </div>
                             <button

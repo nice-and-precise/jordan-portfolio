@@ -1,117 +1,94 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
-import { Database, Server, Smartphone, Cloud, Wifi, ArrowRight, Layers, Cpu } from "lucide-react";
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const Node = ({ icon: Icon, label, sub, x, y }: any) => (
-    <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
-        className="absolute flex flex-col items-start justify-between p-4 bg-slate-900 border border-slate-800 w-44 h-36 z-10 shadow-xl hover:shadow-2xl hover:border-slate-700 transition-all"
-        style={{ left: x, top: y }}
-    >
-        <div className="w-full flex justify-between items-start">
-            <Icon className="w-6 h-6 text-slate-400" strokeWidth={1.5} />
-            <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
-        </div>
-        <div>
-            <div className="font-bold text-sm text-slate-200 leading-tight mb-1">{label}</div>
-            <div className="text-[10px] text-slate-500 font-mono uppercase tracking-wider">{sub}</div>
-        </div>
-    </motion.div>
-);
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const Connection = ({ start, end, label }: any) => {
-    return (
-        <svg className="absolute inset-0 w-full h-full pointer-events-none overflow-visible">
-            <defs>
-                <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
-                    <path d="M0,0 L8,3 L0,6 L0,0" fill="#475569" />
-                </marker>
-            </defs>
-            <motion.path
-                d={`M ${start[0]} ${start[1]} L ${end[0]} ${end[1]}`}
-                fill="none"
-                stroke="#475569"
-                strokeWidth="1"
-                markerEnd="url(#arrowhead)"
-                initial={{ pathLength: 0, opacity: 0 }}
-                whileInView={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 1.2, ease: "easeInOut" }}
-            />
-            {label && (
-                <text x={(parseFloat(start[0]) + parseFloat(end[0])) / 2} y={(parseFloat(start[1]) + parseFloat(end[1])) / 2 - 8} fill="#64748b" fontSize="10" fontFamily="monospace" textAnchor="middle" className="bg-slate-950">
-                    {label}
-                </text>
-            )}
-        </svg>
-    );
-};
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+    Database,
+    Smartphone,
+    Wifi,
+    Server,
+    Globe,
+    Layers,
+    ArrowRight,
+    Zap,
+    Cpu
+} from "lucide-react";
 
 export const ArchitectureDiagram = () => {
     return (
-        <div className="relative w-full h-[500px] bg-slate-950/50 rounded-xl border border-slate-800 overflow-hidden select-none font-sans">
-            {/* Grid Background */}
-            <div className="absolute inset-0 opacity-[0.05]"
-                style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }}
-            />
-
-            <div className="absolute top-6 left-6">
-                <div className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">System Architecture</div>
-                <div className="text-xl font-bold text-white tracking-tight">Data Ingestion v2.0</div>
+        <div className="w-full bg-slate-950 border border-slate-800 rounded-xl overflow-hidden p-8 relative">
+            {/* Background Grid */}
+            <div className="absolute inset-0 opacity-20 pointer-events-none"
+                style={{ backgroundImage: 'linear-gradient(#1e293b 1px, transparent 1px), linear-gradient(90deg, #1e293b 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
             </div>
 
-            {/* Nodes */}
-            <Node
-                icon={Smartphone}
-                label="Field App (PWA)"
-                sub="Offline First"
-                x="10%"
-                y="35%"
-            />
+            <h3 className="text-xl font-bold text-white mb-12 relative z-10">System Architecture: Data Ingestion v2.0</h3>
 
-            <Node
-                icon={Database}
-                label="IndexedDB"
-                sub="Local Persistence"
-                x="15%"
-                y="70%"
-            />
+            <div className="relative z-10 flex flex-col md:flex-row gap-8 items-center justify-between max-w-5xl mx-auto">
 
-            <Node
-                icon={Wifi}
-                label="Sync Engine"
-                sub="Background Protocol"
-                x="40%"
-                y="35%"
-            />
+                {/* 1. Source */}
+                <div className="flex flex-col items-center gap-4">
+                    <div className="bg-slate-900 border border-slate-700 p-6 rounded-xl w-64 shadow-xl">
+                        <div className="flex items-center gap-3 mb-4 text-emerald-400 font-bold">
+                            <Smartphone className="w-5 h-5" /> Field App (PWA)
+                        </div>
+                        <p className="text-xs text-slate-400 leading-relaxed">
+                            Offline-first reactive client using IndexedDB for local persistence.
+                        </p>
+                    </div>
+                    <div className="h-8 w-px bg-slate-700 md:hidden"></div>
+                </div>
 
-            <Node
-                icon={Cloud}
-                label="Firestore"
-                sub="NoSQL Store"
-                x="70%"
-                y="15%"
-            />
+                {/* Arrow */}
+                <div className="hidden md:flex items-center text-slate-600">
+                    <ArrowRight className="w-6 h-6 animate-pulse" />
+                </div>
 
-            <Node
-                icon={Cpu}
-                label="Cloud Functions"
-                sub="Serverless Logic"
-                x="70%"
-                y="55%"
-            />
+                {/* 2. Middle Middleware */}
+                <div className="flex flex-col items-center gap-4">
+                    <div className="bg-slate-900 border border-slate-700 p-6 rounded-xl w-64 shadow-xl relative overflow-hidden">
+                        <div className="absolute top-0 right-0 p-1">
+                            <span className="flex h-2 w-2 rounded-full bg-emerald-500"></span>
+                        </div>
+                        <div className="flex items-center gap-3 mb-4 text-blue-400 font-bold">
+                            <Wifi className="w-5 h-5" /> Sync Engine
+                        </div>
+                        <p className="text-xs text-slate-400 leading-relaxed">
+                            Background protocol handling conflict resolution and delta updates.
+                        </p>
+                    </div>
+                    <div className="h-8 w-px bg-slate-700 md:hidden"></div>
+                </div>
 
-            {/* Connections */}
-            {/* Note: Coordinates are mostly simplified relative to the container */}
-            <Connection start={["22%", "45%"]} end={["40%", "45%"]} label="JSON Payload" />
-            <Connection start={["52%", "45%"]} end={["70%", "25%"]} label="TLS/SSL" />
-            <Connection start={["80%", "33%"]} end={["80%", "55%"]} label="Trigger" />
-            <Connection start={["22%", "70%"]} end={["22%", "53%"]} label="Cache" />
+                {/* Arrow */}
+                <div className="hidden md:flex items-center text-slate-600">
+                    <ArrowRight className="w-6 h-6 animate-pulse" />
+                </div>
+
+                {/* 3. Backend Services */}
+                <div className="flex flex-col gap-4">
+                    {/* Firestore */}
+                    <div className="bg-slate-900 border border-slate-700 p-6 rounded-xl w-64 shadow-xl">
+                        <div className="flex items-center gap-3 mb-4 text-orange-400 font-bold">
+                            <Database className="w-5 h-5" /> Firestore
+                        </div>
+                        <p className="text-xs text-slate-400 leading-relaxed">
+                            NoSQL document store for real-time data propagation.
+                        </p>
+                    </div>
+
+                    {/* Cloud Functions */}
+                    <div className="bg-slate-900 border border-slate-700 p-6 rounded-xl w-64 shadow-xl">
+                        <div className="flex items-center gap-3 mb-4 text-purple-400 font-bold">
+                            <Cpu className="w-5 h-5" /> Cloud Functions
+                        </div>
+                        <p className="text-xs text-slate-400 leading-relaxed">
+                            Serverless triggers for post-processing and notifications.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
         </div>
     );
 };
