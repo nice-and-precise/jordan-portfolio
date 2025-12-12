@@ -33,9 +33,13 @@ export default function StrategicHome({ projects, settings, services }: Strategi
     // Subscribe to real-time updates
     React.useEffect(() => {
         // Dynamic import to avoid server-side issues (though this is a client component)
-        import('@/lib/subscriptions').then(({ subscribeToProjects, subscribeToSettings }) => {
+        import('@/lib/subscriptions').then(({ subscribeToProjects, subscribeToSettings, subscribeToServices }) => {
             const unsubProjects = subscribeToProjects((data) => {
                 setLiveProjects(data);
+            });
+
+            const unsubServices = subscribeToServices((data) => {
+                setLiveServices(data);
             });
 
             const unsubSettings = subscribeToSettings((data) => {
@@ -48,6 +52,7 @@ export default function StrategicHome({ projects, settings, services }: Strategi
             return () => {
                 unsubProjects();
                 unsubSettings();
+                unsubServices();
             };
         });
     }, []);
@@ -141,7 +146,7 @@ export default function StrategicHome({ projects, settings, services }: Strategi
 
             {/* SELECTED ENGAGEMENTS (Moved Up & Animated) */}
             {liveProjects && liveProjects.length > 0 && (
-                <section ref={targetRef} className="relative h-[130vh] md:h-auto bg-neutral-900 border-t border-white/10">
+                <section id="work" ref={targetRef} className="relative h-[130vh] md:h-auto bg-neutral-900 border-t border-white/10">
                     <div className="sticky top-0 flex h-screen items-center overflow-hidden md:relative md:h-auto md:block md:py-24 md:px-12 md:overflow-visible">
 
                         {/* Section Header */}
@@ -255,7 +260,7 @@ export default function StrategicHome({ projects, settings, services }: Strategi
                 <div className="max-w-4xl mx-auto px-6 text-center">
                     <h2 className="text-4xl font-bold text-white mb-8">Ready to Scale?</h2>
                     <p className="text-neutral-400 mb-8">Let's build something state-of-the-art.</p>
-                    <a href="mailto:hello@example.com" className="inline-flex h-12 items-center justify-center rounded-md bg-white px-8 text-sm font-medium text-black transition-colors hover:bg-neutral-200 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-900">
+                    <a href="mailto:jordandamhof@gmail.com" className="inline-flex h-12 items-center justify-center rounded-md bg-white px-8 text-sm font-medium text-black transition-colors hover:bg-neutral-200 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-900">
                         Get in Touch
                     </a>
                 </div>

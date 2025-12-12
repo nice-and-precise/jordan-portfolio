@@ -13,7 +13,7 @@ import { getSiteSettings } from '@/lib/settings';
 export default async function AboutPage() {
     const settings = await getSiteSettings();
 
-    const keySkills = [
+    const keySkills = settings.keySkills || [
         "Process Automation",
         "Crisis Management",
         "Full-Stack Development",

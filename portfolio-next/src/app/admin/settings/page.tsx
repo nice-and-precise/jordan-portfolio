@@ -8,12 +8,14 @@ import { Loader2 } from "lucide-react";
 export default function GlobalSettingsPage() {
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
+    const [keySkillsInput, setKeySkillsInput] = useState("");
 
     const { register, handleSubmit, reset } = useForm<SiteSettings>();
 
     useEffect(() => {
         getSiteSettings().then((settings) => {
             reset(settings);
+            setKeySkillsInput(settings.keySkills?.join(", ") || "");
             setLoading(false);
         });
     }, [reset]);
@@ -21,7 +23,13 @@ export default function GlobalSettingsPage() {
     const onSubmit = async (data: SiteSettings) => {
         setSaving(true);
         try {
-            await updateSiteSettings(data);
+            // Manually handle keySkills array
+            const updatedSettings = {
+                ...data,
+                keySkills: keySkillsInput.split(",").map(s => s.trim()).filter(s => s)
+            };
+
+            await updateSiteSettings(updatedSettings);
             alert("Settings saved!");
         } catch (error) {
             console.error(error);
@@ -157,6 +165,16 @@ export default function GlobalSettingsPage() {
                                 <textarea {...register("aboutBody1")} rows={3} placeholder="Paragraph 1" className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
                                 <textarea {...register("aboutBody2")} rows={3} placeholder="Paragraph 2" className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
                                 <textarea {...register("aboutBody3")} rows={3} placeholder="Paragraph 3" className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                            </div>
+                            <div>
+                                <label className="block text-sm text-slate-400 mb-2">Core Competencies / Key Skills (Comma Separated)</label>
+                                <input
+                                    value={keySkillsInput}
+                                    onChange={(e) => setKeySkillsInput(e.target.value)}
+                                    placeholder="e.g. Process Automation, Leadership, React"
+                                    className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white"
+                                />
+                                <p className="text-xs text-slate-500 mt-1">These appear in the grid at the bottom of the About section.</p>
                             </div>
                         </div>
                     </div>

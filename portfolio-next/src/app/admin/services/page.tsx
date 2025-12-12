@@ -6,7 +6,7 @@ import { collection, query, orderBy, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { LayoutDashboard, ArrowLeft, Loader2, Plus, PenTool } from "lucide-react";
 import ParticleEffect from "@/components/ui/particle-effect-for-hero";
-import { Service } from "@/lib/data";
+import { Service, DEFAULT_SERVICES } from "@/lib/data";
 
 export default function ServicesDashboard() {
     const { signOut, user } = useAuth();
@@ -19,11 +19,15 @@ export default function ServicesDashboard() {
                 const q = query(collection(db, "services"), orderBy("order", "asc"));
                 const snapshot = await getDocs(q);
                 // If empty, we might want to show defaults or nothing.
-                const fetchedServices = snapshot.docs.map(doc => ({
-                    id: doc.id,
-                    ...doc.data()
-                } as Service));
-                setServices(fetchedServices);
+                if (snapshot.empty) {
+                    setServices(DEFAULT_SERVICES);
+                } else {
+                    const fetchedServices = snapshot.docs.map(doc => ({
+                        id: doc.id,
+                        ...doc.data()
+                    } as Service));
+                    setServices(fetchedServices);
+                }
             } catch (error) {
                 console.error("Error fetching services:", error);
             } finally {

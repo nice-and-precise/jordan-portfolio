@@ -37,8 +37,11 @@ export interface SiteSettings {
     capabilitiesSubtitle: string;
 
     // Calculator Section
-    calculatorTitle: string;
-    calculatorSubtitle: string;
+    calculatorTitle: "Operational Waste Calculator";
+    calculatorSubtitle: "Quantify the cost of chaos in your organization.";
+
+    // About Page Skills
+    keySkills: string[];
 }
 
 const SETTINGS_DOC_ID = "global";
@@ -47,7 +50,7 @@ export const DEFAULT_SETTINGS: SiteSettings = {
     heroTitle: "JORDAN", // Personal Brand
     heroSubtitle: "Full-Stack Engineer × Creative Developer",
     introText: "I build high-performance web applications that meaningful impact business goals. Specializing in Next.js, React, and scalable systems architected for growth.",
-    contactEmail: "hello@example.com",
+    contactEmail: "jordandamhof@gmail.com",
     footerLinks: [
         { label: "GitHub", url: "https://github.com" },
         { label: "LinkedIn", url: "https://linkedin.com" }
@@ -78,6 +81,12 @@ export const DEFAULT_SETTINGS: SiteSettings = {
     aboutBody1: "I am an Operational Strategist and Developer who understands that code is only as good as the process it supports. My background isn't typical for tech, and that's my advantage.",
     aboutBody2: "With over 15 years in high-stakes environments—from commanding fire crews as a Lieutenant to optimizing high-volume manufacturing logistics—I've learned that reliability isn't an accident; it's engineered.",
     aboutBody3: "Today, I leverage AI Agents and Process Intelligence to help businesses scale. I don't just theorize about 'uptime'; I have managed it on the fireground and the factory floor. I operate with the mindset of a business owner, building tools that work and systems that last.",
+    keySkills: [
+        "Process Automation",
+        "Crisis Management",
+        "Full-Stack Development",
+        "Team Leadership"
+    ],
 
     capabilitiesTitle: "Capabilities",
     capabilitiesSubtitle: "Operational Architecture",
@@ -92,7 +101,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
         const snapshot = await getDoc(docRef);
 
         if (snapshot.exists()) {
-            return snapshot.data() as SiteSettings;
+            return { ...DEFAULT_SETTINGS, ...snapshot.data() } as SiteSettings;
         }
 
         return DEFAULT_SETTINGS;
