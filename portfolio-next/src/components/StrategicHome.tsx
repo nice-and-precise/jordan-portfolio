@@ -191,8 +191,20 @@ export default function StrategicHome({ projects, settings, services }: Strategi
             <BentoServices services={services} />
 
             {/* TEASER: Who is Jordan? */}
-            <section className="py-24 bg-neutral-900 border-t border-white/5 relative overflow-hidden">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-900/10 via-transparent to-transparent opacity-50" />
+            <section className="py-24 bg-neutral-900 border-t border-white/5 relative overflow-hidden group">
+                {/* Background Image */}
+                <div className="absolute inset-0 z-0">
+                    <Image
+                        src="/assets/images/teaser-bg.webp"
+                        alt="Jordan in action"
+                        fill
+                        className="object-cover opacity-40 group-hover:opacity-50 transition-opacity duration-700 blur-[2px] group-hover:blur-none"
+                    />
+                    <div className="absolute inset-0 bg-neutral-900/80 group-hover:bg-neutral-900/70 transition-colors duration-700" />
+                </div>
+
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-transparent to-transparent opacity-50 pointer-events-none" />
+
                 <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
                     <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
                         Who is Jordan?

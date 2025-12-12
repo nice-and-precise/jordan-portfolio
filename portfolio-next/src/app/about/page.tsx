@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import AboutProfileImage from '@/components/ui/AboutProfileImage';
+import TeamGallery from '@/components/ui/TeamGallery';
 
 export const metadata: Metadata = {
     title: 'About | Operational Precision. Technical Scalability.',
@@ -72,6 +73,9 @@ export default function AboutPage() {
                     </div>
                 </div>
             </div>
+
+            {/* Team Gallery Section */}
+            <TeamGallery />
         </main>
     );
 }
