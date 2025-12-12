@@ -36,7 +36,7 @@ export default function StrategicHome({ projects, settings, services }: Strategi
     const { scrollYProgress } = useScroll({
         target: targetRef,
     });
-    const x = useTransform(scrollYProgress, [0, 1], ["0%", "-55%"]);
+    const x = useTransform(scrollYProgress, [0, 1], ["0%", "-45%"]);
 
     return (
         <main className="min-h-screen bg-black text-white selection:bg-blue-500/30 font-sans overflow-x-hidden">
@@ -113,7 +113,7 @@ export default function StrategicHome({ projects, settings, services }: Strategi
 
             {/* SELECTED ENGAGEMENTS (Moved Up & Animated) */}
             {projects && projects.length > 0 && (
-                <section ref={targetRef} className="relative h-[300vh] bg-neutral-900 border-t border-white/10">
+                <section ref={targetRef} className="relative h-[500vh] bg-neutral-900 border-t border-white/10">
                     <div className="sticky top-0 flex h-screen items-center overflow-hidden">
 
                         {/* Section Header (Absolute) */}
@@ -126,15 +126,15 @@ export default function StrategicHome({ projects, settings, services }: Strategi
                         </div>
 
                         {/* Horizontal Scroll Track */}
-                        <motion.div style={{ x }} className="flex gap-12 px-12 md:px-24">
+                        <motion.div style={{ x }} className="flex gap-8 px-4 md:px-12 items-center">
                             {/* Empty spacer for header offset */}
-                            <div className="w-[80vw] md:w-[40vw] flex-shrink-0" />
+                            <div className="w-[10vw] md:w-[20vw] flex-shrink-0" />
 
                             {projects.map((project) => (
                                 <a
                                     key={project.slug}
                                     href={`/case-studies/${project.slug}`}
-                                    className="group relative h-[60vh] w-[85vw] md:w-[60vw] flex-shrink-0 bg-black border border-white/10 rounded-3xl overflow-hidden hover:border-blue-500/50 transition-all shadow-2xl"
+                                    className="group relative h-[60vh] w-[85vw] md:w-[45vw] flex-shrink-0 bg-black border border-white/10 rounded-3xl overflow-hidden hover:border-blue-500/50 transition-all shadow-2xl"
                                 >
                                     {/* Image */}
                                     <div className="absolute inset-0">
@@ -142,7 +142,8 @@ export default function StrategicHome({ projects, settings, services }: Strategi
                                             src={project.coverImage}
                                             alt={project.title}
                                             fill
-                                            sizes="(max-width: 768px) 85vw, 60vw"
+                                            priority
+                                            sizes="(max-width: 768px) 85vw, 45vw"
                                             className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-1000 opacity-60 group-hover:opacity-80 grayscale group-hover:grayscale-0"
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
@@ -157,10 +158,10 @@ export default function StrategicHome({ projects, settings, services }: Strategi
                                                 </span>
                                             ))}
                                         </div>
-                                        <h4 className="text-3xl md:text-5xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors">
+                                        <h4 className="text-2xl md:text-3xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors">
                                             {project.title}
                                         </h4>
-                                        <p className="text-lg text-neutral-300 line-clamp-2 max-w-2xl">
+                                        <p className="text-sm md:text-base text-neutral-300 line-clamp-2 max-w-xl">
                                             {project.subtitle}
                                         </p>
                                         <div className="mt-8 flex items-center gap-2 text-blue-400 font-bold group-hover:translate-x-2 transition-transform">
