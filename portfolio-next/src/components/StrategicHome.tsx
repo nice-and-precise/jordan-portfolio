@@ -36,7 +36,7 @@ export default function StrategicHome({ projects, settings, services }: Strategi
     const { scrollYProgress } = useScroll({
         target: targetRef,
     });
-    const x = useTransform(scrollYProgress, [0, 1], ["1%", "-95%"]);
+    const x = useTransform(scrollYProgress, [0, 1], ["0%", "-55%"]);
 
     return (
         <main className="min-h-screen bg-black text-white selection:bg-blue-500/30 font-sans overflow-x-hidden">
@@ -113,7 +113,7 @@ export default function StrategicHome({ projects, settings, services }: Strategi
 
             {/* SELECTED ENGAGEMENTS (Moved Up & Animated) */}
             {projects && projects.length > 0 && (
-                <section ref={targetRef} className="relative h-[150vh] bg-neutral-900 border-t border-white/10">
+                <section ref={targetRef} className="relative h-[300vh] bg-neutral-900 border-t border-white/10">
                     <div className="sticky top-0 flex h-screen items-center overflow-hidden">
 
                         {/* Section Header (Absolute) */}
