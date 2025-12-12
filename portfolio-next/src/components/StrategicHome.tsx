@@ -138,10 +138,14 @@ export default function StrategicHome({ projects, settings, services }: Strategi
                             {/* Empty spacer for header offset (Mobile Only) */}
                             <div className="w-[10vw] flex-shrink-0 md:hidden" />
 
-                            {projects.map((project) => (
-                                <a
+                            {projects.map((project, index) => (
+                                <motion.a
                                     key={project.slug}
                                     href={`/case-studies/${project.slug}`}
+                                    initial={{ opacity: 0, y: 50 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, margin: "-50px" }}
+                                    transition={{ duration: 0.5, delay: index * 0.1 }}
                                     className="group relative h-[60vh] w-[85vw] md:w-full md:h-[600px] flex-shrink-0 bg-black border border-white/10 rounded-3xl overflow-hidden hover:border-blue-500/50 transition-all shadow-2xl"
                                 >
                                     {/* Image */}
@@ -176,7 +180,7 @@ export default function StrategicHome({ projects, settings, services }: Strategi
                                             View Case Study <span className="text-lg">→</span>
                                         </div>
                                     </div>
-                                </a>
+                                </motion.a>
                             ))}
                         </motion.div>
                     </div>
