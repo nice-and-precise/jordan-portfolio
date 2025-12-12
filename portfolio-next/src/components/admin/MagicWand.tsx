@@ -21,8 +21,9 @@ export default function MagicWand({ currentValue, onAccept, context, className }
         try {
             const result = await generateContent(`${prompt}: "${currentValue}"`, context, tone);
             setGeneratedText(result);
-        } catch (e) {
-            alert("Please configure your Gemini API Key in Settings first.");
+        } catch (e: any) {
+            console.error("MagicWand error:", e);
+            alert(`Gemini Error: ${e.message || "Unknown error"}. Check console for details.`);
         } finally {
             setLoading(false);
         }

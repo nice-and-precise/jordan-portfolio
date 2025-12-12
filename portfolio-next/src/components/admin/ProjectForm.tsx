@@ -120,7 +120,9 @@ export default function ProjectForm({ initialData, onSubmit, isSubmitting = fals
                     {/* Nano Banana Button */}
                     <div className="flex justify-end mt-2">
                         <a
-                            href="https://nano-banana.com/editor"
+                            href={watch("coverImage")
+                                ? `https://nano-banana.com/editor?image=${encodeURIComponent(watch("coverImage"))}`
+                                : "https://nano-banana.com/editor"}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-xs text-yellow-400 hover:text-yellow-300 flex items-center gap-1 border border-yellow-400/30 rounded px-2 py-1"
