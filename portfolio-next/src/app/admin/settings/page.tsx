@@ -72,6 +72,95 @@ export default function GlobalSettingsPage() {
                         </div>
                     </div>
 
+                    {/* Teaser Section */}
+                    <div className="bg-slate-900 p-8 rounded-xl border border-slate-800">
+                        <h2 className="text-xl font-bold text-white mb-6">Teaser Section (Who is Jordan?)</h2>
+                        <div className="space-y-6">
+                            <div>
+                                <label className="block text-sm text-slate-400 mb-2">Headline</label>
+                                <input {...register("teaserTitle")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                            </div>
+                            <div>
+                                <label className="block text-sm text-slate-400 mb-2">Body Text</label>
+                                <textarea {...register("teaserBody")} rows={3} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                            </div>
+                            <div>
+                                <label className="block text-sm text-slate-400 mb-2">CTA Button Text</label>
+                                <input {...register("teaserCtaText")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Capabilities (Bento) */}
+                    <div className="bg-slate-900 p-8 rounded-xl border border-slate-800">
+                        <h2 className="text-xl font-bold text-white mb-6">Capabilities / Services</h2>
+                        <div className="space-y-6">
+                            <div>
+                                <label className="block text-sm text-slate-400 mb-2">Section Title (Small)</label>
+                                <input {...register("capabilitiesTitle")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                            </div>
+                            <div>
+                                <label className="block text-sm text-slate-400 mb-2">Section Subtitle (Big)</label>
+                                <input {...register("capabilitiesSubtitle")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Methodology Section */}
+                    <div className="bg-slate-900 p-8 rounded-xl border border-slate-800">
+                        <h2 className="text-xl font-bold text-white mb-6">Methodology</h2>
+                        <div className="space-y-6">
+                            <div>
+                                <label className="block text-sm text-slate-400 mb-2">Section Title</label>
+                                <input {...register("methodologyTitle")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                            </div>
+                            <div>
+                                <label className="block text-sm text-slate-400 mb-2">Headline</label>
+                                <input {...register("methodologySubtitle")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                            </div>
+                            <div>
+                                <label className="block text-sm text-slate-400 mb-2">Body Copy</label>
+                                <textarea {...register("methodologyBody")} rows={4} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Calculator Section */}
+                    <div className="bg-slate-900 p-8 rounded-xl border border-slate-800">
+                        <h2 className="text-xl font-bold text-white mb-6">Calculator</h2>
+                        <div className="space-y-6">
+                            <div>
+                                <label className="block text-sm text-slate-400 mb-2">Title</label>
+                                <input {...register("calculatorTitle")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                            </div>
+                            <div>
+                                <label className="block text-sm text-slate-400 mb-2">Subtitle</label>
+                                <input {...register("calculatorSubtitle")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* About Page */}
+                    <div className="bg-slate-900 p-8 rounded-xl border border-slate-800">
+                        <h2 className="text-xl font-bold text-white mb-6">About Page</h2>
+                        <div className="space-y-6">
+                            <div>
+                                <label className="block text-sm text-slate-400 mb-2">Top Label</label>
+                                <input {...register("aboutTitle")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                            </div>
+                            <div>
+                                <label className="block text-sm text-slate-400 mb-2">Main Headline</label>
+                                <textarea {...register("aboutSubtitle")} rows={2} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                            </div>
+                            <div className="space-y-4">
+                                <label className="block text-sm text-slate-400">Bio Paragraphs</label>
+                                <textarea {...register("aboutBody1")} rows={3} placeholder="Paragraph 1" className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                                <textarea {...register("aboutBody2")} rows={3} placeholder="Paragraph 2" className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                                <textarea {...register("aboutBody3")} rows={3} placeholder="Paragraph 3" className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                            </div>
+                        </div>
+                    </div>
+
                     {/* Footer / Contact */}
                     <div className="bg-slate-900 p-8 rounded-xl border border-slate-800">
                         <h2 className="text-xl font-bold text-white mb-6">Footer & Contact</h2>

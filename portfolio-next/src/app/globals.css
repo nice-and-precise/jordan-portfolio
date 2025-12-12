@@ -64,6 +64,5 @@ body::before {
 ::selection {
   background-color: rgba(16, 185, 129, 0.3);
   /* Emerald-500 @ 30% */
-  color: #a7f3d0;
   /* Emerald-200 */
 }

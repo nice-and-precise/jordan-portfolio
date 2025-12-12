@@ -8,7 +8,11 @@ export const metadata: Metadata = {
     description: 'Operational Strategist and Developer bridging the gap between "sweaty equity" manufacturing and digital scale.',
 };
 
-export default function AboutPage() {
+import { getSiteSettings } from '@/lib/settings';
+
+export default async function AboutPage() {
+    const settings = await getSiteSettings();
+
     const keySkills = [
         "Process Automation",
         "Crisis Management",
@@ -36,24 +40,17 @@ export default function AboutPage() {
                     <div className="md:col-span-7 space-y-8">
                         <div>
                             <span className="text-emerald-500 font-mono text-xs tracking-[0.2em] uppercase mb-4 block animate-fade-in">
-                                The Operator's Mindset
+                                {settings.aboutTitle || "The Operator's Mindset"}
                             </span>
-                            <h1 className="text-4xl md:text-6xl font-bold tracking-tight leading-tight text-transparent bg-clip-text bg-gradient-to-br from-white via-neutral-200 to-neutral-500">
-                                Operational Precision. <br />
-                                Technical Scalability.
+                            <h1 className="text-4xl md:text-6xl font-bold tracking-tight leading-tight text-transparent bg-clip-text bg-gradient-to-br from-white via-neutral-200 to-neutral-500 whitespace-pre-line">
+                                {settings.aboutSubtitle || "Operational Precision.\nTechnical Scalability."}
                             </h1>
                         </div>
 
                         <div className="space-y-6 text-lg text-neutral-400 leading-relaxed max-w-2xl">
-                            <p>
-                                I am an Operational Strategist and Developer who understands that code is only as good as the process it supports. My background isn't typical for tech, and that's my advantage.
-                            </p>
-                            <p>
-                                With over 15 years in high-stakes environments—from commanding fire crews as a Lieutenant to optimizing high-volume manufacturing logistics—I've learned that reliability isn't an accident; it's engineered.
-                            </p>
-                            <p>
-                                Today, I leverage AI Agents and Process Intelligence to help businesses scale. I don't just theorize about 'uptime'; I have managed it on the fireground and the factory floor. I operate with the mindset of a business owner, building tools that work and systems that last.
-                            </p>
+                            <p>{settings.aboutBody1}</p>
+                            <p>{settings.aboutBody2}</p>
+                            <p>{settings.aboutBody3}</p>
                         </div>
 
                         {/* Signature / Key Skills Grid */}

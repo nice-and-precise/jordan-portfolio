@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import EntropyParticles from '@/components/ui/EntropyParticles';
 import BentoServices from '@/components/ui/BentoServices';
@@ -10,21 +10,47 @@ import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 
 // Types for props passed from page.tsx (server component)
 // Types for props passed from page.tsx (server component)
+import { SiteSettings } from '@/lib/settings';
+
 interface StrategicHomeProps {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    projects?: any[];
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    settings?: any;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    projects?: any[]; // Keep as any for now or upgrade to Project[]
+    settings?: SiteSettings;
     services?: any[];
 }
 
 export default function StrategicHome({ projects, settings, services }: StrategicHomeProps) {
     const [activeHero, setActiveHero] = useState<'aggressive' | 'empathetic' | 'visionary'>(
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (settings?.heroPersona as any) || 'aggressive'
+        settings?.heroPersona || 'aggressive'
     );
     const heroContent = HERO_VARIATIONS[activeHero];
+
+    // Real-Time Hydration
+    const [liveProjects, setLiveProjects] = useState(projects || []);
+    const [liveServices, setLiveServices] = useState(services || []);
+    // Initialize with props or empty object to avoid undefined access
+    const [liveSettings, setLiveSettings] = useState<SiteSettings>(settings || {} as SiteSettings);
+
+    // Subscribe to real-time updates
+    React.useEffect(() => {
+        // Dynamic import to avoid server-side issues (though this is a client component)
+        import('@/lib/subscriptions').then(({ subscribeToProjects, subscribeToSettings }) => {
+            const unsubProjects = subscribeToProjects((data) => {
+                setLiveProjects(data);
+            });
+
+            const unsubSettings = subscribeToSettings((data) => {
+                setLiveSettings(data);
+                if (data.heroPersona) {
+                    setActiveHero(data.heroPersona);
+                }
+            });
+
+            return () => {
+                unsubProjects();
+                unsubSettings();
+            };
+        });
+    }, []);
 
     // Hero Fade Animation
     const { scrollY } = useScroll();
@@ -114,7 +140,7 @@ export default function StrategicHome({ projects, settings, services }: Strategi
             </section>
 
             {/* SELECTED ENGAGEMENTS (Moved Up & Animated) */}
-            {projects && projects.length > 0 && (
+            {liveProjects && liveProjects.length > 0 && (
                 <section ref={targetRef} className="relative h-[130vh] md:h-auto bg-neutral-900 border-t border-white/10">
                     <div className="sticky top-0 flex h-screen items-center overflow-hidden md:relative md:h-auto md:block md:py-24 md:px-12 md:overflow-visible">
 
@@ -138,7 +164,7 @@ export default function StrategicHome({ projects, settings, services }: Strategi
                             {/* Empty spacer for header offset (Mobile Only) */}
                             <div className="w-[10vw] flex-shrink-0 md:hidden" />
 
-                            {projects.map((project, index) => (
+                            {liveProjects.map((project, index) => (
                                 <motion.a
                                     key={project.slug}
                                     href={`/case-studies/${project.slug}`}
@@ -188,7 +214,7 @@ export default function StrategicHome({ projects, settings, services }: Strategi
             )}
 
             {/* SERVICES SECTION */}
-            <BentoServices services={services} />
+            <BentoServices services={liveServices} settings={liveSettings} />
 
             {/* TEASER: Who is Jordan? */}
             <section className="py-24 bg-neutral-900 border-t border-white/5 relative overflow-hidden group">
@@ -207,23 +233,33 @@ export default function StrategicHome({ projects, settings, services }: Strategi
 
                 <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
                     <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-                        Who is Jordan?
+                        {liveSettings?.teaserTitle || "Who is Jordan?"}
                     </h2>
                     <p className="text-lg md:text-xl text-neutral-400 mb-10 leading-relaxed max-w-2xl mx-auto">
-                        I bridge the gap between "sweaty equity" operations and digital scale.
-                        From the fireground to the server room, I build systems that work when it counts.
+                        {liveSettings?.teaserBody || "I bridge the gap between \"sweaty equity\" operations and digital scale."}
                     </p>
                     <a
                         href="/about"
                         className="inline-flex items-center gap-2 px-8 py-3 bg-white text-black font-bold rounded-full hover:bg-neutral-200 transition-colors"
                     >
-                        Read My Story <span className="text-blue-600">→</span>
+                        {liveSettings?.teaserCtaText || "Read My Story"} <span className="text-blue-600">→</span>
                     </a>
                 </div>
             </section>
 
             {/* METHODOLOGY */}
-            <MethodologySection />
+            <MethodologySection settings={liveSettings} />
+
+            {/* CONTACT SECTION */}
+            <section id="contact" className="py-24 relative overflow-hidden">
+                <div className="max-w-4xl mx-auto px-6 text-center">
+                    <h2 className="text-4xl font-bold text-white mb-8">Ready to Scale?</h2>
+                    <p className="text-neutral-400 mb-8">Let's build something state-of-the-art.</p>
+                    <a href="mailto:hello@example.com" className="inline-flex h-12 items-center justify-center rounded-md bg-white px-8 text-sm font-medium text-black transition-colors hover:bg-neutral-200 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-900">
+                        Get in Touch
+                    </a>
+                </div>
+            </section>
 
         </main>
     );

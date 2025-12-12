@@ -16,6 +16,7 @@ import {
     Smartphone
 } from 'lucide-react';
 import { Service } from '@/lib/data';
+import { SiteSettings } from '@/lib/settings';
 
 // Map string names to components
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -34,7 +35,7 @@ const ICON_MAP: Record<string, any> = {
     'Smartphone': Smartphone
 };
 
-export default function BentoServices({ services }: { services?: Service[] }) {
+export default function BentoServices({ services, settings }: { services?: Service[], settings?: SiteSettings }) {
     // If services are passed (from Firestore or Fallback in data.ts), use them.
     // If for some reason they are undefined, we render nothing or a safer fallback, 
     // but page.tsx handles the fallback via getStaticServices usually.
@@ -49,11 +50,15 @@ export default function BentoServices({ services }: { services?: Service[] }) {
                 viewport={{ once: true }}
                 className="mb-16"
             >
-                <span className="text-blue-500 font-mono text-sm tracking-widest uppercase">Capabilities</span>
+                <span className="text-blue-500 font-mono text-sm tracking-widest uppercase">{settings?.capabilitiesTitle || "Capabilities"}</span>
                 <h2 className="text-5xl font-bold mt-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-neutral-500">
-                    Operational Architecture
+                    {settings?.capabilitiesSubtitle || "Operational Architecture"}
                 </h2>
             </motion.div>
+
+            <div className="absolute top-4 right-4 z-20 pointer-events-none bg-red-900/20 border border-red-500/30 text-white/70 px-4 py-2 rounded text-xs font-mono font-bold uppercase tracking-widest backdrop-blur-sm">
+                Development Build // Placeholder Content
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {displayServices.map((service, idx) => {

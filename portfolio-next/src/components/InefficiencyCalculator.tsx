@@ -4,8 +4,9 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { db } from '@/lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { SiteSettings } from '@/lib/settings';
 
-export default function InefficiencyCalculator() {
+export default function InefficiencyCalculator({ settings }: { settings?: SiteSettings }) {
     const [employees, setEmployees] = useState(50);
     const [hourlyRate, setHourlyRate] = useState(45);
     const [inefficiency, setInefficiency] = useState(20);
@@ -48,9 +49,9 @@ export default function InefficiencyCalculator() {
         <div className="bg-neutral-900 border border-white/10 rounded-3xl p-8 max-w-2xl mx-auto backdrop-blur-md">
             <div className="mb-8 text-center">
                 <h3 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-orange-500 mb-2">
-                    Operational Waste Calculator
+                    {settings?.calculatorTitle || "Operational Waste Calculator"}
                 </h3>
-                <p className="text-neutral-400">Quantify the cost of chaos in your organization.</p>
+                <p className="text-neutral-400">{settings?.calculatorSubtitle || "Quantify the cost of chaos in your organization."}</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">

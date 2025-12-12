@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
@@ -6,13 +8,31 @@ import { SiteSettings } from '@/lib/settings';
 export default function FloatingNav({ settings }: { settings?: SiteSettings }) {
     const [isVisible, setIsVisible] = useState(false);
 
+    const [activeSection, setActiveSection] = useState('home');
+
     useEffect(() => {
         const handleScroll = () => {
+            // Visibility Logic
             if (window.scrollY > 100) {
                 setIsVisible(true);
             } else {
                 setIsVisible(false);
             }
+
+            // Scroll Spy Logic
+            const sections = ['work', 'contact'];
+            let current = 'home';
+
+            for (const section of sections) {
+                const element = document.getElementById(section);
+                if (element) {
+                    const rect = element.getBoundingClientRect();
+                    if (rect.top <= 200) { // Offset for header
+                        current = section;
+                    }
+                }
+            }
+            setActiveSection(current);
         };
 
         window.addEventListener('scroll', handleScroll);
@@ -36,7 +56,7 @@ export default function FloatingNav({ settings }: { settings?: SiteSettings }) {
                     <div className="pointer-events-auto bg-[#050505]/80 backdrop-blur-md border border-white/10 rounded-full px-6 py-3 flex items-center gap-6 shadow-2xl">
                         <button
                             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                            className="text-sm font-bold text-white hover:text-emerald-400 transition-colors"
+                            className={`text-sm font-bold transition-colors ${activeSection === 'home' ? 'text-white' : 'text-slate-400 hover:text-white'}`}
                         >
                             {settings?.heroTitle || 'HOME'}
                         </button>
@@ -54,13 +74,13 @@ export default function FloatingNav({ settings }: { settings?: SiteSettings }) {
 
                         <button
                             onClick={() => scrollTo('work')}
-                            className="hidden md:block text-sm text-slate-400 hover:text-white transition-colors uppercase tracking-wider"
+                            className={`hidden md:block text-sm transition-colors uppercase tracking-wider ${activeSection === 'work' ? 'text-white font-medium' : 'text-slate-400 hover:text-white'}`}
                         >
                             Work
                         </button>
                         <button
                             onClick={() => scrollTo('contact')}
-                            className="hidden md:block text-sm text-slate-400 hover:text-white transition-colors uppercase tracking-wider"
+                            className={`hidden md:block text-sm transition-colors uppercase tracking-wider ${activeSection === 'contact' ? 'text-white font-medium' : 'text-slate-400 hover:text-white'}`}
                         >
                             Contact
                         </button>

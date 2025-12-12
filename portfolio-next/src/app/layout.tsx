@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+import FloatingNav from "@/components/FloatingNav";
+import { getSiteSettings } from "@/lib/settings";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -12,26 +14,34 @@ const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL('https://jordan-7d673.web.app'),
-  title: "Jordan | Full-Stack Engineer & Creative Developer",
-  description: "Portfolio of a Full-Stack Engineer specializing in Next.js, React, and scalable systems. Building high-performance implementations that defy expectations.",
-  keywords: ["Full Stack", "React", "Next.js", "Creative Developer", "Software Engineer", "Portfolio"],
-  openGraph: {
-    title: "Jordan | Full-Stack Engineer",
-    description: "Building high-performance implementations that defy expectations.",
-    type: "website",
-  },
-  icons: {
-    icon: '/favicon.ico',
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings();
+  const title = settings.heroTitle ? `${settings.heroTitle} | ${settings.heroSubtitle}` : "Jordan | Full-Stack Engineer";
+  const description = settings.introText || "Portfolio of a Full-Stack Engineer specialized in scalable architecture.";
 
-export default function RootLayout({
+  return {
+    metadataBase: new URL('https://jordan-7d673.web.app'),
+    title: title,
+    description: description,
+    keywords: ["Full Stack", "React", "Next.js", "Creative Developer", "Software Engineer", "Portfolio"],
+    openGraph: {
+      title: title,
+      description: description,
+      type: "website",
+    },
+    icons: {
+      icon: '/favicon.ico',
+    },
+  };
+}
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const settings = await getSiteSettings();
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -77,6 +87,7 @@ export default function RootLayout({
         className={`${inter.variable} ${spaceGrotesk.variable} antialiased font-sans`}
       >
         {/* Cache Bust: 2025-12-11 - Resolve Sticky Headers */}
+        <FloatingNav settings={settings} />
         {children}
       </body>
     </html>

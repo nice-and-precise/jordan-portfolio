@@ -48,9 +48,10 @@ export async function generateContent(prompt: string, context: string = "", tone
             const response = await result.response;
             return response.text();
 
-        } catch (e: any) {
-            console.warn(`Gemini: Failed with ${modelName}`, e.message);
-            lastError = e;
+        } catch (e: unknown) {
+            const errorMessage = e instanceof Error ? e.message : String(e);
+            console.warn(`Gemini: Failed with ${modelName}`, errorMessage);
+            lastError = e instanceof Error ? e : new Error(errorMessage);
             // Continue to next model
         }
     }
