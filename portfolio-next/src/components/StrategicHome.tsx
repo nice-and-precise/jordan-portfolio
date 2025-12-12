@@ -190,6 +190,26 @@ export default function StrategicHome({ projects, settings, services }: Strategi
             {/* SERVICES SECTION */}
             <BentoServices services={services} />
 
+            {/* TEASER: Who is Jordan? */}
+            <section className="py-24 bg-neutral-900 border-t border-white/5 relative overflow-hidden">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-900/10 via-transparent to-transparent opacity-50" />
+                <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
+                    <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
+                        Who is Jordan?
+                    </h2>
+                    <p className="text-lg md:text-xl text-neutral-400 mb-10 leading-relaxed max-w-2xl mx-auto">
+                        I bridge the gap between "sweaty equity" operations and digital scale.
+                        From the fireground to the server room, I build systems that work when it counts.
+                    </p>
+                    <a
+                        href="/about"
+                        className="inline-flex items-center gap-2 px-8 py-3 bg-white text-black font-bold rounded-full hover:bg-neutral-200 transition-colors"
+                    >
+                        Read My Story <span className="text-blue-600">→</span>
+                    </a>
+                </div>
+            </section>
+
             {/* METHODOLOGY */}
             <MethodologySection />
 

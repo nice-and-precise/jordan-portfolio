@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
 import { SiteSettings } from '@/lib/settings';
 
 export default function FloatingNav({ settings }: { settings?: SiteSettings }) {
@@ -39,6 +40,15 @@ export default function FloatingNav({ settings }: { settings?: SiteSettings }) {
                         >
                             {settings?.heroTitle || 'HOME'}
                         </button>
+
+                        <div className="w-px h-4 bg-white/10" />
+
+                        <Link
+                            href="/about"
+                            className="hidden md:block text-sm text-slate-400 hover:text-white transition-colors uppercase tracking-wider"
+                        >
+                            About
+                        </Link>
 
                         <div className="w-px h-4 bg-white/10" />
 
