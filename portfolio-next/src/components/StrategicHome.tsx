@@ -115,7 +115,7 @@ export default function StrategicHome({ projects, settings, services }: Strategi
 
             {/* SELECTED ENGAGEMENTS (Moved Up & Animated) */}
             {projects && projects.length > 0 && (
-                <section ref={targetRef} className="relative h-[350vh] bg-neutral-900 border-t border-white/10">
+                <section ref={targetRef} className="relative h-[200vh] bg-neutral-900 border-t border-white/10">
                     <div className="sticky top-0 flex h-screen items-center overflow-hidden">
 
                         {/* Section Header (Absolute) */}
