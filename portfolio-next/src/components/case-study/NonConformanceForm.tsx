@@ -89,18 +89,15 @@ export const NonConformanceForm = () => {
                         <span className="text-red-900/50 px-2 rounded bg-red-900/10 border border-red-900/20">CONFIDENTIAL // [REDACTED] INTERNAL</span>
                     </div>
                 </div>
-                {/* Progress Indicators */}
                 <div className="flex items-center gap-2">
-                    <span className="text-xs font-medium text-slate-500 mr-2">Step {step} of 3</span>
-                    {[1, 2, 3].map(i => (
-                        <div key={i} className={`h-1.5 w-8 rounded-full transition-colors duration-500 ${step >= i ? 'bg-indigo-500' : 'bg-slate-800'}`} />
-                    ))}
+                    <span className="flex h-2 w-2 rounded-full bg-red-500 animate-pulse"></span>
+                    <span className="text-xs font-bold text-red-400 uppercase tracking-wider">Live Connection</span>
                 </div>
             </div>
 
             <form onSubmit={handleSubmit} className="p-6 md:p-8 space-y-8">
-                {/* Step 1: Identification & Impact */}
-                <div className={step === 1 ? "block space-y-8" : "hidden"}>
+                {/* Section 1: Identification & Impact */}
+                <div className="space-y-8">
                     <div className="grid md:grid-cols-2 gap-6">
                         <div className="space-y-4">
                             <div>
@@ -162,8 +159,8 @@ export const NonConformanceForm = () => {
                     </AnimatePresence>
                 </div>
 
-                {/* Step 2: Description & Analysis */}
-                <div className={step === 2 ? "block space-y-6" : "hidden"}>
+                {/* Section 2: Description & Analysis */}
+                <div className="space-y-6">
                     <div>
                         <div className="flex justify-between items-center mb-2">
                             <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider">Defect Description</label>
@@ -216,8 +213,8 @@ export const NonConformanceForm = () => {
                     </div>
                 </div>
 
-                {/* Step 3: Review & Sign Information */}
-                <div className={step === 3 ? "block space-y-6" : "hidden"}>
+                {/* Section 3: Review & Sign Information */}
+                <div className="space-y-6 border-t border-slate-800 pt-6">
                     <div className="bg-slate-950 rounded-lg border border-slate-800 p-4 space-y-3">
                         <h4 className="text-sm font-bold text-white mb-2 pb-2 border-b border-slate-800">Report Summary</h4>
                         <div className="grid grid-cols-2 gap-4 text-sm">
@@ -243,34 +240,18 @@ export const NonConformanceForm = () => {
 
                 {/* Footer Navigation */}
                 <div className="pt-6 border-t border-slate-800 flex justify-end gap-3">
-                    {step > 1 && (
-                        <button type="button" onClick={() => setStep(s => s - 1)} className="px-6 py-3 text-slate-400 hover:text-white font-medium text-sm transition-colors">
-                            Back
-                        </button>
-                    )}
-
-                    {step < 3 ? (
-                        <button
-                            type="button"
-                            onClick={() => setStep(s => s + 1)}
-                            disabled={!severity && step === 1}
-                            className="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-bold text-sm transition-all disabled:opacity-50 disabled:grayscale"
-                        >
-                            Next Step
-                        </button>
-                    ) : (
-                        <button
-                            type="submit"
-                            disabled={isSubmitting}
-                            className="px-8 py-3 bg-red-600 hover:bg-red-500 text-white rounded-lg font-bold text-sm flex items-center gap-2 shadow-lg shadow-red-900/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all hover:scale-105"
-                        >
-                            {isSubmitting ? "Submitting Protocol..." : (
-                                <>
-                                    <Send className="w-4 h-4" /> Submit NCR
-                                </>
-                            )}
-                        </button>
-                    )}
+                    <button type="button" className="px-6 py-3 text-slate-400 hover:text-white font-medium text-sm">Save Draft</button>
+                    <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="px-8 py-3 bg-red-600 hover:bg-red-500 text-white rounded-lg font-bold text-sm flex items-center gap-2 shadow-lg shadow-red-900/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all hover:scale-105"
+                    >
+                        {isSubmitting ? "Submitting Protocol..." : (
+                            <>
+                                <Send className="w-4 h-4" /> Submit NCR
+                            </>
+                        )}
+                    </button>
                 </div>
             </form>
         </div>
