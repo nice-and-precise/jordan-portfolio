@@ -1,10 +1,11 @@
 import { useForm, useFieldArray } from "react-hook-form";
 import { Project } from "@/lib/data";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import NextImage from "next/image";
 import ImageUploader from "./ImageUploader";
 import MagicWand from "./MagicWand";
 import { Plus, X } from "lucide-react";
+import NanoBanana from "./NanoBanana";
 
 type ProjectFormData = Project;
 
@@ -39,6 +40,7 @@ export default function ProjectForm({ initialData, onSubmit, isSubmitting = fals
     // Simple array management for Tech Stack (string array)
     const techStack = watch("techStack");
     const role = watch("role");
+    const [showNanoBanana, setShowNanoBanana] = useState(false);
 
     // Update form if initialData changes (e.g. after fetch)
     useEffect(() => {
@@ -119,16 +121,13 @@ export default function ProjectForm({ initialData, onSubmit, isSubmitting = fals
                     </div>
                     {/* Nano Banana Button */}
                     <div className="flex justify-end mt-2">
-                        <a
-                            href={watch("coverImage")
-                                ? `https://nano-banana.com/editor?image=${encodeURIComponent(watch("coverImage"))}`
-                                : "https://nano-banana.com/editor"}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-xs text-yellow-400 hover:text-yellow-300 flex items-center gap-1 border border-yellow-400/30 rounded px-2 py-1"
+                        <button
+                            type="button"
+                            onClick={() => setShowNanoBanana(true)}
+                            className="text-xs text-yellow-400 hover:text-yellow-300 flex items-center gap-1 border border-yellow-400/30 rounded px-2 py-1 hover:bg-yellow-400/10 transition-colors"
                         >
                             <span>🍌 Edit with Nano Banana</span>
-                        </a>
+                        </button>
                     </div>
 
                     {watch("coverImage") && (
@@ -272,6 +271,11 @@ export default function ProjectForm({ initialData, onSubmit, isSubmitting = fals
             </button>
             <div className="h-20" /> {/* Spacer for fixed button */}
 
+            <NanoBanana
+                isOpen={showNanoBanana}
+                onClose={() => setShowNanoBanana(false)}
+                imageUrl={watch("coverImage")}
+            />
         </form>
     );
 }

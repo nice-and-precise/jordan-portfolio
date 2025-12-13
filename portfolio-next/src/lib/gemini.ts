@@ -60,6 +60,28 @@ export async function generateContent(prompt: string, context: string = "", tone
     throw new Error(`All models failed. Last error: ${lastError?.message || "Unknown"}`);
 }
 
+export async function generateVisionContent(prompt: string, imageBase64: string, mimeType: string = "image/jpeg") {
+    const client = await getClient();
+    const model = client.getGenerativeModel({ model: "gemini-1.5-flash" }); // Flash is good for vision
+
+    try {
+        const result = await model.generateContent([
+            prompt,
+            {
+                inlineData: {
+                    data: imageBase64,
+                    mimeType: mimeType
+                }
+            }
+        ]);
+        const response = await result.response;
+        return response.text();
+    } catch (error) {
+        console.error("Gemini Vision Error:", error);
+        throw error;
+    }
+}
+
 export async function generateImagePrompt(description: string) {
     try {
         const client = await getClient();

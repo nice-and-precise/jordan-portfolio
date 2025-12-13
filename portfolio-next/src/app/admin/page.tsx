@@ -4,12 +4,24 @@ import { useAuth } from "@/context/AuthContext";
 import React from "react";
 import { Project } from "@/lib/data";
 import { subscribeToProjects } from "@/lib/subscriptions";
-import { LayoutDashboard, PenTool, Settings, Plus, LogOut, FileText, Code2, Users, DollarSign, Activity, Zap, Terminal, Shield, Database } from "lucide-react";
-import ParticleEffect from "@/components/ui/particle-effect-for-hero";
+import {
+    LayoutDashboard,
+    PenTool,
+    Settings,
+    Plus,
+    LogOut,
+    FileText,
+    Code2,
+    Activity,
+    DollarSign,
+    Database,
+    Shield
+} from "lucide-react";
 import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import NextImage from "next/image";
 import DashboardCharts from "@/components/admin/DashboardCharts";
+import Link from "next/link";
 
 export default function AdminDashboard() {
     const { signOut, user } = useAuth();
@@ -44,34 +56,29 @@ export default function AdminDashboard() {
     const totalPipeline = leads.reduce((acc, curr) => acc + (curr.annualWaste || 0), 0);
 
     return (
-        <div className="min-h-screen bg-black text-green-500 font-mono relative overflow-hidden selection:bg-green-500/30">
-            {/* Matrix Rain Effect Placeholder (using ParticleEffect as base for now) */}
-            <div className="absolute inset-0 bg-[url('/assets/grid-pattern.svg')] opacity-10 z-0 pointer-events-none" />
-            <ParticleEffect density={4} className="opacity-30 fixed inset-0 z-0 text-green-500" />
-
-            {/* CRT Scanline Overlay */}
-            <div className="fixed inset-0 pointer-events-none z-50 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%] opacity-20" />
-
+        <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-blue-500/30">
             {/* Top Navigation Bar */}
-            <nav className="border-b border-green-500/30 bg-black/90 backdrop-blur-md sticky top-0 z-40">
+            <nav className="border-b border-slate-800 bg-slate-900/50 backdrop-blur-xl sticky top-0 z-40">
                 <div className="max-w-[1600px] mx-auto px-6 h-16 flex justify-between items-center">
                     <div className="flex items-center gap-3">
-                        <Terminal className="w-5 h-5 text-green-500 animate-pulse" />
-                        <h1 className="text-lg font-bold tracking-widest uppercase">
-                            MAINFRAME<span className="text-green-500/50">_ACCESS</span>
+                        <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white">
+                            <Shield className="w-4 h-4" />
+                        </div>
+                        <h1 className="text-lg font-bold text-white tracking-tight">
+                            Admin<span className="text-slate-500">Dashboard</span>
                         </h1>
                     </div>
 
                     <div className="flex items-center gap-6">
                         <div className="hidden md:flex flex-col items-end">
-                            <p className="text-[10px] text-green-700 font-bold uppercase tracking-wider">User Identity</p>
-                            <p className="text-xs text-green-400">{user?.email}</p>
+                            <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Logged in as</p>
+                            <p className="text-xs text-slate-300 font-medium">{user?.email}</p>
                         </div>
-                        <div className="h-8 w-[1px] bg-green-500/20 mx-2" />
+                        <div className="h-8 w-[1px] bg-slate-800 mx-2" />
                         <button
                             onClick={() => signOut()}
-                            className="p-2 text-green-600 hover:text-red-500 transition-colors border border-transparent hover:border-red-500/50 rounded group relative"
-                            title="Terminate Session"
+                            className="p-2 text-slate-400 hover:text-white transition-colors hover:bg-slate-800 rounded-lg"
+                            title="Sign Out"
                         >
                             <LogOut className="w-5 h-5" />
                         </button>
@@ -84,57 +91,53 @@ export default function AdminDashboard() {
                 {/* KPI Overview Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     <StatCard
-                        label="NODES_ACTIVE"
+                        label="Active Projects"
                         value={projects.length}
                         icon={Database}
+                        color="blue"
                     />
                     <StatCard
-                        label="INCOMING_PACKETS"
+                        label="New Leads"
                         value={leads.length}
                         icon={Activity}
+                        color="emerald"
                     />
                     <StatCard
-                        label="RESOURCE_VALUE"
+                        label="Pipeline Value"
                         value={formatCurrency(totalPipeline)}
                         icon={DollarSign}
+                        color="amber"
                     />
-                    <a href="/admin/leads" className="block group">
-                        <div className="h-full bg-black border border-green-500/30 hover:border-green-400 p-6 flex flex-col justify-center items-center gap-2 cursor-pointer transition-all hover:bg-green-500/5 shadow-[0_0_15px_rgba(0,255,0,0.1)] hover:shadow-[0_0_20px_rgba(0,255,0,0.3)]">
-                            <span className="p-3 border border-green-500/50 rounded-none group-hover:bg-green-500 group-hover:text-black transition-colors">
+                    <Link href="/admin/leads" className="block group h-full">
+                        <div className="h-full bg-slate-900 border border-slate-800 hover:border-blue-500/50 p-6 flex flex-col justify-center items-center gap-2 cursor-pointer transition-all hover:bg-slate-800 rounded-xl">
+                            <span className="p-3 bg-slate-800 rounded-full group-hover:bg-blue-600 group-hover:text-white transition-colors text-slate-400">
                                 <FileText className="w-6 h-6" />
                             </span>
-                            <span className="text-sm font-bold text-green-400 group-hover:text-green-300">DECRYPT_REPORTS &gt;</span>
+                            <span className="text-sm font-bold text-slate-300 group-hover:text-white mt-2">View Reports &rarr;</span>
                         </div>
-                    </a>
+                    </Link>
                 </div>
 
                 {/* Quick Actions Console */}
-                <div className="border border-green-500/20 bg-black/40 p-4 rounded-sm">
-                    <p className="text-xs text-green-700 mb-2 uppercase tracking-widest">Command_Line_Interface</p>
+                <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl">
+                    <h2 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Quick Actions</h2>
                     <div className="flex flex-wrap gap-4 items-center">
-                        <QuickAction href="/admin/settings" icon={Settings} label="./config_global" />
-                        <QuickAction href="/admin/writing" icon={PenTool} label="./edit_intel" />
-                        <QuickAction href="/admin/services" icon={LayoutDashboard} label="./grid_matrix" />
+                        <QuickAction href="/admin/settings" icon={Settings} label="Global Settings" />
+                        <QuickAction href="/admin/writing" icon={PenTool} label="Writing" />
+                        <QuickAction href="/admin/services" icon={LayoutDashboard} label="Services" />
 
                         <div className="flex-1" />
 
-                        <a href="/admin/projects/new" className="flex items-center gap-2 px-6 py-2 bg-green-900/30 hover:bg-green-500 text-green-400 hover:text-black border border-green-500/50 transition-all font-bold shadow-[0_0_10px_rgba(0,255,0,0.1)] hover:shadow-[0_0_20px_rgba(0,255,0,0.4)] text-sm uppercase tracking-wide">
+                        <Link href="/admin/projects/new" className="flex items-center gap-2 px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-bold text-sm shadow-lg shadow-blue-900/20 transition-all hover:scale-105">
                             <Plus className="w-4 h-4" />
-                            INIT_NEW_PROJECT
-                        </a>
+                            New Project
+                        </Link>
                     </div>
                 </div>
 
-                {/* Data Visualization Layer */}
-                <div className="border-t border-green-500/20 pt-8">
-                    <h2 className="text-sm font-bold text-green-600 uppercase tracking-widest mb-6 flex items-center gap-2">
-                        <Zap className="w-4 h-4" />
-                        SYSTEM_DIAGNOSTICS
-                    </h2>
-                    {/* Note: Update DashboardCharts later to respect green theme props if needed, or rely on global CSS */}
-                    <div className="opacity-80 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
-                        <DashboardCharts projects={projects} leads={leads} />
-                    </div>
+                {/* Analytics */}
+                <div className="border-t border-slate-800 pt-8">
+                    <DashboardCharts projects={projects} leads={leads} />
                 </div>
 
                 {/* Content Ledger */}
@@ -142,51 +145,50 @@ export default function AdminDashboard() {
 
                     {/* Project Feed */}
                     <div className="lg:col-span-2 space-y-4">
-                        <div className="flex justify-between items-center border-b border-green-500/30 pb-2">
-                            <h2 className="text-lg font-bold text-green-400 flex items-center gap-2 uppercase">
-                                <Code2 className="w-5 h-5" />
-                                Deployment_Log
+                        <div className="flex justify-between items-center mb-2">
+                            <h2 className="text-lg font-bold text-white flex items-center gap-2">
+                                <Code2 className="w-5 h-5 text-blue-500" />
+                                Recent Projects
                             </h2>
-                            <span className="text-xs font-mono text-green-600 animate-pulse">STATUS: ENCRYPTED</span>
+                            <span className="text-xs font-medium text-slate-500 bg-slate-900 px-2 py-1 rounded">Live Updates</span>
                         </div>
 
-                        <div className="grid gap-3">
+                        <div className="space-y-3">
                             {loading ? (
-                                <div className="text-green-700 italic p-12 text-center border border-dashed border-green-900">Establishing Uplink...</div>
+                                <div className="text-slate-500 italic p-12 text-center bg-slate-900/50 rounded-xl">Loading Projects...</div>
                             ) : projects.length === 0 ? (
-                                <div className="p-12 border border-dashed border-green-900 text-center text-green-700">
-                                    NULL_POINTER_EXCEPTION: No projects found.
+                                <div className="p-12 bg-slate-900/50 rounded-xl text-center text-slate-500">
+                                    No projects found. Start by creating one.
                                 </div>
                             ) : (
                                 projects.slice(0, 5).map(p => (
-                                    <div key={p.slug} className="group p-4 border border-green-500/10 bg-black hover:bg-green-500/10 flex items-center justify-between transition-all hover:border-green-500/50">
+                                    <div key={p.slug} className="group p-4 bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-xl flex items-center justify-between transition-all hover:shadow-lg">
                                         <div className="flex items-center gap-4">
-                                            <div className="w-12 h-12 bg-green-900/10 relative border border-green-500/30 overflow-hidden">
+                                            <div className="w-12 h-12 bg-slate-800 relative rounded-lg overflow-hidden">
                                                 {p.coverImage ? (
-                                                    <NextImage src={p.coverImage} alt="" fill className="object-cover opacity-60 group-hover:opacity-80 transition-opacity grayscale mix-blend-screen" unoptimized />
+                                                    <NextImage src={p.coverImage} alt="" fill className="object-cover" />
                                                 ) : (
-                                                    <div className="w-full h-full flex items-center justify-center text-green-800">
+                                                    <div className="w-full h-full flex items-center justify-center text-slate-600">
                                                         <Code2 className="w-5 h-5" />
                                                     </div>
                                                 )}
-                                                <div className="absolute inset-0 bg-green-500/10 mix-blend-overlay" />
                                             </div>
                                             <div>
-                                                <h3 className="font-bold text-green-400 text-sm group-hover:text-green-300 transition-colors flex items-center gap-2 uppercase tracking-wide">
+                                                <h3 className="font-bold text-slate-200 text-sm group-hover:text-white transition-colors">
                                                     {p.title}
                                                 </h3>
-                                                <p className="text-[10px] text-green-700 mt-0.5">&gt; {p.slug}</p>
+                                                <p className="text-xs text-slate-500 mt-0.5 font-mono">{p.slug}</p>
                                             </div>
                                         </div>
                                         <div className="flex items-center gap-4">
                                             <div className="hidden sm:flex gap-1">
                                                 {p.techStack.slice(0, 2).map(t => (
-                                                    <span key={t} className="px-1.5 py-0.5 text-[9px] text-green-600 border border-green-500/20">{t}</span>
+                                                    <span key={t} className="px-2 py-0.5 text-[10px] font-bold text-slate-400 bg-slate-800 rounded-full">{t}</span>
                                                 ))}
                                             </div>
-                                            <a href={`/admin/projects/edit?slug=${p.slug}`} className="px-4 py-2 border border-green-500/30 hover:bg-green-500 hover:text-black text-green-500 text-xs font-bold transition-all uppercase">
-                                                [EDIT]
-                                            </a>
+                                            <Link href={`/admin/projects/edit?slug=${p.slug}`} className="px-3 py-1.5 text-xs font-bold text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-md transition-colors">
+                                                Edit
+                                            </Link>
                                         </div>
                                     </div>
                                 ))
@@ -196,29 +198,29 @@ export default function AdminDashboard() {
 
                     {/* Incoming Signals (Leads) */}
                     <div className="space-y-4">
-                        <div className="flex justify-between items-center border-b border-green-500/30 pb-2">
-                            <h2 className="text-lg font-bold text-green-400 flex items-center gap-2 uppercase">
-                                <Shield className="w-5 h-5" />
-                                Signals
+                        <div className="flex justify-between items-center mb-2">
+                            <h2 className="text-lg font-bold text-white flex items-center gap-2">
+                                <Activity className="w-5 h-5 text-emerald-500" />
+                                Recent Leads
                             </h2>
                         </div>
 
-                        <div className="border border-green-500/20 bg-black/40 p-1 max-h-[500px] overflow-y-auto custom-scrollbar">
+                        <div className="bg-slate-900 border border-slate-800 rounded-xl p-2 max-h-[500px] overflow-y-auto custom-scrollbar">
                             {leads.length === 0 ? (
-                                <div className="p-8 text-center text-xs text-green-800 uppercase tracking-widest">
-                                    // NO_SIGNAL
+                                <div className="p-8 text-center text-sm text-slate-500">
+                                    No leads yet.
                                 </div>
                             ) : leads.slice(0, 8).map(lead => (
-                                <div key={lead.id} className="p-3 mb-1 hover:bg-green-500/10 transition-colors border-l-2 border-transparent hover:border-green-500 cursor-cell">
+                                <div key={lead.id} className="p-3 mb-1 hover:bg-slate-800/50 rounded-lg transition-colors group cursor-pointer">
                                     <div className="flex justify-between items-start mb-1">
                                         <div className="flex items-center gap-2">
-                                            <span className={`w-1.5 h-1.5 ${lead.status === 'new' ? 'bg-green-400 animate-ping' : 'bg-green-900'}`} />
-                                            <h3 className="font-bold text-green-300 text-xs truncate max-w-[120px] font-mono" title={lead.email}>{lead.email}</h3>
+                                            <span className={`w-2 h-2 rounded-full ${lead.status === 'new' ? 'bg-emerald-500' : 'bg-slate-600'}`} />
+                                            <h3 className="font-bold text-slate-300 text-sm truncate max-w-[140px]" title={lead.email}>{lead.email}</h3>
                                         </div>
-                                        <span className="text-green-500 font-mono text-xs">{formatCurrency(lead.annualWaste)}</span>
+                                        <span className="text-emerald-400 font-mono text-xs font-bold">{formatCurrency(lead.annualWaste)}</span>
                                     </div>
-                                    <div className="flex justify-between text-[10px] text-green-700 font-mono pl-3.5">
-                                        <span>{lead.employees}</span>
+                                    <div className="flex justify-between text-[11px] text-slate-500 px-4">
+                                        <span>{lead.employees} employees</span>
                                         <span>{new Date(lead.timestamp?.seconds * 1000).toLocaleDateString()}</span>
                                     </div>
                                 </div>
@@ -234,29 +236,33 @@ export default function AdminDashboard() {
 
 // Subcomponents
 
-const StatCard = ({ label, value, icon: Icon }: { label: string, value: string | number, icon: any }) => {
-    return (
-        <div className="bg-black border border-green-500/30 p-6 relative overflow-hidden group hover:border-green-400 transition-colors">
-            {/* Scanline */}
-            <div className="absolute top-0 left-0 w-full h-[1px] bg-green-500/50 opacity-0 group-hover:opacity-100 animate-scanline" />
+const StatCard = ({ label, value, icon: Icon, color = "blue" }: { label: string, value: string | number, icon: any, color?: "blue" | "emerald" | "amber" }) => {
 
-            <div className="relative z-10 flex justify-between items-start mb-4">
-                <div className="p-2 border border-green-500/30 text-green-500">
+    const colorClasses = {
+        blue: "text-blue-500 bg-blue-500/10",
+        emerald: "text-emerald-500 bg-emerald-500/10",
+        amber: "text-amber-500 bg-amber-500/10"
+    };
+
+    return (
+        <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl relative overflow-hidden group hover:border-slate-700 transition-colors">
+            <div className="flex justify-between items-start mb-4">
+                <div className={`p-3 rounded-lg ${colorClasses[color]} transition-colors`}>
                     <Icon className="w-5 h-5" />
                 </div>
             </div>
 
-            <div className="relative z-10">
-                <p className="text-xs text-green-700 mb-1 tracking-widest uppercase">{label}</p>
-                <p className="text-3xl font-bold text-green-400 tracking-tighter mix-blend-screen">{value}</p>
+            <div>
+                <p className="text-xs text-slate-500 mb-1 font-bold uppercase tracking-wider">{label}</p>
+                <p className="text-3xl font-bold text-white tracking-tight">{value}</p>
             </div>
         </div>
     );
 };
 
 const QuickAction = ({ href, icon: Icon, label }: { href: string, icon: any, label: string }) => (
-    <a href={href} className="flex items-center gap-2 px-4 py-2 bg-black border border-green-500/20 hover:border-green-500 hover:text-green-300 text-green-600 transition-all font-mono text-xs uppercase tracking-wide group">
-        <span className="opacity-50 group-hover:opacity-100">&gt;</span>
+    <Link href={href} className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white rounded-lg transition-all text-sm font-bold">
+        <Icon className="w-4 h-4 text-slate-500" />
         {label}
-    </a>
+    </Link>
 );
