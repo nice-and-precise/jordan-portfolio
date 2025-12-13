@@ -3,12 +3,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import EntropyParticles from '@/components/ui/EntropyParticles';
+import BentoServices from '@/components/ui/BentoServices';
 
 import MethodologySection from '@/components/MethodologySection';
 import { HERO_VARIATIONS } from '@/lib/strategic-content';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 
-// Types for props passed from page.tsx (server component)
 // Types for props passed from page.tsx (server component)
 import { SiteSettings } from '@/lib/settings';
 
@@ -32,7 +32,7 @@ export default function StrategicHome({ projects, settings, services }: Strategi
     const heroContent = liveSettings?.heroVariations?.[activeHero] || HERO_VARIATIONS[activeHero];
 
     // Subscribe to real-time updates
-    React.useEffect(() => {
+    useEffect(() => {
         // Dynamic import to avoid server-side issues (though this is a client component)
         import('@/lib/subscriptions').then(({ subscribeToProjects, subscribeToSettings, subscribeToServices }) => {
             const unsubProjects = subscribeToProjects((data) => {
@@ -141,7 +141,7 @@ export default function StrategicHome({ projects, settings, services }: Strategi
             </section>
 
             {/* SELECTED ENGAGEMENTS (Moved Up & Animated) */}
-            {liveProjects && liveProjects.length > 0 && (
+            {(liveProjects && liveProjects.length > 0 && (liveSettings?.showProjects ?? true)) && (
                 <section id="work" className="relative bg-neutral-900 border-t border-white/10 py-12 md:py-24">
                     <div className="max-w-7xl mx-auto px-4 md:px-12">
 
@@ -208,56 +208,62 @@ export default function StrategicHome({ projects, settings, services }: Strategi
                 </section>
             )}
 
-            {/* SERVICES SECTION REMOVED */}
-
             {/* TEASER: Who is Jordan? */}
-            <section className="py-24 bg-neutral-900 border-t border-white/5 relative overflow-hidden group">
-                {/* Background Image */}
-                <div className="absolute inset-0 z-0">
-                    <Image
-                        src="/assets/images/teaser-bg.webp"
-                        alt="Jordan in action"
-                        fill
-                        className="object-[center_35%] object-cover opacity-80 group-hover:opacity-90 transition-opacity duration-700"
-                    />
-                    <div className="absolute inset-0 bg-neutral-900/40 group-hover:bg-neutral-900/30 transition-colors duration-700" />
-                </div>
+            {(liveSettings?.showTeaser ?? true) && (
+                <section className="py-24 bg-neutral-900 border-t border-white/5 relative overflow-hidden group">
+                    {/* Background Image */}
+                    <div className="absolute inset-0 z-0">
+                        <Image
+                            src={liveSettings?.teaserBackgroundUrl || "/assets/images/teaser-bg.webp"}
+                            alt="Jordan in action"
+                            fill
+                            className="object-[center_35%] object-cover opacity-80 group-hover:opacity-90 transition-opacity duration-700"
+                        />
+                        <div className="absolute inset-0 bg-neutral-900/40 group-hover:bg-neutral-900/30 transition-colors duration-700" />
+                    </div>
 
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-transparent to-transparent opacity-50 pointer-events-none" />
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-transparent to-transparent opacity-50 pointer-events-none" />
 
-                <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
-                    <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-                        {liveSettings?.teaserTitle || "Who is Jordan?"}
-                    </h2>
-                    <p className="text-lg md:text-xl text-neutral-400 mb-10 leading-relaxed max-w-2xl mx-auto">
-                        {liveSettings?.teaserBody || "I bridge the gap between \"sweaty equity\" operations and digital scale."}
-                    </p>
-                    <a
-                        href="/about"
-                        className="inline-flex items-center gap-2 px-8 py-3 bg-white text-black font-bold rounded-full hover:bg-neutral-200 transition-colors"
-                    >
-                        {liveSettings?.teaserCtaText || "Read My Story"} <span className="text-blue-600">→</span>
-                    </a>
-                </div>
-            </section>
+                    <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
+                        <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
+                            {liveSettings?.teaserTitle || "Who is Jordan?"}
+                        </h2>
+                        <p className="text-lg md:text-xl text-neutral-400 mb-10 leading-relaxed max-w-2xl mx-auto">
+                            {liveSettings?.teaserBody || "I bridge the gap between \"sweaty equity\" operations and digital scale."}
+                        </p>
+                        <a
+                            href="/about"
+                            className="inline-flex items-center gap-2 px-8 py-3 bg-white text-black font-bold rounded-full hover:bg-neutral-200 transition-colors"
+                        >
+                            {liveSettings?.teaserCtaText || "Read My Story"} <span className="text-blue-600">→</span>
+                        </a>
+                    </div>
+                </section>
+            )}
+            {/* CAPABILITIES / SERVICES (Bento Grid) */}
+            <BentoServices services={liveServices} settings={liveSettings} />
 
             {/* METHODOLOGY */}
-            <MethodologySection settings={liveSettings} />
+            {(liveSettings?.showMethodology ?? true) && (
+                <MethodologySection settings={liveSettings} />
+            )}
 
             {/* CONTACT SECTION */}
-            <section id="contact" className="py-24 relative overflow-hidden">
-                <div className="max-w-4xl mx-auto px-6 text-center">
-                    <h2 className="text-4xl font-bold text-white mb-8">
-                        {liveSettings?.contactTitle || "Ready to Scale?"}
-                    </h2>
-                    <p className="text-neutral-400 mb-8">
-                        {liveSettings?.contactSubtitle || "Let's build something state-of-the-art."}
-                    </p>
-                    <a href="mailto:jordandamhof@gmail.com" className="inline-flex h-12 items-center justify-center rounded-md bg-white px-8 text-sm font-medium text-black transition-colors hover:bg-neutral-200 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-900">
-                        {liveSettings?.contactButtonText || "Get in Touch"}
-                    </a>
-                </div>
-            </section>
+            {(liveSettings?.showContact ?? true) && (
+                <section id="contact" className="py-24 relative overflow-hidden">
+                    <div className="max-w-4xl mx-auto px-6 text-center">
+                        <h2 className="text-4xl font-bold text-white mb-8">
+                            {liveSettings?.contactTitle || "Ready to Scale?"}
+                        </h2>
+                        <p className="text-neutral-400 mb-8">
+                            {liveSettings?.contactSubtitle || "Let's build something state-of-the-art."}
+                        </p>
+                        <a href="mailto:jordandamhof@gmail.com" className="inline-flex h-12 items-center justify-center rounded-md bg-white px-8 text-sm font-medium text-black transition-colors hover:bg-neutral-200 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-900">
+                            {liveSettings?.contactButtonText || "Get in Touch"}
+                        </a>
+                    </div>
+                </section>
+            )}
 
         </main>
     );

@@ -63,9 +63,11 @@ export default function MethodologySection({ settings }: { settings?: SiteSettin
                 </div>
 
                 {/* Calculator Integration */}
-                <div id="calculator" className="scroll-mt-20">
-                    <InefficiencyCalculator settings={settings} />
-                </div>
+                {(settings?.showCalculator ?? true) && (
+                    <div id="calculator" className="scroll-mt-20">
+                        <InefficiencyCalculator settings={settings} />
+                    </div>
+                )}
 
             </div>
         </section>

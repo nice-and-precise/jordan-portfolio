@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import AboutProfileImage from '@/components/ui/AboutProfileImage';
 import TeamGallery from '@/components/ui/TeamGallery';
+import ExperienceTimeline from '@/components/ExperienceTimeline';
 import { SiteSettings } from '@/lib/settings';
 
 // Dynamic import for subscription to avoid SSR issues if any
@@ -82,6 +83,16 @@ export default function AboutContent({ initialSettings }: { initialSettings: Sit
                     </div>
                 </div>
             </div>
+            {/* Experience Timeline Section */}
+            {(settings.experience && settings.experience.length > 0) && (
+                <div className="relative z-10 py-24 bg-neutral-900/30 border-t border-white/5 mt-24">
+                    <div className="container mx-auto px-6 text-center mb-16">
+                        <span className="text-blue-500 font-mono text-sm tracking-widest uppercase">Career Trajectory</span>
+                        <h2 className="text-3xl md:text-5xl font-bold mt-4 text-white">Experience</h2>
+                    </div>
+                    <ExperienceTimeline items={settings.experience} />
+                </div>
+            )}
         </main>
     );
 }

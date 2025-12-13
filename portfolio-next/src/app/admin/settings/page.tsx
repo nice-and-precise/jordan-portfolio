@@ -3,7 +3,9 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { SiteSettings, getSiteSettings, updateSiteSettings, DEFAULT_SETTINGS } from "@/lib/settings";
-import { Loader2 } from "lucide-react";
+import { Loader2, Eye, EyeOff, Image as ImageIcon } from "lucide-react";
+import MagicWand from "@/components/admin/MagicWand";
+import ImageUploader from "@/components/admin/ImageUploader";
 
 export default function GlobalSettingsPage() {
     const [loading, setLoading] = useState(true);
@@ -17,24 +19,33 @@ export default function GlobalSettingsPage() {
     const [stat2Value, setStat2Value] = useState("");
     const [stat2Label, setStat2Label] = useState("");
 
-    const { register, handleSubmit, reset } = useForm<SiteSettings>();
+    const { register, handleSubmit, reset, watch, setValue } = useForm<SiteSettings>();
 
     useEffect(() => {
         getSiteSettings().then((settings) => {
             // Intelligent Fallback: If DB has empty strings for new fields, use Defaults
             const mergedSettings = { ...settings };
 
-            // Helper to ensure default is used if value is falsy
+            // Helper to ensure default is used if value is falsy or undefined
             type SettingKey = keyof SiteSettings;
             const ensureDefault = (key: SettingKey) => {
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                if (!mergedSettings[key] && (DEFAULT_SETTINGS as any)[key]) {
+                if ((mergedSettings as any)[key] === undefined || (mergedSettings as any)[key] === null) {
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     (mergedSettings as any)[key] = (DEFAULT_SETTINGS as any)[key];
                 }
             };
 
-            // Apply defaults for potentially missing/empty sections
+            // Apply defaults for visibility toggles
+            ensureDefault('showTeaser');
+            ensureDefault('showMethodology');
+            ensureDefault('showCalculator');
+            ensureDefault('showProjects');
+            ensureDefault('showContact');
+
+            ensureDefault('teaserBackgroundUrl');
+
+            // Apply defaults for potentially missing/empty content sections
             ensureDefault('teaserTitle');
             ensureDefault('teaserBody');
             ensureDefault('teaserCtaText');
@@ -128,6 +139,80 @@ export default function GlobalSettingsPage() {
 
     if (loading) return <div className="p-12 text-white">Loading Settings...</div>;
 
+    // Helper for Visibility Toggle
+    const VisibilityToggle = ({ field, label }: { field: keyof SiteSettings, label: string }) => {
+        const isVisible = watch(field) as boolean;
+        return (
+            <div className="flex items-center justify-between bg-slate-800/50 p-4 rounded-lg border border-slate-700 mb-6">
+                <span className="font-bold text-slate-300">{label}</span>
+                <button
+                    type="button"
+                    onClick={() => setValue(field, !isVisible)}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${isVisible ? 'bg-emerald-500/20 text-emerald-400' : 'bg-slate-700 text-slate-400'}`}
+                >
+                    {isVisible ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
+                    <span className="text-sm font-bold">{isVisible ? 'Visible' : 'Hidden'}</span>
+                </button>
+            </div>
+        );
+    };
+
+    // Experience Manager Subcomponent
+    const ExperienceManager = ({ items, onChange }: { items: SiteSettings['experience'], onChange: (items: SiteSettings['experience']) => void }) => {
+        const addItem = () => {
+            const newItem = { id: Date.now().toString(), year: new Date().getFullYear().toString(), title: "New Role", company: "Company", description: " Description..." };
+            onChange([...items, newItem]);
+        };
+
+        const updateItem = (index: number, field: keyof SiteSettings['experience'][0], value: string) => {
+            const newItems = [...items];
+            newItems[index] = { ...newItems[index], [field]: value };
+            onChange(newItems);
+        };
+
+        const removeItem = (index: number) => {
+            const newItems = items.filter((_, i) => i !== index);
+            onChange(newItems);
+        };
+
+        return (
+            <div className="bg-slate-900 p-8 rounded-xl border border-slate-800">
+                <div className="flex justify-between items-center mb-6">
+                    <h2 className="text-xl font-bold text-white">Experience Timeline</h2>
+                    <button type="button" onClick={addItem} className="text-xs bg-emerald-600 px-3 py-1 rounded text-white font-bold hover:bg-emerald-500">
+                        + Add Role
+                    </button>
+                </div>
+                <div className="space-y-6">
+                    {items.map((item, index) => (
+                        <div key={item.id} className="bg-slate-950 p-4 rounded-lg border border-slate-800 relative group">
+                            <button type="button" onClick={() => removeItem(index)} className="absolute top-2 right-2 text-red-500 opacity-0 group-hover:opacity-100 transition-opacity text-xs font-bold p-1">Delete</button>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-xs text-slate-500 mb-1">Year</label>
+                                    <input value={item.year} onChange={(e) => updateItem(index, 'year', e.target.value)} className="w-full bg-slate-900 border border-slate-700 p-2 rounded text-white text-sm" />
+                                </div>
+                                <div>
+                                    <label className="block text-xs text-slate-500 mb-1">Company</label>
+                                    <input value={item.company} onChange={(e) => updateItem(index, 'company', e.target.value)} className="w-full bg-slate-900 border border-slate-700 p-2 rounded text-white text-sm" />
+                                </div>
+                                <div className="col-span-2">
+                                    <label className="block text-xs text-slate-500 mb-1">Role Title</label>
+                                    <input value={item.title} onChange={(e) => updateItem(index, 'title', e.target.value)} className="w-full bg-slate-900 border border-slate-700 p-2 rounded text-white text-sm" />
+                                </div>
+                                <div className="col-span-2">
+                                    <label className="block text-xs text-slate-500 mb-1">Description</label>
+                                    <textarea rows={2} value={item.description} onChange={(e) => updateItem(index, 'description', e.target.value)} className="w-full bg-slate-900 border border-slate-700 p-2 rounded text-white text-sm" />
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                    {items.length === 0 && <p className="text-slate-500 italic text-sm text-center">No experience items yet.</p>}
+                </div>
+            </div>
+        );
+    };
+
     return (
         <div className="min-h-screen bg-slate-950 text-slate-200 p-6 md:p-12">
             <div className="max-w-3xl mx-auto space-y-8">
@@ -146,12 +231,18 @@ export default function GlobalSettingsPage() {
 
                         <div className="space-y-6">
                             <div>
-                                <label className="block text-sm text-slate-400 mb-2">Hero Title (e.g. GRAVITY)</label>
+                                <div className="flex justify-between mb-2">
+                                    <label className="block text-sm text-slate-400">Hero Title (e.g. GRAVITY)</label>
+                                    <MagicWand currentValue={watch("heroTitle") || ""} onAccept={v => setValue("heroTitle", v)} context="Personal brand title, short, punchy" />
+                                </div>
                                 <input {...register("heroTitle")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white font-bold tracking-widest" />
                             </div>
 
                             <div>
-                                <label className="block text-sm text-slate-400 mb-2">Subtitle (e.g. Engineering x Design)</label>
+                                <div className="flex justify-between mb-2">
+                                    <label className="block text-sm text-slate-400">Subtitle</label>
+                                    <MagicWand currentValue={watch("heroSubtitle") || ""} onAccept={v => setValue("heroSubtitle", v)} context="Professional tagline" />
+                                </div>
                                 <input {...register("heroSubtitle")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
                             </div>
 
@@ -166,14 +257,17 @@ export default function GlobalSettingsPage() {
                             </div>
 
                             <div>
-                                <label className="block text-sm text-slate-400 mb-2">Switcher Instruction Text</label>
+                                <div className="flex justify-between mb-2">
+                                    <label className="block text-sm text-slate-400">Switcher Instruction Text</label>
+                                    <MagicWand currentValue={watch("heroSwitcherInstruction") || ""} onAccept={v => setValue("heroSwitcherInstruction", v)} context="Instruction to click badge" />
+                                </div>
                                 <input {...register("heroSwitcherInstruction")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
                                 <p className="text-xs text-slate-500 mt-2">Text displayed below the CTA (e.g. "Click badge to toggle...")</p>
                             </div>
                         </div>
                     </div>
 
-                    {/* Hero Variations (Narrative Strategies) */}
+                    {/* Narrative Strategies Content */}
                     <div className="bg-slate-900 p-8 rounded-xl border border-slate-800">
                         <h2 className="text-xl font-bold text-white mb-6">Narrative Strategies Content</h2>
                         <p className="text-sm text-slate-400 mb-8">
@@ -254,14 +348,24 @@ export default function GlobalSettingsPage() {
 
                     {/* Teaser Section */}
                     <div className="bg-slate-900 p-8 rounded-xl border border-slate-800">
-                        <h2 className="text-xl font-bold text-white mb-6">Teaser Section (Who is Jordan?)</h2>
+                        <div className="flex justify-between items-center mb-6">
+                            <h2 className="text-xl font-bold text-white">Teaser Section</h2>
+                            <VisibilityToggle field="showTeaser" label="Show Section" />
+                        </div>
+
                         <div className="space-y-6">
                             <div>
-                                <label className="block text-sm text-slate-400 mb-2">Headline</label>
+                                <div className="flex justify-between mb-2">
+                                    <label className="block text-sm text-slate-400">Headline</label>
+                                    <MagicWand currentValue={watch("teaserTitle") || ""} onAccept={v => setValue("teaserTitle", v)} context="Headline for bio teaser" />
+                                </div>
                                 <input {...register("teaserTitle")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
                             </div>
                             <div>
-                                <label className="block text-sm text-slate-400 mb-2">Body Text</label>
+                                <div className="flex justify-between mb-2">
+                                    <label className="block text-sm text-slate-400">Body Text</label>
+                                    <MagicWand currentValue={watch("teaserBody") || ""} onAccept={v => setValue("teaserBody", v)} context="Short bio teaser text" />
+                                </div>
                                 <textarea {...register("teaserBody")} rows={3} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
                             </div>
                             <div>
@@ -271,7 +375,7 @@ export default function GlobalSettingsPage() {
                         </div>
                     </div>
 
-                    {/* Capabilities (Bento) */}
+                    {/* Capabilities */}
                     <div className="bg-slate-900 p-8 rounded-xl border border-slate-800">
                         <h2 className="text-xl font-bold text-white mb-6">Capabilities / Services</h2>
                         <div className="space-y-6">
@@ -288,18 +392,31 @@ export default function GlobalSettingsPage() {
 
                     {/* Methodology Section */}
                     <div className="bg-slate-900 p-8 rounded-xl border border-slate-800">
-                        <h2 className="text-xl font-bold text-white mb-6">Methodology</h2>
+                        <div className="flex justify-between items-center mb-6">
+                            <h2 className="text-xl font-bold text-white">Methodology</h2>
+                            <VisibilityToggle field="showMethodology" label="Show Section" />
+                        </div>
+
                         <div className="space-y-6">
                             <div>
-                                <label className="block text-sm text-slate-400 mb-2">Section Title</label>
+                                <div className="flex justify-between mb-2">
+                                    <label className="block text-sm text-slate-400">Section Title</label>
+                                    <MagicWand currentValue={watch("methodologyTitle") || ""} onAccept={v => setValue("methodologyTitle", v)} context="Section title" />
+                                </div>
                                 <input {...register("methodologyTitle")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
                             </div>
                             <div>
-                                <label className="block text-sm text-slate-400 mb-2">Headline</label>
+                                <div className="flex justify-between mb-2">
+                                    <label className="block text-sm text-slate-400">Headline</label>
+                                    <MagicWand currentValue={watch("methodologySubtitle") || ""} onAccept={v => setValue("methodologySubtitle", v)} context="Methodology headline" />
+                                </div>
                                 <input {...register("methodologySubtitle")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
                             </div>
                             <div>
-                                <label className="block text-sm text-slate-400 mb-2">Body Copy</label>
+                                <div className="flex justify-between mb-2">
+                                    <label className="block text-sm text-slate-400">Body Copy</label>
+                                    <MagicWand currentValue={watch("methodologyBody") || ""} onAccept={v => setValue("methodologyBody", v)} context="Methodology description" />
+                                </div>
                                 <textarea {...register("methodologyBody")} rows={4} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
                             </div>
 
@@ -340,14 +457,24 @@ export default function GlobalSettingsPage() {
 
                     {/* Calculator Section */}
                     <div className="bg-slate-900 p-8 rounded-xl border border-slate-800">
-                        <h2 className="text-xl font-bold text-white mb-6">Calculator</h2>
+                        <div className="flex justify-between items-center mb-6">
+                            <h2 className="text-xl font-bold text-white">Calculator</h2>
+                            <VisibilityToggle field="showCalculator" label="Show Section" />
+                        </div>
+
                         <div className="space-y-6">
                             <div>
-                                <label className="block text-sm text-slate-400 mb-2">Title</label>
+                                <div className="flex justify-between mb-2">
+                                    <label className="block text-sm text-slate-400">Title</label>
+                                    <MagicWand currentValue={watch("calculatorTitle") || ""} onAccept={v => setValue("calculatorTitle", v)} context="Calculator Title" />
+                                </div>
                                 <input {...register("calculatorTitle")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
                             </div>
                             <div>
-                                <label className="block text-sm text-slate-400 mb-2">Subtitle</label>
+                                <div className="flex justify-between mb-2">
+                                    <label className="block text-sm text-slate-400">Subtitle</label>
+                                    <MagicWand currentValue={watch("calculatorSubtitle") || ""} onAccept={v => setValue("calculatorSubtitle", v)} context="Calculator Subtitle" />
+                                </div>
                                 <input {...register("calculatorSubtitle")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
                             </div>
 
@@ -395,18 +522,33 @@ export default function GlobalSettingsPage() {
                         <h2 className="text-xl font-bold text-white mb-6">About Page</h2>
                         <div className="space-y-6">
                             <div>
-                                <label className="block text-sm text-slate-400 mb-2">Top Label</label>
+                                <div className="flex justify-between mb-2">
+                                    <label className="block text-sm text-slate-400">Top Label</label>
+                                    <MagicWand currentValue={watch("aboutTitle") || ""} onAccept={v => setValue("aboutTitle", v)} context="About page title" />
+                                </div>
                                 <input {...register("aboutTitle")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
                             </div>
                             <div>
-                                <label className="block text-sm text-slate-400 mb-2">Main Headline</label>
+                                <div className="flex justify-between mb-2">
+                                    <label className="block text-sm text-slate-400">Main Headline</label>
+                                    <MagicWand currentValue={watch("aboutSubtitle") || ""} onAccept={v => setValue("aboutSubtitle", v)} context="About page headline" />
+                                </div>
                                 <textarea {...register("aboutSubtitle")} rows={2} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
                             </div>
                             <div className="space-y-4">
                                 <label className="block text-sm text-slate-400">Bio Paragraphs</label>
-                                <textarea {...register("aboutBody1")} rows={3} placeholder="Paragraph 1" className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
-                                <textarea {...register("aboutBody2")} rows={3} placeholder="Paragraph 2" className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
-                                <textarea {...register("aboutBody3")} rows={3} placeholder="Paragraph 3" className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                                <div className="relative">
+                                    <textarea {...register("aboutBody1")} rows={3} placeholder="Paragraph 1" className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                                    <MagicWand currentValue={watch("aboutBody1") || ""} onAccept={v => setValue("aboutBody1", v)} context="Professional bio paragraph 1" className="absolute top-2 right-2" />
+                                </div>
+                                <div className="relative">
+                                    <textarea {...register("aboutBody2")} rows={3} placeholder="Paragraph 2" className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                                    <MagicWand currentValue={watch("aboutBody2") || ""} onAccept={v => setValue("aboutBody2", v)} context="Professional bio paragraph 2" className="absolute top-2 right-2" />
+                                </div>
+                                <div className="relative">
+                                    <textarea {...register("aboutBody3")} rows={3} placeholder="Paragraph 3" className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                                    <MagicWand currentValue={watch("aboutBody3") || ""} onAccept={v => setValue("aboutBody3", v)} context="Professional bio paragraph 3" className="absolute top-2 right-2" />
+                                </div>
                             </div>
                             <div>
                                 <label className="block text-sm text-slate-400 mb-2">Core Competencies / Key Skills (Comma Separated)</label>
@@ -420,8 +562,6 @@ export default function GlobalSettingsPage() {
                             </div>
                         </div>
                     </div>
-
-
 
                     {/* Navigation Labels */}
                     <div className="bg-slate-900 p-8 rounded-xl border border-slate-800">
@@ -456,18 +596,31 @@ export default function GlobalSettingsPage() {
 
                     {/* Projects Section */}
                     <div className="bg-slate-900 p-8 rounded-xl border border-slate-800">
-                        <h2 className="text-xl font-bold text-white mb-6">Projects Section</h2>
+                        <div className="flex justify-between items-center mb-6">
+                            <h2 className="text-xl font-bold text-white">Projects Section</h2>
+                            <VisibilityToggle field="showProjects" label="Show Section" />
+                        </div>
+
                         <div className="space-y-6">
                             <div>
-                                <label className="block text-sm text-slate-400 mb-2">Eyebrow (Small)</label>
+                                <div className="flex justify-between mb-2">
+                                    <label className="block text-sm text-slate-400">Eyebrow (Small)</label>
+                                    <MagicWand currentValue={watch("projectsEyebrow") || ""} onAccept={v => setValue("projectsEyebrow", v)} context="Short eyebrow text" />
+                                </div>
                                 <input {...register("projectsEyebrow")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
                             </div>
                             <div>
-                                <label className="block text-sm text-slate-400 mb-2">Title</label>
+                                <div className="flex justify-between mb-2">
+                                    <label className="block text-sm text-slate-400">Title</label>
+                                    <MagicWand currentValue={watch("projectsTitle") || ""} onAccept={v => setValue("projectsTitle", v)} context="Projects section title" />
+                                </div>
                                 <input {...register("projectsTitle")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
                             </div>
                             <div>
-                                <label className="block text-sm text-slate-400 mb-2">Subtitle</label>
+                                <div className="flex justify-between mb-2">
+                                    <label className="block text-sm text-slate-400">Subtitle</label>
+                                    <MagicWand currentValue={watch("projectsSubtitle") || ""} onAccept={v => setValue("projectsSubtitle", v)} context="Projects section subtitle description" />
+                                </div>
                                 <textarea {...register("projectsSubtitle")} rows={2} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
                             </div>
                             <div>
@@ -477,82 +630,104 @@ export default function GlobalSettingsPage() {
                         </div>
                     </div>
 
+                    {/* EXPERIENCE TIMELINE MANAGEMENT */}
+                    <ExperienceManager
+                        items={watch("experience") || []}
+                        onChange={(newItems) => setValue("experience", newItems)}
+                    />
+
                     {/* Footer / Contact */}
                     <div className="bg-slate-900 p-8 rounded-xl border border-slate-800">
-                        <h2 className="text-xl font-bold text-white mb-6">Footer & Contact</h2>
+                        <div className="flex justify-between items-center mb-6">
+                            <h2 className="text-xl font-bold text-white">Footer & Contact</h2>
+                            <VisibilityToggle field="showContact" label="Show Section" />
+                        </div>
 
                         <div className="space-y-6">
                             <div>
-                                <label className="block text-sm text-slate-400 mb-2">Title</label>
+                                <div className="flex justify-between mb-2">
+                                    <label className="block text-sm text-slate-400">Title</label>
+                                    <MagicWand currentValue={watch("contactTitle") || ""} onAccept={v => setValue("contactTitle", v)} context="Contact section title" />
+                                </div>
                                 <input {...register("contactTitle")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
                             </div>
                             <div>
-                                <label className="block text-sm text-slate-400 mb-2">Subtitle</label>
+                                <div className="flex justify-between mb-2">
+                                    <label className="block text-sm text-slate-400">Subtitle</label>
+                                    <MagicWand currentValue={watch("contactSubtitle") || ""} onAccept={v => setValue("contactSubtitle", v)} context="Contact section subtitle" />
+                                </div>
                                 <input {...register("contactSubtitle")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
                             </div>
                             <div>
                                 <label className="block text-sm text-slate-400 mb-2">Button Text</label>
                                 <input {...register("contactButtonText")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
                             </div>
+                            <div>
+                                <label className="block text-sm text-slate-400 mb-2">Button Text</label>
+                                <input {...register("contactButtonText")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                            </div>
+
+                            <div className="py-4 border-t border-slate-800">
+                                <VisibilityToggle field="showChatWidget" label="AI Agent Widget" />
+                            </div>
 
                             <hr className="border-slate-800 my-6" />
 
                             <div>
-                                <label className="block text-sm text-slate-400 mb-2">Intro / Bio Text</label>
+                                <div className="flex justify-between mb-2">
+                                    <label className="block text-sm text-slate-400">Intro / Bio Text</label>
+                                    <MagicWand currentValue={watch("introText") || ""} onAccept={v => setValue("introText", v)} context="Short footer bio" />
+                                </div>
                                 <textarea {...register("introText")} rows={3} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
                             </div>
 
-                            <div>
-                                <label className="block text-sm font-medium text-slate-400 mb-1">Contact Email</label>
-                                <input
-                                    {...register("contactEmail")}
-                                    className="w-full bg-slate-900 border border-slate-800 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500 transition-colors"
-                                />
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-medium text-slate-400 mb-1">Resume / CV URL</label>
-                                <input
-                                    {...register("resumeUrl")}
-                                    placeholder="https://drive.google.com/..."
-                                    className="w-full bg-slate-900 border border-slate-800 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500 transition-colors"
-                                />
-                                <p className="text-xs text-slate-500 mt-1">Link to your PDF resume. Appears in the floating nav.</p>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-sm text-slate-400 mb-2">Email</label>
+                                    <input {...register("contactEmail")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                                </div>
+                                <div>
+                                    <label className="block text-sm text-slate-400 mb-2">Resume URL</label>
+                                    <input {...register("resumeUrl")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                                </div>
+                                <div>
+                                    <label className="block text-sm text-slate-400 mb-2">LinkedIn URL</label>
+                                    <input {...register("linkedinUrl")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                                </div>
+                                <div>
+                                    <label className="block text-sm text-slate-400 mb-2">Github URL</label>
+                                    <input {...register("githubUrl")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                                </div>
                             </div>
 
                             <div className="pt-6 border-t border-slate-800">
-                                <h3 className="text-lg font-bold text-white mb-4">AI Configuration</h3>
-                                <div className="bg-indigo-500/10 border border-indigo-500/20 p-4 rounded-xl mb-4">
-                                    <p className="text-indigo-300 text-sm">
-                                        Enter your Google Gemini API Key to enable Magic Text and Image features.
-                                        <br />
-                                        <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noreferrer" className="underline hover:text-white">Get a key here</a>
-                                    </p>
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-medium text-slate-400 mb-1">Gemini API Key</label>
-                                    <input
-                                        {...register("googleApiKey")}
-                                        type="password"
-                                        placeholder="AIzaSy..."
-                                        className="w-full bg-slate-900 border border-slate-800 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-indigo-500 transition-colors font-mono"
-                                    />
-                                </div>
+                                <label className="block text-sm text-slate-400 mb-2">Gemini API Key (AI Tools)</label>
+                                <input
+                                    type="password"
+                                    {...register("googleApiKey")}
+                                    placeholder="AI Key..."
+                                    className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white"
+                                />
+                                <p className="text-xs text-slate-500 mt-2">Required for AI Generation features.</p>
                             </div>
                         </div>
+
                     </div>
 
-                    <button
-                        type="submit"
-                        disabled={saving}
-                        className="fixed bottom-6 right-6 z-50 px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-full shadow-2xl transition-all disabled:opacity-50 flex items-center gap-2"
-                    >
-                        {saving ? <Loader2 className="animate-spin" /> : "Save Settings"}
-                    </button>
-                    <div className="h-20" />
+                    {/* Floating Save Button */}
+                    <div className="fixed bottom-6 right-6 z-50">
+                        <button
+                            type="submit"
+                            disabled={saving}
+                            className={`px-8 py-4 rounded-full font-bold shadow-2xl flex items-center gap-2 transition-all ${saving ? 'bg-slate-700 text-slate-400' : 'bg-indigo-600 hover:bg-indigo-500 text-white hover:scale-105'}`}
+                        >
+                            {saving ? <Loader2 className="w-5 h-5 animate-spin" /> : null}
+                            {saving ? "Saving..." : "Save Global Settings"}
+                        </button>
+                    </div>
 
                 </form>
-            </div >
-        </div >
+            </div>
+        </div>
     );
 }

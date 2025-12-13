@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import FloatingNav from "@/components/FloatingNav";
+import ChatWidget from "@/components/ChatWidget";
 import { getSiteSettings } from "@/lib/settings";
+import { getAllProjects, getAllServices } from "@/lib/data";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -41,6 +43,8 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const settings = await getSiteSettings();
+  const projects = await getAllProjects();
+  const services = await getAllServices();
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -89,6 +93,7 @@ export default async function RootLayout({
         {/* Cache Bust: 2025-12-11 - Resolve Sticky Headers */}
         <FloatingNav settings={settings} />
         {children}
+        {settings.showChatWidget && <ChatWidget settings={settings} projects={projects} services={services} />}
       </body>
     </html>
   );

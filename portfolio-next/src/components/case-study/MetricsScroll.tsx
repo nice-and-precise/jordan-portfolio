@@ -2,6 +2,7 @@
 
 import React, { useRef } from "react";
 import { useScroll, useTransform, motion, MotionValue } from "framer-motion";
+import ImpactTicker from "@/components/ImpactTicker";
 
 interface MetricItem {
     label: string;
@@ -89,15 +90,14 @@ const MetricSection: React.FC<MetricSectionProps> = ({ metric }) => {
                 style={{ opacity, scale }}
                 className="relative z-10 text-center max-w-4xl px-6"
             >
-                <h2 className="text-sm md:text-lg font-mono text-emerald-500 mb-4 tracking-widest uppercase">
-                    {metric.label}
-                </h2>
-                <div className="text-[12vw] md:text-[8rem] font-black tracking-tighter text-white leading-none mb-6">
-                    {metric.value}
-                </div>
-                <p className="text-lg md:text-2xl text-slate-300 max-w-2xl mx-auto font-light">
-                    {metric.description}
-                </p>
+                <ImpactTicker
+                    value={metric.value}
+                    label={metric.label}
+                    description={metric.description}
+                    frameless={true}
+                    valueClassName="text-[12vw] md:text-[8rem] font-black tracking-tighter text-white leading-none mb-6"
+                    className="flex flex-col items-center"
+                />
             </motion.div>
         </section>
     );

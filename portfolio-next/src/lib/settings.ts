@@ -6,6 +6,8 @@ export interface SiteSettings {
     heroSubtitle: string;
     introText: string;
     contactEmail: string;
+    linkedinUrl?: string; // Optional top-level override
+    githubUrl?: string; // Optional top-level override
     footerLinks: { label: string; url: string }[];
     heroPersona?: 'aggressive' | 'empathetic' | 'visionary';
     heroSwitcherInstruction?: string;
@@ -16,6 +18,7 @@ export interface SiteSettings {
     teaserTitle: string;
     teaserBody: string;
     teaserCtaText: string;
+    teaserBackgroundUrl?: string;
 
     // Methodology Section
     methodologyTitle: string;
@@ -38,11 +41,20 @@ export interface SiteSettings {
     capabilitiesSubtitle: string;
 
     // Calculator Section
-    calculatorTitle: "Operational Waste Calculator";
-    calculatorSubtitle: "Quantify the cost of chaos in your organization.";
+    calculatorTitle: string;
+    calculatorSubtitle: string;
 
     // About Page Skills
     keySkills: string[];
+
+    // Experience Timeline
+    experience: {
+        id: string;
+        year: string;
+        title: string;
+        company: string;
+        description: string;
+    }[];
 
     // Hero Variations (Configurable)
     heroVariations: {
@@ -70,6 +82,14 @@ export interface SiteSettings {
     navResumeLabel: string;
     navCmsLabel: string;
 
+    // Visibility Toggles
+    showTeaser: boolean;
+    showMethodology: boolean;
+    showCalculator: boolean;
+    showProjects: boolean;
+    showContact: boolean;
+    showChatWidget: boolean;
+
     // Calculator Labels
     calcHeadcountLabel: string;
     calcRateLabel: string;
@@ -79,7 +99,7 @@ export interface SiteSettings {
     calcPlaceholder: string;
     calcButtonText: string;
     calcSuccessMessage: string;
-}
+};
 
 const SETTINGS_DOC_ID = "global";
 
@@ -95,12 +115,24 @@ export const DEFAULT_SETTINGS: SiteSettings = {
         { label: "GitHub", url: "https://github.com" },
         { label: "LinkedIn", url: "https://linkedin.com" }
     ],
+    linkedinUrl: "",
+    githubUrl: "",
     googleApiKey: "",
     resumeUrl: "",
 
+    // Visibility Defaults
+    showTeaser: true,
+    showMethodology: true,
+    showCalculator: true,
+    showProjects: true,
+    showContact: true,
+    showChatWidget: true,
+
     teaserTitle: "Who is Jordan?",
     teaserBody: "I bridge the gap between \"sweaty equity\" operations and digital scale. From the fireground to the server room, I build systems that work when it counts.",
+
     teaserCtaText: "Read My Story",
+    teaserBackgroundUrl: "",
 
     methodologyTitle: "The Methodology",
     methodologySubtitle: "Six Sigma Precision. Startup Velocity.",
@@ -121,12 +153,16 @@ export const DEFAULT_SETTINGS: SiteSettings = {
     aboutBody1: "I am an Operational Strategist and Developer who understands that code is only as good as the process it supports. My background isn't typical for tech, and that's my advantage.",
     aboutBody2: "With over 15 years in high-stakes environments—from commanding fire crews as a Lieutenant to optimizing high-volume manufacturing logistics—I've learned that reliability isn't an accident; it's engineered.",
     aboutBody3: "Today, I leverage AI Agents and Process Intelligence to help businesses scale. I don't just theorize about 'uptime'; I have managed it on the fireground and the factory floor. I operate with the mindset of a business owner, building tools that work and systems that last.",
+    // About Page Skills
     keySkills: [
         "Process Automation",
         "Crisis Management",
         "Full-Stack Development",
         "Team Leadership"
     ],
+
+    // Experience - Default Empty
+    experience: [],
 
     capabilitiesTitle: "Capabilities",
     capabilitiesSubtitle: "Operational Architecture",
