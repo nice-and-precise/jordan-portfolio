@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { WarehouseMap } from './WarehouseMap';
-import { Play, RotateCcw, AlertTriangle, Activity, Terminal, TrendingUp } from 'lucide-react';
+import { Play, RotateCcw, AlertTriangle, Activity, Terminal, TrendingUp, FastForward, Gauge } from 'lucide-react';
 import { INITIAL_TASKS, MOCK_WORKERS, MOCK_INVENTORY, MOCK_BOTTLENECKS, ZONES } from './constants';
 import { Task, Worker, TaskType, Priority, SKU, BottleneckAlert, UPHData } from './types';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
@@ -27,6 +27,37 @@ interface LogEntry {
     type: 'INFO' | 'WARN' | 'SUCCESS';
 }
 
+// Sub-component: Circular Progress for OEE metrics
+const CircularMetric = ({ value, label, color }: { value: number, label: string, color: string }) => {
+    const radius = 18;
+    const circumference = 2 * Math.PI * radius;
+    const offset = circumference - (value / 100) * circumference;
+
+    return (
+        <div className="flex flex-col items-center gap-1">
+            <div className="relative w-12 h-12 flex items-center justify-center">
+                <svg className="w-full h-full transform -rotate-90">
+                    <circle cx="24" cy="24" r={radius} stroke="#1e293b" strokeWidth="4" fill="transparent" />
+                    <circle
+                        cx="24"
+                        cy="24"
+                        r={radius}
+                        stroke={color}
+                        strokeWidth="4"
+                        fill="transparent"
+                        strokeDasharray={circumference}
+                        strokeDashoffset={offset}
+                        strokeLinecap="round"
+                        className="transition-all duration-1000 ease-out"
+                    />
+                </svg>
+                <div className="absolute text-[10px] font-bold text-white">{value}%</div>
+            </div>
+            <span className="text-[10px] text-slate-500 uppercase tracking-tight">{label}</span>
+        </div>
+    );
+};
+
 export const FloorFlowDashboard: React.FC = () => {
     // GLOBAL STATE (The Brain)
     const [tasks, setTasks] = useState<Task[]>(INITIAL_TASKS);
@@ -38,6 +69,7 @@ export const FloorFlowDashboard: React.FC = () => {
         { id: 'init', timestamp: new Date(), message: 'System initialized. WMS/MES Bridge Active.', type: 'INFO' }
     ]);
     const [isDemoRunning, setIsDemoRunning] = useState(false);
+    const [simSpeed, setSimSpeed] = useState<1 | 2 | 5>(1);
 
     // Refs for Simulation Loop access
     const tasksRef = useRef(tasks);
@@ -63,6 +95,7 @@ export const FloorFlowDashboard: React.FC = () => {
         if (!isDemoRunning) return;
 
         let tickCount = 0;
+        const tickRate = 100 / simSpeed; // Adjust loop speed
 
         const gameLoop = setInterval(() => {
             tickCount++;
@@ -128,7 +161,7 @@ export const FloorFlowDashboard: React.FC = () => {
                 let baseSpeed = 0.6;
                 if (nextWorker.role === 'FORKLIFT') baseSpeed = 1.8;
                 if (nextWorker.role === 'AMR') baseSpeed = 2.5;
-                const SPEED = baseSpeed * nextWorker.efficiency;
+                const SPEED = baseSpeed * nextWorker.efficiency; // Removed simSpeed multiplier from distance check to prevent tunneling, loop runs faster instead
 
                 if (dist < SPEED) {
                     // ARRIVED
@@ -223,10 +256,10 @@ export const FloorFlowDashboard: React.FC = () => {
             if (hasUpdates) setTasks(currentTasks);
             setWorkers(updatedWorkers);
 
-        }, 100);
+        }, tickRate);
 
         return () => clearInterval(gameLoop);
-    }, [isDemoRunning]);
+    }, [isDemoRunning, simSpeed]);
 
     // Actions
     const handleExpediteTask = (taskId: string) => {
@@ -238,24 +271,41 @@ export const FloorFlowDashboard: React.FC = () => {
         addLog(`Message sent to ${workerId}`, 'INFO');
     };
 
+    // Metrics Calculation
+    const activeWorkers = workers.filter(w => w.status !== 'OFFLINE' && w.status !== 'CHARGING').length;
+    const availability = Math.round((activeWorkers / workers.length) * 100);
+    const performance = Math.round((chartData[chartData.length - 1].uph / 140) * 100);
+    const quality = 98; // Hardcoded for demo stability, or could be calc from QA fails
+
     return (
-        <div className="flex flex-col md:flex-row gap-6 h-[800px] text-slate-200 p-2 md:p-6 bg-slate-950 rounded-xl border border-slate-800 shadow-2xl">
+        <div className="flex flex-col md:flex-row gap-6 h-[850px] text-slate-200 p-2 md:p-6 bg-slate-950 rounded-xl border border-slate-800 shadow-2xl">
 
             {/* LEFT: MAP */}
             <div className="flex-1 min-h-[500px] flex flex-col">
                 <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 bg-slate-900 border border-slate-700 rounded-lg p-1">
                         <button
                             onClick={() => setIsDemoRunning(!isDemoRunning)}
-                            className={`flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold border transition-all ${isDemoRunning ? 'bg-emerald-900/20 border-emerald-500 text-emerald-400 animate-pulse shadow-[0_0_15px_rgba(16,185,129,0.4)]' : 'bg-slate-800 border-slate-600 text-slate-400 hover:bg-slate-700'}`}
+                            className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-bold transition-all ${isDemoRunning ? 'bg-red-500/10 text-red-400 hover:bg-red-500/20' : 'bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20'}`}
                         >
-                            {isDemoRunning ? <RotateCcw size={14} /> : <Play size={14} />}
-                            {isDemoRunning ? 'LIVE SIMULATION' : 'START DEMO'}
+                            {isDemoRunning ? 'Pause Sim' : 'Start Sim'}
                         </button>
+                        <div className="w-px h-4 bg-slate-700 mx-1"></div>
+                        <div className="flex items-center gap-1">
+                            {[1, 2, 5].map(speed => (
+                                <button
+                                    key={speed}
+                                    onClick={() => setSimSpeed(speed as 1 | 2 | 5)}
+                                    className={`text-[10px] px-2 py-1 rounded transition-colors ${simSpeed === speed ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-500 hover:text-slate-300'}`}
+                                >
+                                    {speed}x
+                                </button>
+                            ))}
+                        </div>
                     </div>
                     <div className="flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                        <div className="text-xs font-mono text-emerald-500">SYSTEM ONLINE</div>
+                        <span className={`w-2 h-2 rounded-full ${isDemoRunning ? 'bg-emerald-500 animate-pulse' : 'bg-slate-700'}`}></span>
+                        <div className="text-xs font-mono text-slate-500">{isDemoRunning ? 'LIVE FEED ACTIVE' : 'FEED PAUSED'}</div>
                     </div>
                 </div>
                 <div className="flex-1 rounded-xl overflow-hidden border border-slate-800 shadow-inner bg-slate-900/50">
@@ -272,12 +322,22 @@ export const FloorFlowDashboard: React.FC = () => {
             {/* RIGHT: STATS SIDEBAR */}
             <div className="w-full md:w-80 flex flex-col gap-4">
 
+                {/* OEE METRICS ROW */}
+                <div className="grid grid-cols-3 gap-2 bg-slate-900/50 border border-slate-800 p-3 rounded-xl">
+                    <CircularMetric value={availability} label="Avail" color="#3b82f6" />
+                    <CircularMetric value={performance} label="Perf" color="#10b981" />
+                    <CircularMetric value={quality} label="Qual" color="#f59e0b" />
+                </div>
+
                 {/* KPI Card (UPH Chart) */}
-                <div className="bg-slate-900/80 backdrop-blur-md border border-slate-800 p-4 rounded-xl shadow-lg">
-                    <h3 className="text-xs font-bold text-slate-400 mb-4 flex items-center gap-2 uppercase tracking-wider">
+                <div className="bg-slate-900/80 backdrop-blur-md border border-slate-800 p-4 rounded-xl shadow-lg relative overflow-hidden">
+                    <div className="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
+                        <Activity size={80} />
+                    </div>
+                    <h3 className="text-xs font-bold text-slate-400 mb-4 flex items-center gap-2 uppercase tracking-wider relative z-10">
                         <TrendingUp size={14} className="text-blue-500" /> Units Per Hour (Real-Time)
                     </h3>
-                    <div className="h-32 w-full">
+                    <div className="h-32 w-full relative z-10">
                         <ResponsiveContainer width="100%" height="100%">
                             <AreaChart data={chartData}>
                                 <defs>
@@ -286,20 +346,24 @@ export const FloorFlowDashboard: React.FC = () => {
                                         <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
                                     </linearGradient>
                                 </defs>
-                                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+                                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
                                 <XAxis dataKey="name" hide />
                                 <YAxis hide domain={[80, 180]} />
                                 <Tooltip
                                     contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', fontSize: '12px' }}
                                     itemStyle={{ color: '#fff' }}
+                                    cursor={{ stroke: '#334155', strokeDasharray: '4 4' }}
                                 />
                                 <Area type="monotone" dataKey="uph" stroke="#3b82f6" fillOpacity={1} fill="url(#colorUph)" strokeWidth={2} />
                             </AreaChart>
                         </ResponsiveContainer>
                     </div>
-                    <div className="flex justify-between items-center mt-2 px-1">
-                        <div className="text-2xl font-bold text-white tracking-tight">{chartData[chartData.length - 1].uph} <span className="text-sm font-normal text-slate-500">UPH</span></div>
-                        <div className="text-xs text-emerald-400 font-mono">TARGET: 140</div>
+                    <div className="flex justify-between items-center mt-2 px-1 relative z-10">
+                        <div className="text-2xl font-bold text-white tracking-tight leading-none">
+                            {chartData[chartData.length - 1].uph}
+                            <span className="text-xs font-normal text-slate-500 ml-1">UPH</span>
+                        </div>
+                        <div className="text-[10px] text-emerald-400 font-mono bg-emerald-900/20 border border-emerald-900/50 px-2 py-0.5 rounded">TARGET: 140</div>
                     </div>
                 </div>
 
@@ -310,7 +374,7 @@ export const FloorFlowDashboard: React.FC = () => {
                     </h3>
                     <div className="flex-1 overflow-y-auto custom-scrollbar space-y-1.5 pr-1">
                         {logs.map(log => (
-                            <div key={log.id} className="text-[10px] leading-tight flex gap-2 animate-in fade-in slide-in-from-left-2 duration-300">
+                            <div key={log.id} className="text-[10px] leading-tight flex gap-2 animate-in fade-in slide-in-from-left-2 duration-300 border-l-2 border-transparent hover:border-slate-700 pl-1 hover:bg-slate-900/50">
                                 <span className="text-slate-600 shrink-0">[{log.timestamp.toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' })}]</span>
                                 <span className={`${log.type === 'WARN' ? 'text-amber-400' : log.type === 'SUCCESS' ? 'text-emerald-400' : 'text-slate-300'}`}>
                                     {log.message}
@@ -328,12 +392,12 @@ export const FloorFlowDashboard: React.FC = () => {
                     </h3>
                     <div className="space-y-2">
                         {bottlenecks.map(b => (
-                            <div key={b.id} className="p-2 bg-red-500/10 border border-red-500/20 rounded hover:bg-red-500/20 transition-colors cursor-pointer group">
+                            <div key={b.id} className="p-2 bg-red-500/5 border border-red-500/10 rounded hover:bg-red-500/10 transition-colors cursor-pointer group">
                                 <div className="flex justify-between items-center mb-1">
                                     <span className="text-xs font-bold text-red-400 group-hover:text-red-300">{b.area}</span>
                                     <span className="text-[10px] text-slate-500 border border-slate-700 rounded px-1">{b.severity}</span>
                                 </div>
-                                <p className="text-[10px] text-slate-400">{b.cause}</p>
+                                <p className="text-[10px] text-slate-500 group-hover:text-slate-400">{b.cause}</p>
                             </div>
                         ))}
                     </div>
