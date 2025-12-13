@@ -2,7 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { Project, subscribeToProject } from "@/lib/data";
+import { Project } from "@/lib/data";
+import { subscribeToProject } from "@/lib/subscriptions";
 import { CrewDashboard } from "@/components/case-study/CrewDashboard";
 import { MetricsScroll } from "@/components/case-study/MetricsScroll";
 import { ArchitectureDiagram } from "@/components/case-study/ArchitectureDiagram";

@@ -1,5 +1,5 @@
 import { db } from "@/lib/firebase";
-import { collection, doc, onSnapshot, query, orderBy, DocumentData } from "firebase/firestore";
+import { collection, doc, onSnapshot, query, orderBy, where, limit, DocumentData } from "firebase/firestore";
 import { Project, Service, DEFAULT_SERVICES } from "./data";
 import { SiteSettings, DEFAULT_SETTINGS } from "./settings";
 
@@ -55,3 +55,52 @@ export function subscribeToServices(callback: (services: Service[]) => void) {
         callback(DEFAULT_SERVICES);
     });
 }
+
+// -- Projects -- //
+
+export function subscribeToProject(slug: string, callback: (project: Project | null) => void) {
+    const q = query(collection(db, "projects"), where("slug", "==", slug), limit(1));
+    return onSnapshot(q, (snapshot) => {
+        if (!snapshot.empty) {
+            const data = snapshot.docs[0].data();
+            callback({ slug: snapshot.docs[0].id, ...data } as Project);
+        } else {
+            callback(null);
+        }
+    }, (error) => {
+        console.error(`Project subscription error (${slug}):`, error);
+        callback(null);
+    });
+}
+
+
+// -- Posts -- //
+
+export function subscribeToPosts(callback: (posts: Post[]) => void) {
+    const q = query(collection(db, "posts"), orderBy("date", "desc"));
+    return onSnapshot(q, (snapshot) => {
+        const posts = snapshot.docs.map(doc => ({
+            slug: doc.id,
+            ...doc.data()
+        })) as Post[];
+        callback(posts);
+    }, (error) => {
+        console.error("Posts subscription error:", error);
+    });
+}
+
+export function subscribeToPost(slug: string, callback: (post: Post | null) => void) {
+    const docRef = doc(db, "posts", slug);
+    return onSnapshot(docRef, (docSnap) => {
+        if (docSnap.exists()) {
+            callback({ slug: docSnap.id, ...docSnap.data() } as Post);
+        } else {
+            callback(null);
+        }
+    }, (error) => {
+        console.error(`Post subscription error (${slug}):`, error);
+        callback(null);
+    });
+}
+
+import { Post } from "./writing";
