@@ -8,6 +8,8 @@ export const metadata: Metadata = {
     description: 'Operational Strategist and Developer bridging the gap between "sweaty equity" manufacturing and digital scale.',
 };
 
+export const dynamic = 'force-dynamic';
+
 import { getSiteSettings } from '@/lib/settings';
 
 export default async function AboutPage() {
