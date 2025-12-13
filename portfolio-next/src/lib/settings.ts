@@ -8,6 +8,7 @@ export interface SiteSettings {
     contactEmail: string;
     footerLinks: { label: string; url: string }[];
     heroPersona?: 'aggressive' | 'empathetic' | 'visionary';
+    heroSwitcherInstruction?: string;
     googleApiKey?: string;
     resumeUrl?: string;
 
@@ -42,13 +43,52 @@ export interface SiteSettings {
 
     // About Page Skills
     keySkills: string[];
+
+    // Hero Variations (Configurable)
+    heroVariations: {
+        aggressive: { badge: string; headline: string; subheadline: string; cta: string; type: string };
+        empathetic: { badge: string; headline: string; subheadline: string; cta: string; type: string };
+        visionary: { badge: string; headline: string; subheadline: string; cta: string; type: string };
+    };
+
+    // Projects Section
+    projectsEyebrow: string;
+    projectsTitle: string;
+    projectsSubtitle: string;
+    projectsButtonText: string;
+
+    // Contact Section
+    contactTitle: string;
+    contactSubtitle: string;
+    contactButtonText: string;
+
+    // Navigation Labels
+    navHomeLabel: string;
+    navAboutLabel: string;
+    navWorkLabel: string;
+    navContactLabel: string;
+    navResumeLabel: string;
+    navCmsLabel: string;
+
+    // Calculator Labels
+    calcHeadcountLabel: string;
+    calcRateLabel: string;
+    calcInefficiencyLabel: string;
+    calcBurnLabel: string;
+    calcDisclaimer: string;
+    calcPlaceholder: string;
+    calcButtonText: string;
+    calcSuccessMessage: string;
 }
 
 const SETTINGS_DOC_ID = "global";
 
+import { HERO_VARIATIONS } from "./strategic-content";
+
 export const DEFAULT_SETTINGS: SiteSettings = {
     heroTitle: "JORDAN", // Personal Brand
     heroSubtitle: "Full-Stack Engineer × Creative Developer",
+    heroSwitcherInstruction: "Click the badge to toggle narrative style",
     introText: "I build high-performance web applications that meaningful impact business goals. Specializing in Next.js, React, and scalable systems architected for growth.",
     contactEmail: "jordandamhof@gmail.com",
     footerLinks: [
@@ -92,7 +132,38 @@ export const DEFAULT_SETTINGS: SiteSettings = {
     capabilitiesSubtitle: "Operational Architecture",
 
     calculatorTitle: "Operational Waste Calculator",
-    calculatorSubtitle: "Quantify the cost of chaos in your organization."
+    calculatorSubtitle: "Quantify the cost of chaos in your organization.",
+
+    heroVariations: HERO_VARIATIONS,
+
+    // Projects Section
+    projectsEyebrow: "Proof of Work",
+    projectsTitle: "Selected Engagements",
+    projectsSubtitle: "Digital transformation initiatives delivering measurable ROI across manufacturing, utility, and financial sectors.",
+    projectsButtonText: "View Case Study",
+
+    // Contact Section
+    contactTitle: "Ready to Scale?",
+    contactSubtitle: "Let's build something state-of-the-art.",
+    contactButtonText: "Get in Touch",
+
+    // Navigation Labels
+    navHomeLabel: "HOME",
+    navAboutLabel: "About",
+    navWorkLabel: "Work",
+    navContactLabel: "Contact",
+    navResumeLabel: "RESUME",
+    navCmsLabel: "CMS",
+
+    // Calculator Labels
+    calcHeadcountLabel: "Headcount",
+    calcRateLabel: "Avg Hourly Cost ($)",
+    calcInefficiencyLabel: "Inefficiency Est. (%)",
+    calcBurnLabel: "Annual Capital Burned",
+    calcDisclaimer: "*Based on 2080 annual hours per employee.",
+    calcPlaceholder: "Enter email to save report...",
+    calcButtonText: "Get Remediation Plan",
+    calcSuccessMessage: "Report Saved. I will analyze this data and contact you shortly."
 };
 
 export async function getSiteSettings(): Promise<SiteSettings> {

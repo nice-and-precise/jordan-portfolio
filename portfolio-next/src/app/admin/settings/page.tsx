@@ -2,20 +2,102 @@
 
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { SiteSettings, getSiteSettings, updateSiteSettings } from "@/lib/settings";
+import { SiteSettings, getSiteSettings, updateSiteSettings, DEFAULT_SETTINGS } from "@/lib/settings";
 import { Loader2 } from "lucide-react";
 
 export default function GlobalSettingsPage() {
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
+
+    // Manual State for Arrays/Objects
     const [keySkillsInput, setKeySkillsInput] = useState("");
+    const [methodologyListInput, setMethodologyListInput] = useState("");
+    const [stat1Value, setStat1Value] = useState("");
+    const [stat1Label, setStat1Label] = useState("");
+    const [stat2Value, setStat2Value] = useState("");
+    const [stat2Label, setStat2Label] = useState("");
 
     const { register, handleSubmit, reset } = useForm<SiteSettings>();
 
     useEffect(() => {
         getSiteSettings().then((settings) => {
-            reset(settings);
-            setKeySkillsInput(settings.keySkills?.join(", ") || "");
+            // Intelligent Fallback: If DB has empty strings for new fields, use Defaults
+            const mergedSettings = { ...settings };
+
+            // Helper to ensure default is used if value is falsy
+            type SettingKey = keyof SiteSettings;
+            const ensureDefault = (key: SettingKey) => {
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                if (!mergedSettings[key] && (DEFAULT_SETTINGS as any)[key]) {
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    (mergedSettings as any)[key] = (DEFAULT_SETTINGS as any)[key];
+                }
+            };
+
+            // Apply defaults for potentially missing/empty sections
+            ensureDefault('teaserTitle');
+            ensureDefault('teaserBody');
+            ensureDefault('teaserCtaText');
+
+            ensureDefault('capabilitiesTitle');
+            ensureDefault('capabilitiesSubtitle');
+
+            ensureDefault('methodologyTitle');
+            ensureDefault('methodologySubtitle');
+            ensureDefault('methodologyBody');
+
+            ensureDefault('calculatorTitle');
+            ensureDefault('calculatorSubtitle');
+
+            ensureDefault('projectsEyebrow');
+            ensureDefault('projectsTitle');
+            ensureDefault('projectsSubtitle');
+            ensureDefault('projectsButtonText');
+
+            ensureDefault('contactTitle');
+            ensureDefault('contactSubtitle');
+            ensureDefault('contactButtonText');
+            ensureDefault('introText');
+
+            // Navigation Labels
+            ensureDefault('navHomeLabel');
+            ensureDefault('navAboutLabel');
+            ensureDefault('navWorkLabel');
+            ensureDefault('navContactLabel');
+            ensureDefault('navResumeLabel');
+            ensureDefault('navCmsLabel');
+
+            // Calculator Labels
+            ensureDefault('calcHeadcountLabel');
+            ensureDefault('calcRateLabel');
+            ensureDefault('calcInefficiencyLabel');
+            ensureDefault('calcBurnLabel');
+            ensureDefault('calcDisclaimer');
+            ensureDefault('calcPlaceholder');
+            ensureDefault('calcButtonText');
+            ensureDefault('calcSuccessMessage');
+
+            reset(mergedSettings);
+
+            // Handle Manual State Inputs
+            setKeySkillsInput(mergedSettings.keySkills?.join(", ") || DEFAULT_SETTINGS.keySkills.join(", "));
+            setMethodologyListInput(mergedSettings.methodologyList?.join("\n") || DEFAULT_SETTINGS.methodologyList.join("\n"));
+
+            if (mergedSettings.stats && mergedSettings.stats.length > 0) {
+                setStat1Value(mergedSettings.stats[0]?.value || "");
+                setStat1Label(mergedSettings.stats[0]?.label || "");
+                if (mergedSettings.stats.length > 1) {
+                    setStat2Value(mergedSettings.stats[1]?.value || "");
+                    setStat2Label(mergedSettings.stats[1]?.label || "");
+                }
+            } else {
+                // Fallback to default stats if empty
+                setStat1Value(DEFAULT_SETTINGS.stats[0].value);
+                setStat1Label(DEFAULT_SETTINGS.stats[0].label);
+                setStat2Value(DEFAULT_SETTINGS.stats[1].value);
+                setStat2Label(DEFAULT_SETTINGS.stats[1].label);
+            }
+
             setLoading(false);
         });
     }, [reset]);
@@ -23,10 +105,15 @@ export default function GlobalSettingsPage() {
     const onSubmit = async (data: SiteSettings) => {
         setSaving(true);
         try {
-            // Manually handle keySkills array
+            // Manually handle complex arrays
             const updatedSettings = {
                 ...data,
-                keySkills: keySkillsInput.split(",").map(s => s.trim()).filter(s => s)
+                keySkills: keySkillsInput.split(",").map(s => s.trim()).filter(s => s),
+                methodologyList: methodologyListInput.split("\n").map(s => s.trim()).filter(s => s),
+                stats: [
+                    { value: stat1Value, label: stat1Label },
+                    { value: stat2Value, label: stat2Label }
+                ]
             };
 
             await updateSiteSettings(updatedSettings);
@@ -76,6 +163,91 @@ export default function GlobalSettingsPage() {
                                     <option value="visionary">Visionary (Future Architecture)</option>
                                 </select>
                                 <p className="text-xs text-slate-500 mt-2">Changes the StoryBrand script on the homepage.</p>
+                            </div>
+
+                            <div>
+                                <label className="block text-sm text-slate-400 mb-2">Switcher Instruction Text</label>
+                                <input {...register("heroSwitcherInstruction")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                                <p className="text-xs text-slate-500 mt-2">Text displayed below the CTA (e.g. "Click badge to toggle...")</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Hero Variations (Narrative Strategies) */}
+                    <div className="bg-slate-900 p-8 rounded-xl border border-slate-800">
+                        <h2 className="text-xl font-bold text-white mb-6">Narrative Strategies Content</h2>
+                        <p className="text-sm text-slate-400 mb-8">
+                            Customize the messaging for each narrative persona.
+                        </p>
+
+                        <div className="space-y-12">
+                            {/* Aggressive */}
+                            <div className="space-y-4 border-l-4 border-red-500 pl-6">
+                                <h3 className="text-lg font-bold text-red-400">Aggressive Strategy</h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="col-span-2">
+                                        <label className="block text-xs text-slate-500 mb-1">Headline</label>
+                                        <input {...register("heroVariations.aggressive.headline")} className="w-full bg-slate-950 border border-slate-700 p-2 rounded text-white" />
+                                    </div>
+                                    <div className="col-span-2">
+                                        <label className="block text-xs text-slate-500 mb-1">Subheadline</label>
+                                        <textarea {...register("heroVariations.aggressive.subheadline")} rows={2} className="w-full bg-slate-950 border border-slate-700 p-2 rounded text-white" />
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs text-slate-500 mb-1">Badge</label>
+                                        <input {...register("heroVariations.aggressive.badge")} className="w-full bg-slate-950 border border-slate-700 p-2 rounded text-white" />
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs text-slate-500 mb-1">CTA Text</label>
+                                        <input {...register("heroVariations.aggressive.cta")} className="w-full bg-slate-950 border border-slate-700 p-2 rounded text-white" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Empathetic */}
+                            <div className="space-y-4 border-l-4 border-blue-500 pl-6">
+                                <h3 className="text-lg font-bold text-blue-400">Empathetic Strategy</h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="col-span-2">
+                                        <label className="block text-xs text-slate-500 mb-1">Headline</label>
+                                        <input {...register("heroVariations.empathetic.headline")} className="w-full bg-slate-950 border border-slate-700 p-2 rounded text-white" />
+                                    </div>
+                                    <div className="col-span-2">
+                                        <label className="block text-xs text-slate-500 mb-1">Subheadline</label>
+                                        <textarea {...register("heroVariations.empathetic.subheadline")} rows={2} className="w-full bg-slate-950 border border-slate-700 p-2 rounded text-white" />
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs text-slate-500 mb-1">Badge</label>
+                                        <input {...register("heroVariations.empathetic.badge")} className="w-full bg-slate-950 border border-slate-700 p-2 rounded text-white" />
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs text-slate-500 mb-1">CTA Text</label>
+                                        <input {...register("heroVariations.empathetic.cta")} className="w-full bg-slate-950 border border-slate-700 p-2 rounded text-white" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Visionary */}
+                            <div className="space-y-4 border-l-4 border-purple-500 pl-6">
+                                <h3 className="text-lg font-bold text-purple-400">Visionary Strategy</h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="col-span-2">
+                                        <label className="block text-xs text-slate-500 mb-1">Headline</label>
+                                        <input {...register("heroVariations.visionary.headline")} className="w-full bg-slate-950 border border-slate-700 p-2 rounded text-white" />
+                                    </div>
+                                    <div className="col-span-2">
+                                        <label className="block text-xs text-slate-500 mb-1">Subheadline</label>
+                                        <textarea {...register("heroVariations.visionary.subheadline")} rows={2} className="w-full bg-slate-950 border border-slate-700 p-2 rounded text-white" />
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs text-slate-500 mb-1">Badge</label>
+                                        <input {...register("heroVariations.visionary.badge")} className="w-full bg-slate-950 border border-slate-700 p-2 rounded text-white" />
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs text-slate-500 mb-1">CTA Text</label>
+                                        <input {...register("heroVariations.visionary.cta")} className="w-full bg-slate-950 border border-slate-700 p-2 rounded text-white" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -130,6 +302,39 @@ export default function GlobalSettingsPage() {
                                 <label className="block text-sm text-slate-400 mb-2">Body Copy</label>
                                 <textarea {...register("methodologyBody")} rows={4} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
                             </div>
+
+                            <div>
+                                <label className="block text-sm text-slate-400 mb-2">Benefit List (Comma Separated)</label>
+                                <textarea
+                                    value={methodologyListInput}
+                                    onChange={(e) => setMethodologyListInput(e.target.value)}
+                                    rows={3}
+                                    className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white"
+                                />
+                                <p className="text-xs text-slate-500 mt-1">e.g. Eliminate Manual Data Entry, Reduce Decision Latency...</p>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="col-span-2 text-sm font-bold text-slate-400 mt-2">Key Statistics</div>
+
+                                <div>
+                                    <label className="block text-xs text-slate-500 mb-1">Stat 1 Value</label>
+                                    <input value={stat1Value} onChange={(e) => setStat1Value(e.target.value)} className="w-full bg-slate-950 border border-slate-700 p-2 rounded text-white" />
+                                </div>
+                                <div>
+                                    <label className="block text-xs text-slate-500 mb-1">Stat 1 Label</label>
+                                    <input value={stat1Label} onChange={(e) => setStat1Label(e.target.value)} className="w-full bg-slate-950 border border-slate-700 p-2 rounded text-white" />
+                                </div>
+
+                                <div>
+                                    <label className="block text-xs text-slate-500 mb-1">Stat 2 Value</label>
+                                    <input value={stat2Value} onChange={(e) => setStat2Value(e.target.value)} className="w-full bg-slate-950 border border-slate-700 p-2 rounded text-white" />
+                                </div>
+                                <div>
+                                    <label className="block text-xs text-slate-500 mb-1">Stat 2 Label</label>
+                                    <input value={stat2Label} onChange={(e) => setStat2Label(e.target.value)} className="w-full bg-slate-950 border border-slate-700 p-2 rounded text-white" />
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -144,6 +349,43 @@ export default function GlobalSettingsPage() {
                             <div>
                                 <label className="block text-sm text-slate-400 mb-2">Subtitle</label>
                                 <input {...register("calculatorSubtitle")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                            </div>
+
+                            <hr className="border-slate-800" />
+
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-xs text-slate-500 mb-1">Headcount Label</label>
+                                    <input {...register("calcHeadcountLabel")} className="w-full bg-slate-950 border border-slate-700 p-2 rounded text-white" />
+                                </div>
+                                <div>
+                                    <label className="block text-xs text-slate-500 mb-1">Rate Label</label>
+                                    <input {...register("calcRateLabel")} className="w-full bg-slate-950 border border-slate-700 p-2 rounded text-white" />
+                                </div>
+                                <div>
+                                    <label className="block text-xs text-slate-500 mb-1">Inefficiency Label</label>
+                                    <input {...register("calcInefficiencyLabel")} className="w-full bg-slate-950 border border-slate-700 p-2 rounded text-white" />
+                                </div>
+                                <div>
+                                    <label className="block text-xs text-slate-500 mb-1">Burn Label</label>
+                                    <input {...register("calcBurnLabel")} className="w-full bg-slate-950 border border-slate-700 p-2 rounded text-white" />
+                                </div>
+                                <div className="col-span-2">
+                                    <label className="block text-xs text-slate-500 mb-1">Disclaimer</label>
+                                    <input {...register("calcDisclaimer")} className="w-full bg-slate-950 border border-slate-700 p-2 rounded text-white" />
+                                </div>
+                                <div className="col-span-2">
+                                    <label className="block text-xs text-slate-500 mb-1">Placeholder Text</label>
+                                    <input {...register("calcPlaceholder")} className="w-full bg-slate-950 border border-slate-700 p-2 rounded text-white" />
+                                </div>
+                                <div>
+                                    <label className="block text-xs text-slate-500 mb-1">Button Text</label>
+                                    <input {...register("calcButtonText")} className="w-full bg-slate-950 border border-slate-700 p-2 rounded text-white" />
+                                </div>
+                                <div className="col-span-2">
+                                    <label className="block text-xs text-slate-500 mb-1">Success Message</label>
+                                    <textarea {...register("calcSuccessMessage")} rows={2} className="w-full bg-slate-950 border border-slate-700 p-2 rounded text-white" />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -179,11 +421,82 @@ export default function GlobalSettingsPage() {
                         </div>
                     </div>
 
+
+
+                    {/* Navigation Labels */}
+                    <div className="bg-slate-900 p-8 rounded-xl border border-slate-800">
+                        <h2 className="text-xl font-bold text-white mb-6">Navigation Labels</h2>
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                            <div>
+                                <label className="block text-sm text-slate-400 mb-2">Home (Logo Text)</label>
+                                <input {...register("navHomeLabel")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                            </div>
+                            <div>
+                                <label className="block text-sm text-slate-400 mb-2">About Link</label>
+                                <input {...register("navAboutLabel")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                            </div>
+                            <div>
+                                <label className="block text-sm text-slate-400 mb-2">Work Link</label>
+                                <input {...register("navWorkLabel")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                            </div>
+                            <div>
+                                <label className="block text-sm text-slate-400 mb-2">Contact Link</label>
+                                <input {...register("navContactLabel")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                            </div>
+                            <div>
+                                <label className="block text-sm text-slate-400 mb-2">Resume Link</label>
+                                <input {...register("navResumeLabel")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                            </div>
+                            <div>
+                                <label className="block text-sm text-slate-400 mb-2">CMS Link</label>
+                                <input {...register("navCmsLabel")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Projects Section */}
+                    <div className="bg-slate-900 p-8 rounded-xl border border-slate-800">
+                        <h2 className="text-xl font-bold text-white mb-6">Projects Section</h2>
+                        <div className="space-y-6">
+                            <div>
+                                <label className="block text-sm text-slate-400 mb-2">Eyebrow (Small)</label>
+                                <input {...register("projectsEyebrow")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                            </div>
+                            <div>
+                                <label className="block text-sm text-slate-400 mb-2">Title</label>
+                                <input {...register("projectsTitle")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                            </div>
+                            <div>
+                                <label className="block text-sm text-slate-400 mb-2">Subtitle</label>
+                                <textarea {...register("projectsSubtitle")} rows={2} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                            </div>
+                            <div>
+                                <label className="block text-sm text-slate-400 mb-2">Button Text</label>
+                                <input {...register("projectsButtonText")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                            </div>
+                        </div>
+                    </div>
+
                     {/* Footer / Contact */}
                     <div className="bg-slate-900 p-8 rounded-xl border border-slate-800">
                         <h2 className="text-xl font-bold text-white mb-6">Footer & Contact</h2>
 
                         <div className="space-y-6">
+                            <div>
+                                <label className="block text-sm text-slate-400 mb-2">Title</label>
+                                <input {...register("contactTitle")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                            </div>
+                            <div>
+                                <label className="block text-sm text-slate-400 mb-2">Subtitle</label>
+                                <input {...register("contactSubtitle")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                            </div>
+                            <div>
+                                <label className="block text-sm text-slate-400 mb-2">Button Text</label>
+                                <input {...register("contactButtonText")} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
+                            </div>
+
+                            <hr className="border-slate-800 my-6" />
+
                             <div>
                                 <label className="block text-sm text-slate-400 mb-2">Intro / Bio Text</label>
                                 <textarea {...register("introText")} rows={3} className="w-full bg-slate-950 border border-slate-700 p-3 rounded-lg text-white" />
@@ -239,7 +552,7 @@ export default function GlobalSettingsPage() {
                     <div className="h-20" />
 
                 </form>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 }

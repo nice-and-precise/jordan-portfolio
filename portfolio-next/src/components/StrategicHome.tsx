@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import EntropyParticles from '@/components/ui/EntropyParticles';
-import BentoServices from '@/components/ui/BentoServices';
+
 import MethodologySection from '@/components/MethodologySection';
 import { HERO_VARIATIONS } from '@/lib/strategic-content';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
@@ -22,13 +22,14 @@ export default function StrategicHome({ projects, settings, services }: Strategi
     const [activeHero, setActiveHero] = useState<'aggressive' | 'empathetic' | 'visionary'>(
         settings?.heroPersona || 'aggressive'
     );
-    const heroContent = HERO_VARIATIONS[activeHero];
 
     // Real-Time Hydration
     const [liveProjects, setLiveProjects] = useState(projects || []);
     const [liveServices, setLiveServices] = useState(services || []);
     // Initialize with props or empty object to avoid undefined access
     const [liveSettings, setLiveSettings] = useState<SiteSettings>(settings || {} as SiteSettings);
+
+    const heroContent = liveSettings?.heroVariations?.[activeHero] || HERO_VARIATIONS[activeHero];
 
     // Subscribe to real-time updates
     React.useEffect(() => {
@@ -62,12 +63,7 @@ export default function StrategicHome({ projects, settings, services }: Strategi
     const heroOpacity = useTransform(scrollY, [0, 500], [1, 0]);
     const heroY = useTransform(scrollY, [0, 500], [0, 200]); // Subtle parallax
 
-    // Horizontal Scroll for Projects
-    const targetRef = useRef(null);
-    const { scrollYProgress } = useScroll({
-        target: targetRef,
-    });
-    const x = useTransform(scrollYProgress, [0, 1], ["1%", "-55%"]);
+
 
     return (
         <main className="min-h-screen bg-black text-white selection:bg-blue-500/30 font-sans overflow-x-hidden">
@@ -139,36 +135,31 @@ export default function StrategicHome({ projects, settings, services }: Strategi
 
                     {/* Hero Switcher Prompt */}
                     <div className="mt-8 text-neutral-600 text-xs font-mono">
-                        Click the badge to toggle narrative style (Current: {activeHero})
+                        {liveSettings?.heroSwitcherInstruction || "Click the badge to toggle narrative style"} (Current: {activeHero})
                     </div>
                 </div>
             </section>
 
             {/* SELECTED ENGAGEMENTS (Moved Up & Animated) */}
             {liveProjects && liveProjects.length > 0 && (
-                <section id="work" ref={targetRef} className="relative h-[130vh] md:h-auto bg-neutral-900 border-t border-white/10">
-                    <div className="sticky top-0 flex h-screen items-center overflow-hidden md:relative md:h-auto md:block md:py-24 md:px-12 md:overflow-visible">
+                <section id="work" className="relative bg-neutral-900 border-t border-white/10 py-12 md:py-24">
+                    <div className="max-w-7xl mx-auto px-4 md:px-12">
 
                         {/* Section Header */}
-                        <div className="absolute top-12 left-6 z-20 md:static md:text-center md:mb-16 md:max-w-3xl md:mx-auto">
-                            <h2 className="text-sm font-mono text-blue-500 uppercase tracking-widest mb-4">Proof of Work</h2>
+                        <div className="mb-12 md:mb-16 md:text-center md:max-w-3xl md:mx-auto">
+                            <h2 className="text-sm font-mono text-blue-500 uppercase tracking-widest mb-4">
+                                {liveSettings?.projectsEyebrow || "Proof of Work"}
+                            </h2>
                             <h3 className="text-4xl md:text-6xl font-bold text-white">
-                                Selected Engagements
+                                {liveSettings?.projectsTitle || "Selected Engagements"}
                             </h3>
-                            <p className="text-neutral-400 mt-2 md:hidden">Scroll to explore</p>
-                            <p className="text-neutral-400 mt-4 text-lg hidden md:block">
-                                Digital transformation initiatives delivering measurable ROI across manufacturing, utility, and financial sectors.
+                            <p className="text-neutral-400 mt-4 text-lg">
+                                {liveSettings?.projectsSubtitle || "Digital transformation initiatives delivering measurable ROI across manufacturing, utility, and financial sectors."}
                             </p>
                         </div>
 
-                        {/* Projects Container (Horizontal Scroll on Mobile, Grid on Desktop) */}
-                        <motion.div
-                            style={{ x }}
-                            className="flex gap-8 px-4 items-center md:grid md:grid-cols-3 md:gap-8 md:px-0 md:!transform-none"
-                        >
-                            {/* Empty spacer for header offset (Mobile Only) */}
-                            <div className="w-[10vw] flex-shrink-0 md:hidden" />
-
+                        {/* Projects Container (Grid Layout) */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                             {liveProjects.map((project, index) => (
                                 <motion.a
                                     key={project.slug}
@@ -177,7 +168,7 @@ export default function StrategicHome({ projects, settings, services }: Strategi
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true, margin: "-50px" }}
                                     transition={{ duration: 0.5, delay: index * 0.1 }}
-                                    className="group relative h-[60vh] w-[85vw] md:w-full md:h-[600px] flex-shrink-0 bg-black border border-white/10 rounded-3xl overflow-hidden hover:border-blue-500/50 transition-all shadow-2xl"
+                                    className="group relative h-[500px] md:h-[600px] w-full flex-shrink-0 bg-black border border-white/10 rounded-3xl overflow-hidden hover:border-blue-500/50 transition-all shadow-2xl"
                                 >
                                     {/* Image */}
                                     <div className="absolute inset-0">
@@ -185,15 +176,14 @@ export default function StrategicHome({ projects, settings, services }: Strategi
                                             src={project.coverImage}
                                             alt={project.title}
                                             fill
-                                            priority
-                                            sizes="(max-width: 768px) 85vw, 33vw"
+                                            sizes="(max-width: 768px) 100vw, 33vw"
                                             className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-1000 opacity-60 group-hover:opacity-80 grayscale group-hover:grayscale-0"
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
                                     </div>
 
                                     {/* Content */}
-                                    <div className="absolute bottom-0 left-0 p-8 md:p-10 w-full">
+                                    <div className="absolute bottom-0 left-0 p-8 w-full">
                                         <div className="flex items-center gap-2 mb-4 flex-wrap">
                                             {project.techStack.slice(0, 3).map((tech: string) => (
                                                 <span key={tech} className="text-[10px] uppercase font-bold px-2 py-1 rounded bg-white/10 backdrop-blur-md border border-white/10 text-white">
@@ -208,18 +198,17 @@ export default function StrategicHome({ projects, settings, services }: Strategi
                                             {project.subtitle}
                                         </p>
                                         <div className="mt-6 flex items-center gap-2 text-blue-400 font-bold text-sm uppercase tracking-wider group-hover:translate-x-2 transition-transform">
-                                            View Case Study <span className="text-lg">→</span>
+                                            {liveSettings?.projectsButtonText || "View Case Study"} <span className="text-lg">→</span>
                                         </div>
                                     </div>
                                 </motion.a>
                             ))}
-                        </motion.div>
+                        </div>
                     </div>
                 </section>
             )}
 
-            {/* SERVICES SECTION */}
-            <BentoServices services={liveServices} settings={liveSettings} />
+            {/* SERVICES SECTION REMOVED */}
 
             {/* TEASER: Who is Jordan? */}
             <section className="py-24 bg-neutral-900 border-t border-white/5 relative overflow-hidden group">
@@ -258,10 +247,14 @@ export default function StrategicHome({ projects, settings, services }: Strategi
             {/* CONTACT SECTION */}
             <section id="contact" className="py-24 relative overflow-hidden">
                 <div className="max-w-4xl mx-auto px-6 text-center">
-                    <h2 className="text-4xl font-bold text-white mb-8">Ready to Scale?</h2>
-                    <p className="text-neutral-400 mb-8">Let's build something state-of-the-art.</p>
+                    <h2 className="text-4xl font-bold text-white mb-8">
+                        {liveSettings?.contactTitle || "Ready to Scale?"}
+                    </h2>
+                    <p className="text-neutral-400 mb-8">
+                        {liveSettings?.contactSubtitle || "Let's build something state-of-the-art."}
+                    </p>
                     <a href="mailto:jordandamhof@gmail.com" className="inline-flex h-12 items-center justify-center rounded-md bg-white px-8 text-sm font-medium text-black transition-colors hover:bg-neutral-200 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-900">
-                        Get in Touch
+                        {liveSettings?.contactButtonText || "Get in Touch"}
                     </a>
                 </div>
             </section>

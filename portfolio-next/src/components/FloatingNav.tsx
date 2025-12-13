@@ -58,7 +58,7 @@ export default function FloatingNav({ settings }: { settings?: SiteSettings }) {
                             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                             className={`text-sm font-bold transition-colors ${activeSection === 'home' ? 'text-white' : 'text-slate-400 hover:text-white'}`}
                         >
-                            {settings?.heroTitle || 'HOME'}
+                            {settings?.navHomeLabel || settings?.heroTitle || 'HOME'}
                         </button>
 
                         <div className="w-px h-4 bg-white/10" />
@@ -67,7 +67,7 @@ export default function FloatingNav({ settings }: { settings?: SiteSettings }) {
                             href="/about"
                             className="hidden md:block text-sm text-slate-400 hover:text-white transition-colors uppercase tracking-wider"
                         >
-                            About
+                            {settings?.navAboutLabel || "About"}
                         </Link>
 
                         <div className="w-px h-4 bg-white/10" />
@@ -76,13 +76,13 @@ export default function FloatingNav({ settings }: { settings?: SiteSettings }) {
                             onClick={() => scrollTo('work')}
                             className={`hidden md:block text-sm transition-colors uppercase tracking-wider ${activeSection === 'work' ? 'text-white font-medium' : 'text-slate-400 hover:text-white'}`}
                         >
-                            Work
+                            {settings?.navWorkLabel || "Work"}
                         </button>
                         <button
                             onClick={() => scrollTo('contact')}
                             className={`hidden md:block text-sm transition-colors uppercase tracking-wider ${activeSection === 'contact' ? 'text-white font-medium' : 'text-slate-400 hover:text-white'}`}
                         >
-                            Contact
+                            {settings?.navContactLabel || "Contact"}
                         </button>
 
                         {settings?.resumeUrl && (
@@ -94,7 +94,7 @@ export default function FloatingNav({ settings }: { settings?: SiteSettings }) {
                                     rel="noopener noreferrer"
                                     className="text-sm font-medium text-emerald-400 hover:text-emerald-300 transition-colors"
                                 >
-                                    RESUME
+                                    {settings?.navResumeLabel || "RESUME"}
                                 </a>
                             </>
                         )}
@@ -105,7 +105,7 @@ export default function FloatingNav({ settings }: { settings?: SiteSettings }) {
                             href="/admin"
                             className="text-xs text-slate-600 hover:text-slate-400"
                         >
-                            CMS
+                            {settings?.navCmsLabel || "CMS"}
                         </a>
                     </div>
                 </motion.div>

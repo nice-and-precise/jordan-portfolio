@@ -58,7 +58,7 @@ export default function InefficiencyCalculator({ settings }: { settings?: SiteSe
                 <div className="space-y-6">
                     {/* Inputs */}
                     <div>
-                        <label className="block text-sm font-mono text-neutral-500 mb-2 uppercase">Headcount</label>
+                        <label className="block text-sm font-mono text-neutral-500 mb-2 uppercase">{settings?.calcHeadcountLabel || "Headcount"}</label>
                         <input
                             suppressHydrationWarning
                             type="range"
@@ -72,7 +72,7 @@ export default function InefficiencyCalculator({ settings }: { settings?: SiteSe
                     </div>
 
                     <div>
-                        <label className="block text-sm font-mono text-neutral-500 mb-2 uppercase">Avg Hourly Cost ($)</label>
+                        <label className="block text-sm font-mono text-neutral-500 mb-2 uppercase">{settings?.calcRateLabel || "Avg Hourly Cost ($)"}</label>
                         <input
                             suppressHydrationWarning
                             type="range"
@@ -86,7 +86,7 @@ export default function InefficiencyCalculator({ settings }: { settings?: SiteSe
                     </div>
 
                     <div>
-                        <label className="block text-sm font-mono text-neutral-500 mb-2 uppercase">Inefficiency Est. (%)</label>
+                        <label className="block text-sm font-mono text-neutral-500 mb-2 uppercase">{settings?.calcInefficiencyLabel || "Inefficiency Est. (%)"}</label>
                         <input
                             suppressHydrationWarning
                             type="range"
@@ -102,7 +102,7 @@ export default function InefficiencyCalculator({ settings }: { settings?: SiteSe
 
                 {/* Results */}
                 <div className="flex flex-col justify-center items-center bg-black/50 rounded-2xl p-6 border border-white/5">
-                    <div className="text-sm text-neutral-500 mb-2">Annual Capital Burned</div>
+                    <div className="text-sm text-neutral-500 mb-2">{settings?.calcBurnLabel || "Annual Capital Burned"}</div>
                     <motion.div
                         key={wastedCapital}
                         initial={{ scale: 0.9 }}
@@ -112,7 +112,7 @@ export default function InefficiencyCalculator({ settings }: { settings?: SiteSe
                         ${wastedCapital.toLocaleString(undefined, { maximumFractionDigits: 0 })}
                     </motion.div>
                     <div className="text-xs text-neutral-600 mt-4 text-center">
-                        *Based on 2080 annual hours per employee.
+                        {settings?.calcDisclaimer || "*Based on 2080 annual hours per employee."}
                     </div>
                 </div>
             </div>
@@ -130,7 +130,7 @@ export default function InefficiencyCalculator({ settings }: { settings?: SiteSe
                             suppressHydrationWarning
                             type="email"
                             required
-                            placeholder="Enter email to save report..."
+                            placeholder={settings?.calcPlaceholder || "Enter email to save report..."}
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-neutral-600 focus:outline-none focus:border-blue-500 transition-colors"
@@ -140,7 +140,7 @@ export default function InefficiencyCalculator({ settings }: { settings?: SiteSe
                             disabled={loading}
                             className="px-6 py-3 bg-white text-black font-bold rounded-xl hover:bg-neutral-200 transition-colors disabled:opacity-50"
                         >
-                            {loading ? 'Saving...' : 'Get Remediation Plan'}
+                            {loading ? 'Saving...' : (settings?.calcButtonText || "Get Remediation Plan")}
                         </button>
                     </motion.form>
                 ) : (
@@ -149,7 +149,7 @@ export default function InefficiencyCalculator({ settings }: { settings?: SiteSe
                         animate={{ opacity: 1 }}
                         className="bg-green-500/10 border border-green-500/20 rounded-xl p-4 text-center text-green-400 font-bold"
                     >
-                        Report Saved. I will analyze this data and contact you shortly.
+                        {settings?.calcSuccessMessage || "Report Saved. I will analyze this data and contact you shortly."}
                     </motion.div>
                 )}
             </AnimatePresence>
