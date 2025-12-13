@@ -278,12 +278,12 @@ export const FloorFlowDashboard: React.FC = () => {
     const quality = 98; // Hardcoded for demo stability, or could be calc from QA fails
 
     return (
-        <div className="flex flex-col md:flex-row gap-6 h-[850px] text-slate-200 p-2 md:p-6 bg-slate-950 rounded-xl border border-slate-800 shadow-2xl">
+        <div className="flex flex-col md:flex-row gap-6 h-auto md:h-[850px] text-slate-200 p-2 md:p-6 bg-slate-950 rounded-xl border border-slate-800 shadow-2xl">
 
             {/* LEFT: MAP */}
-            <div className="flex-1 min-h-[500px] flex flex-col">
-                <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-2 bg-slate-900 border border-slate-700 rounded-lg p-1">
+            <div className="flex-1 min-h-[400px] md:min-h-[500px] flex flex-col">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                    <div className="flex items-center gap-2 bg-slate-900 border border-slate-700 rounded-lg p-1 self-start sm:self-auto">
                         <button
                             onClick={() => setIsDemoRunning(!isDemoRunning)}
                             className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-bold transition-all ${isDemoRunning ? 'bg-red-500/10 text-red-400 hover:bg-red-500/20' : 'bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20'}`}
@@ -303,7 +303,7 @@ export const FloorFlowDashboard: React.FC = () => {
                             ))}
                         </div>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 self-end sm:self-auto">
                         <span className={`w-2 h-2 rounded-full ${isDemoRunning ? 'bg-emerald-500 animate-pulse' : 'bg-slate-700'}`}></span>
                         <div className="text-xs font-mono text-slate-500">{isDemoRunning ? 'LIVE FEED ACTIVE' : 'FEED PAUSED'}</div>
                     </div>

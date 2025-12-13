@@ -69,7 +69,7 @@ export const WarehouseMap: React.FC<WarehouseMapProps> = ({
     };
 
     return (
-        <div className="bg-slate-900 border border-slate-700 rounded-xl p-4 flex flex-col h-full relative min-h-[500px]">
+        <div className="bg-slate-900 border border-slate-700 rounded-xl p-4 flex flex-col h-full relative min-h-[400px] md:min-h-[500px]">
             <div className="flex justify-between items-center mb-4">
                 <h3 className="text-white font-semibold flex items-center gap-2">
                     <Zap className="text-blue-500 w-4 h-4" /> Real-Time Production Map
@@ -238,7 +238,7 @@ export const WarehouseMap: React.FC<WarehouseMapProps> = ({
                 {/* INFO CARD SLIDE-OVER */}
                 {selectedItem && (
                     <div
-                        className="absolute top-2 right-2 bottom-2 w-80 bg-slate-900/95 border border-slate-700 backdrop-blur-xl shadow-2xl rounded-xl z-20 flex flex-col animate-in slide-in-from-right duration-300"
+                        className="absolute top-2 right-2 md:bottom-2 bottom-2 left-2 md:left-auto md:w-80 bg-slate-900/95 border border-slate-700 backdrop-blur-xl shadow-2xl rounded-xl z-20 flex flex-col animate-in slide-in-from-right duration-300 max-h-[60%] md:max-h-full"
                         onClick={(e) => e.stopPropagation()}
                     >
                         {/* Header */}
