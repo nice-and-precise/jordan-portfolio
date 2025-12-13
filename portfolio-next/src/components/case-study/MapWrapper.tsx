@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, useMap, Polyline } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
@@ -21,8 +21,25 @@ interface LocationData {
     marketStatus: "growth" | "stable" | "volatile";
 }
 
+export interface RouteData {
+    id: string;
+    name: string;
+    type: "rail" | "truck";
+    coordinates: [number, number][];
+    color: string;
+}
+
+export interface RailyardData {
+    id: string;
+    name: string;
+    city: string;
+    coords: [number, number];
+}
+
 interface MapWrapperProps {
     locations: LocationData[];
+    routes?: RouteData[];
+    railyards?: RailyardData[];
     selectedId: string | null;
     onSelect: (id: string) => void;
     layerStyle: "dark" | "satellite";
@@ -59,7 +76,16 @@ const createCustomIcon = (status: string, selected: boolean) => {
 };
 
 
-const MapWrapper: React.FC<MapWrapperProps> = ({ locations, selectedId, onSelect, layerStyle }) => {
+const createRailyardIcon = () => {
+    return L.divIcon({
+        className: "railyard-pin",
+        html: `<div class="w-3 h-3 bg-purple-500 border border-white rotate-45 shadow-sm"></div>`,
+        iconSize: [12, 12],
+        iconAnchor: [6, 6],
+    });
+};
+
+const MapWrapper: React.FC<MapWrapperProps> = ({ locations, routes = [], railyards = [], selectedId, onSelect, layerStyle }) => {
 
     // Config for different layers
     const layers = {
@@ -97,9 +123,36 @@ const MapWrapper: React.FC<MapWrapperProps> = ({ locations, selectedId, onSelect
                     eventHandlers={{
                         click: () => onSelect(loc.id),
                     }}
+                />
+            ))}
+
+            {railyards.map(yard => (
+                <Marker
+                    key={yard.id}
+                    position={yard.coords}
+                    icon={createRailyardIcon()}
+                    eventHandlers={{
+                        click: () => onSelect(yard.id), // Treat as selectable item?
+                    }}
                 >
-                    {/* Tooltip on hover is implied by Leaflet or we can add <Tooltip> */}
+                    <Popup className="custom-popup">
+                        <div className="text-xs font-bold text-slate-800">{yard.name}</div>
+                        <div className="text-[10px] text-slate-500">{yard.city}</div>
+                    </Popup>
                 </Marker>
+            ))}
+
+            {routes.map(route => (
+                <Polyline
+                    key={route.id}
+                    positions={route.coordinates}
+                    pathOptions={{
+                        color: route.color,
+                        weight: route.type === 'rail' ? 2 : 3,
+                        opacity: 0.7,
+                        dashArray: route.type === 'rail' ? '5, 10' : undefined
+                    }}
+                />
             ))}
         </MapContainer>
     );

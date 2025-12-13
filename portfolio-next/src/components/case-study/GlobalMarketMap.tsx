@@ -24,6 +24,27 @@ interface LocationData {
         activeDeals: number;
     };
     report: string;
+    logistics?: {
+        truckRate: number; // per mile
+        railRate: number; // per mile
+        distanceToPort: number; // miles
+        nearestRailyard: string;
+    }
+}
+
+interface RouteData {
+    id: string;
+    name: string;
+    type: "rail" | "truck";
+    coordinates: [number, number][];
+    color: string;
+}
+
+interface RailyardData {
+    id: string;
+    name: string;
+    city: string;
+    coords: [number, number];
 }
 
 // --- Mock Data (USA Only) ---
@@ -54,6 +75,7 @@ const LOCATIONS: LocationData[] = [
         marketStatus: "stable",
         metrics: { sentiment: 72, volume: "$1.9B", activeDeals: 92 },
         report: "Midwest manufacturing output exceeding forecasts. Logistics hub processing volume at all-time high.",
+        logistics: { truckRate: 3.45, railRate: 1.65, distanceToPort: 1200, nearestRailyard: "Chicago Gateway" }
     },
     {
         id: "atx",
@@ -63,7 +85,125 @@ const LOCATIONS: LocationData[] = [
         marketStatus: "growth",
         metrics: { sentiment: 81, volume: "$1.4B", activeDeals: 110 },
         report: "Sun Belt migration continuing to drive commercial real estate demand. Tech corridor expansion steady.",
+        logistics: { truckRate: 2.95, railRate: 1.45, distanceToPort: 160, nearestRailyard: "Houston Terminal" }
+    },
+    // New Upper Midwest / Logistics Nodes
+    {
+        id: "msp",
+        city: "Minneapolis",
+        state: "MN",
+        metrics: { sentiment: 75, volume: "$2.1B", activeDeals: 85 },
+        coords: [44.9778, -93.2650],
+        marketStatus: "stable",
+        report: "Key logistics distribution center for Upper Midwest. Millwork demand stable.",
+        logistics: { truckRate: 3.20, railRate: 1.50, distanceToPort: 1400, nearestRailyard: "Union Pacific Twin Cities" }
+    },
+    {
+        id: "dsm",
+        city: "Des Moines",
+        state: "IA",
+        metrics: { sentiment: 68, volume: "$950M", activeDeals: 42 },
+        coords: [41.5868, -93.6250],
+        marketStatus: "stable",
+        report: "Ag-tech and insurance sector resilience. Freight volume moderate.",
+        logistics: { truckRate: 3.10, railRate: 1.55, distanceToPort: 1550, nearestRailyard: "Des Moines Intermodal" }
+    },
+    {
+        id: "mad",
+        city: "Madison",
+        state: "WI",
+        metrics: { sentiment: 70, volume: "$820M", activeDeals: 38 },
+        coords: [43.0731, -89.4012],
+        marketStatus: "growth",
+        report: "Regional tech hub expansion. Construction materials demand increasing.",
+        logistics: { truckRate: 3.30, railRate: 1.60, distanceToPort: 1300, nearestRailyard: "Milwaukee Yard" }
+    },
+    {
+        id: "boi",
+        city: "Boise",
+        state: "ID",
+        metrics: { sentiment: 78, volume: "$1.1B", activeDeals: 55 },
+        coords: [43.6150, -116.2023],
+        marketStatus: "growth",
+        report: "Rapid population growth driving housing market. Materials transport critical.",
+        logistics: { truckRate: 3.50, railRate: 1.70, distanceToPort: 450, nearestRailyard: "Nampa Yard" }
     }
+];
+
+// Mock Routes (Approximate Paths)
+const ROUTES: RouteData[] = [
+    // Seattle -> Minneapolis (Rail)
+    {
+        id: "r-sea-msp",
+        name: "Northern Transcon (Rail)",
+        type: "rail",
+        color: "#64748b", // Slate 500
+        coordinates: [
+            [47.6062, -122.3321], // Seattle
+            [47.65, -117.42], // Spokane
+            [46.87, -113.99], // Missoula
+            [45.78, -108.50], // Billings
+            [46.80, -100.78], // Bismarck
+            [46.87, -96.78], // Fargo
+            [44.9778, -93.2650] // Minneapolis
+        ]
+    },
+    // Seattle -> Minneapolis (Truck - I-90/I-94)
+    {
+        id: "t-sea-msp",
+        name: "I-90 Corridor (Freight)",
+        type: "truck",
+        color: "#f97316", // Orange 500
+        coordinates: [
+            [47.6062, -122.3321],
+            [47.06, -120.52], // Ellensburg
+            [47.67, -116.70], // Coeur d'Alene
+            [45.67, -111.04], // Bozeman
+            [44.08, -103.23], // Rapid City
+            [43.54, -96.73], // Sioux Falls
+            [44.9778, -93.2650]
+        ]
+    },
+    // Houston -> Minneapolis (Rail)
+    {
+        id: "r-hou-msp",
+        name: "Central Corridor (Rail)",
+        type: "rail",
+        color: "#64748b",
+        coordinates: [
+            [29.7604, -95.3698], // Houston
+            [32.77, -96.79], // Dallas
+            [35.46, -97.51], // OKC
+            [37.68, -97.33], // Wichita
+            [39.09, -94.57], // KC
+            [41.58, -93.62], // Des Moines
+            [44.9778, -93.2650] // Minneapolis
+        ]
+    },
+    // Houston -> Minneapolis (Truck)
+    {
+        id: "t-hou-msp",
+        name: "I-35 NAFTA Hall (Freight)",
+        type: "truck",
+        color: "#f97316",
+        coordinates: [
+            [29.7604, -95.3698],
+            [30.26, -97.74], // Austin
+            [32.75, -97.33], // Fort Worth
+            [37.68, -97.33], // Wichita
+            [41.58, -93.62], // Des Moines
+            [43.14, -93.20], // Mason City
+            [44.9778, -93.2650]
+        ]
+    }
+];
+
+const RAILYARDS: RailyardData[] = [
+    { id: "ry-spo", name: "Spokane Yard", city: "Spokane, WA", coords: [47.6588, -117.4260] },
+    { id: "ry-bil", name: "Billings Terminal", city: "Billings, MT", coords: [45.7833, -108.5007] },
+    { id: "ry-far", name: "Fargo Intermodal", city: "Fargo, ND", coords: [46.8772, -96.7898] },
+    { id: "ry-kc", name: "Kansas City Hub", city: "Kansas City, MO", coords: [39.0997, -94.5786] },
+    { id: "ry-msp", name: "Twin Cities Intermodal", city: "Minneapolis, MN", coords: [44.9778, -93.2650] },
 ];
 
 export const GlobalMarketMap = () => {
@@ -135,6 +275,8 @@ export const GlobalMarketMap = () => {
                 <div className="relative flex-1 bg-[#090b10] overflow-hidden group border-r border-slate-900 z-0">
                     <MapWrapper
                         locations={LOCATIONS}
+                        routes={ROUTES}
+                        railyards={RAILYARDS}
                         selectedId={selectedLocation?.id || null}
                         onSelect={handleLocationSelect}
                         layerStyle={layerStyle}
@@ -203,26 +345,47 @@ export const GlobalMarketMap = () => {
                                     </p>
                                 </div>
 
-                                {/* Industry Layers */}
-                                <div className="space-y-3">
-                                    <h4 className="text-sm font-bold text-slate-300 uppercase tracking-widest border-b border-slate-800 pb-2">Industry Layers</h4>
-                                    <div className="space-y-2">
-                                        <div className="flex items-center justify-between text-sm p-3 rounded-lg bg-slate-950 border border-slate-800">
-                                            <div className="flex items-center gap-3">
-                                                <div className="p-1.5 bg-blue-900/30 rounded text-blue-400"><Building2 className="w-4 h-4" /></div>
-                                                <span className="text-slate-300">Commercial Real Estate</span>
+
+                                {/* Logistics Analysis */}
+                                {selectedLocation.logistics && (
+                                    <div className="space-y-3">
+                                        <h4 className="text-sm font-bold text-slate-300 uppercase tracking-widest border-b border-slate-800 pb-2">Logistics Intelligence</h4>
+
+                                        <div className="grid grid-cols-2 gap-3 text-xs">
+                                            <div className="bg-slate-900 p-2 rounded border border-slate-800">
+                                                <div className="text-slate-500 mb-1">Freight (Avg)</div>
+                                                <div className="text-emerald-400 font-mono text-lg">${selectedLocation.logistics.truckRate}<span className="text-[10px] text-slate-600">/mi</span></div>
                                             </div>
-                                            <span className="text-emerald-400 font-mono">+2.4%</span>
+                                            <div className="bg-slate-900 p-2 rounded border border-slate-800">
+                                                <div className="text-slate-500 mb-1">Rail (Est)</div>
+                                                <div className="text-blue-400 font-mono text-lg">${selectedLocation.logistics.railRate}<span className="text-[10px] text-slate-600">/mi</span></div>
+                                            </div>
                                         </div>
-                                        <div className="flex items-center justify-between text-sm p-3 rounded-lg bg-slate-950 border border-slate-800">
-                                            <div className="flex items-center gap-3">
-                                                <div className="p-1.5 bg-amber-900/30 rounded text-amber-400"><Users className="w-4 h-4" /></div>
-                                                <span className="text-slate-300">Labor Markets</span>
+
+                                        <div className="p-3 bg-slate-900/50 rounded-lg border border-slate-800 text-xs">
+                                            <div className="flex justify-between mb-2">
+                                                <span className="text-slate-400">Nearest Hub</span>
+                                                <span className="text-white text-right">{selectedLocation.logistics.nearestRailyard}</span>
                                             </div>
-                                            <span className="text-amber-400 font-mono">-0.8%</span>
+                                            <div className="flex justify-between">
+                                                <span className="text-slate-400">Dist. to Port</span>
+                                                <span className="text-white text-right">{selectedLocation.logistics.distanceToPort} mi</span>
+                                            </div>
+                                        </div>
+
+                                        <div className="p-3 rounded-lg bg-indigo-900/20 border border-indigo-500/30">
+                                            <div className="flex items-start gap-2">
+                                                <Activity className="w-4 h-4 text-indigo-400 mt-0.5" />
+                                                <div>
+                                                    <div className="text-xs font-bold text-indigo-300 mb-1">Fleet Commander Note</div>
+                                                    <p className="text-[10px] text-indigo-200 leading-normal">
+                                                        Major congestion alerts for I-80/I-90 interchange. Recommend routing bulk shipments via Northern Rail Corridor to avoid 4hr+ delays.
+                                                    </p>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                )}
 
                                 {/* Disclaimer Footer */}
                                 <div className="mt-6 border-t border-slate-800/50 pt-4">
@@ -233,11 +396,12 @@ export const GlobalMarketMap = () => {
 
                             </div>
                         </motion.div>
-                    )}
-                </AnimatePresence>
+                    )
+                    }
+                </AnimatePresence >
 
                 {/* Bottom Legend/Instructions */}
-                <div className="absolute bottom-4 left-4 right-4 z-10 pointer-events-none">
+                < div className="absolute bottom-4 left-4 right-4 z-10 pointer-events-none" >
                     <motion.div
                         initial={{ y: 20, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
@@ -248,8 +412,8 @@ export const GlobalMarketMap = () => {
                             <span className="font-bold text-white">INTERACTIVE MODE:</span> Use mouse to PAN and SCROLL to ZOOM. Select a node for details.
                         </div>
                     </motion.div>
-                </div>
-            </div>
-        </div>
+                </div >
+            </div >
+        </div >
     );
 };
