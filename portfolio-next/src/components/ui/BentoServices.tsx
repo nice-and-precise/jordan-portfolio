@@ -56,9 +56,7 @@ export default function BentoServices({ services, settings }: { services?: Servi
                 </h2>
             </motion.div>
 
-            <div className="absolute top-4 right-4 z-20 pointer-events-none bg-red-900/20 border border-red-500/30 text-white/70 px-4 py-2 rounded text-xs font-mono font-bold uppercase tracking-widest backdrop-blur-sm">
-                Development Build // Placeholder Content
-            </div>
+
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {displayServices.map((service, idx) => {

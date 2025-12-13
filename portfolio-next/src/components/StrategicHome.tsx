@@ -241,7 +241,9 @@ export default function StrategicHome({ projects, settings, services }: Strategi
                 </section>
             )}
             {/* CAPABILITIES / SERVICES (Bento Grid) */}
-            <BentoServices services={liveServices} settings={liveSettings} />
+            {(liveSettings?.showCapabilities ?? true) && (
+                <BentoServices services={liveServices} settings={liveSettings} />
+            )}
 
             {/* METHODOLOGY */}
             {(liveSettings?.showMethodology ?? true) && (

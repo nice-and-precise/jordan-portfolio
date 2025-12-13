@@ -36,9 +36,9 @@ export interface SiteSettings {
     aboutBody2: string;
     aboutBody3: string; // Splitting into paragraphs for better control
 
-    // Capabilities Section (Bento)
     capabilitiesTitle: string;
     capabilitiesSubtitle: string;
+    showCapabilities: boolean;
 
     // Calculator Section
     calculatorTitle: string;
@@ -127,6 +127,7 @@ export const DEFAULT_SETTINGS: SiteSettings = {
     showProjects: true,
     showContact: true,
     showChatWidget: true,
+    showCapabilities: true,
 
     teaserTitle: "Who is Jordan?",
     teaserBody: "I bridge the gap between \"sweaty equity\" operations and digital scale. From the fireground to the server room, I build systems that work when it counts.",

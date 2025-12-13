@@ -377,7 +377,10 @@ export default function GlobalSettingsPage() {
 
                     {/* Capabilities */}
                     <div className="bg-slate-900 p-8 rounded-xl border border-slate-800">
-                        <h2 className="text-xl font-bold text-white mb-6">Capabilities / Services</h2>
+                        <div className="flex justify-between items-center mb-6">
+                            <h2 className="text-xl font-bold text-white">Capabilities / Services</h2>
+                            <VisibilityToggle field="showCapabilities" label="Show Section" />
+                        </div>
                         <div className="space-y-6">
                             <div>
                                 <label className="block text-sm text-slate-400 mb-2">Section Title (Small)</label>
