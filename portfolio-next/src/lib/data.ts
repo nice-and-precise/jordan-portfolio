@@ -114,6 +114,37 @@ export const PROJECTS_DATA: Project[] = [
         ],
         role: ["Data Systems Engineer", "UI/UX Designer"],
     },
+    {
+        slug: "FloorFlow",
+        title: "FloorFlow WMS",
+        subtitle: "Digital Twin for Manufacturing Logistics",
+        coverImage: "/images/floorflow-cover.jpg",
+        overview:
+            "A next-generation Warehouse Management System (WMS) designed for the 'Connected Factory'. FloorFlow integrates Manufacturing Execution System (MES) logic with traditional inventory management, creating a digital twin of the production floor. It orchestrates AMRs (Autonomous Mobile Robots), forklifts, and human operators in a unified real-time spatial interface.",
+        challenge:
+            "Traditional WMS solutions treat the warehouse as a static grid of bins. However, in high-mix manufacturing (like G3 Boats), inventory is constantly moving through welding, painting, and assembly stages. The client needed a system that could track 'WIP' (Work In Progress) as fluid assets, optimize AMR paths dynamically to avoid bottlenecks, and bridge the gap between IT (Information Tech) and OT (Operational Tech).",
+        techStack: ["React", "TypeScript", "Vite", "Tailwind CSS", "Zustand", "Recharts"],
+        technicalDeepDive:
+            "The core of FloorFlow is a 'Physics Engine' simulation loop that runs in the browser, mirroring the actual state of the shop floor. We implemented a spatial indexing system to track collision zones and geofenced manufacturing stages (Welding -> Paint -> Assembly). The frontend uses SVG-based visualizations for the 'Digital Shadow' of workers and assets, with a highly optimized React rendering cycle to maintain 60FPS even with hundreds of moving entities. State management is handled via a 'Brain' global store that synchronizes the MES task queue with the WMS inventory levels.",
+        impact: [
+            {
+                label: "Throughput",
+                value: "+18%",
+                description: "Increase in units per hour (UPH).",
+            },
+            {
+                label: "Dwell Time",
+                value: "-12%",
+                description: "Reduction in idle time for AMRs.",
+            },
+            {
+                label: "Visibility",
+                value: "100%",
+                description: "Real-time location tracking of all WIP.",
+            },
+        ],
+        role: ["Frontend Architect", "UX Designer"],
+    },
 ];
 
 export async function getAllProjects(): Promise<Project[]> {

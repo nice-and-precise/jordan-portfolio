@@ -9,6 +9,7 @@ import { MetricsScroll } from "@/components/case-study/MetricsScroll";
 import { ArchitectureDiagram } from "@/components/case-study/ArchitectureDiagram";
 import { NonConformanceForm } from "@/components/case-study/NonConformanceForm";
 import { GlobalMarketMap } from "@/components/case-study/GlobalMarketMap";
+import { FloorFlowDashboard } from "@/components/case-study/floorflow/FloorFlowDashboard";
 
 interface LiveCaseStudyProps {
     initialProject: Project;
@@ -22,6 +23,8 @@ function renderMasteryComponent(slug: string) {
             return <NonConformanceForm />;
         case "global-market-research":
             return <GlobalMarketMap />;
+        case "FloorFlow":
+            return <FloorFlowDashboard />;
         default:
             return null;
     }
